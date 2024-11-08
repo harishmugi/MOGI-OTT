@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta class="input_value" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="STYLES.CSS">
+</head>
+
+<body>
+    <div class="login-signup">
+        
+       <div class="login_form"> <h2>Login</h2>
+        <form action="" id="login">
+            <div class="user-box">
+                <label for="">Email</label>
+
+                <input type="email" class="input_value" name="" id="login-email" autocomplete="off" required>
+            </div>
+            <div class="user-box">
+                <label for="">Password</label>
+                <input type="password" class="input_value" name="" id="login-pwd" autocomplete="off" required style="margin-bottom: 0px;">
+
+            </div>
+            <div class="forgot-pwd">
+                <h4>Forgot Password?</h4>
+            </div>
+            <div class="btn">
+                <button class="submit_button"id="login-submit" >Submit</button>
+                <div class="loader"></div>
+            </div>
+            <h4>Create Account ? <span id='nav-to-signup'>Click here</span></h4>
+        </form>
+    </div>
+    
+
+
+
+    <div class="signup_form">
+        <h2>Signup</h2>
+        <form action="" id="signup">
+            <div class="user-box">
+                <label for="">Username</label>
+                <input type="text" class="input_value" name="" id="signup-username" autocomplete="off" required>
+
+            </div>
+            <div class="user-box">
+                <label for="">Email</label>
+
+                <input type="email" class="input_value" name="" id="signup-email" autocomplete="off" required>
+            </div>
+            <div class="user-box">
+                <label for="">Password</label>
+                <input type="password" class="input_value" name="" id="signup-pwd" autocomplete="off" required>
+
+            </div>
+            <div class="btn">
+                <button  class="submit_button"       id="signup-submit">Submit</button>
+                <div class="loader"></div>
+            </div>
+            <h4>Already have an Account ? <span id="nav-to-login">Click here</span></h4>
+        </form>
+    </div>
+
+
+</div>
+    <div class="user-details" style="display: none;">
+        <h1></h1>
+        <button>Sign Out</button>
+    </div>
+
+    <script src="MAIN.js"></script>
+</body>
+
+</html>

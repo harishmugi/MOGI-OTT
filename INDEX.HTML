@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main_Project</title>
+    <link rel="stylesheet" href="1.CSS">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use -->
+    <!-- https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- ANIMATION -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
+
+
+</head>
+
+<body>
+    <header><div class="header_content">
+        <div class="logo">Logo</div>
+        <div><i class="fa-solid fa-eye"></i></div>
+        <div class="sign_up">
+           <i id="signout_butt" class="fa-regular fa-arrow-right-from-bracket" title="Signout"></i>
+            <div><i class="fa-solid fa-user"></i></div>
+        </div></div>
+    </header>
+
+    <div class="aside&_main">
+        <aside>
+            <div class="aside_bar">
+                <div class="Category">Category</div>
+                <div class="cat">Funny <img class="emoji" src="/img/img3.png"></div>
+                <div class="cat">Horror <img class="emoji" src="/img/img2.png"></div>
+                <div class="cat">Sci-Fi <img class="emoji" src="/img/img5.png"></div>
+                <div class="cat">Fantasy <img class="emoji" src="/img/img7.png"></div>
+                <div class="cat">Anime <img class="emoji" src="/img/img10.png"></div>
+                <div class="cat">Action <img class="emoji" src="/img/img6.png"></div>
+            </div>
+        </aside>
+        <main>
+            <div class="big">
+                <!-- <video
+                    id="my-live-video"
+                    class="video-js vjs-big-play-centered"
+                    controls
+                    autoplay
+                    width="640"
+                    height="360"
+                    data-setup='{"techOrder": ["html5", "flash"]}'>
+                    <source src="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8" type="application/x-mpegURL">
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        <a href="https://www.google.com/intl/en/chrome/">supports HTML5 video</a>
+                    </p>
+                </video> -->
+            </div>
+
+            <!-- <div class="row">
+                <div class="row_box"></div>
+                <div class="row_box"></div>
+                <div class="row_box"></div>
+            </div>
+            <div class="row">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div> -->
+            <div class="carousel-container">
+                <div class="carousel">
+                    <!-- Images will be inserted here dynamically -->
+                    <div class="carousel-images" id="big_poster">
+                        <!-- Example images for testing, these will be dynamically inserted by JS -->
+
+                    </div>
+                </div>
+                <img src="img/Animation - 1730883595895.gif" class="prev arrow" onclick="moveSlide(-1)">
+                <img src="img/Animation - 1730883595895.gif"class="next arrow" onclick="moveSlide(1)">
+            </div>
+            <div id="row">
+                <h1>Recomented for you</h1>
+            </div>
+
+        </main>
+
+
+        <!-- <div class="blur"></div> -->
+
+
+
+        <div class="login-signup ">
+            <h2>Login</h2>
+            <form action="" id="login">
+                <div class="user-box">
+                    <input type="email" name="" id="login-email" autocomplete="off" required>
+                    <label for="">Email</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="" id="login-pwd" autocomplete="off" required
+                        style="margin-bottom: 0px;">
+                    <label for="">Password</label>
+                </div>
+                <div class="forgot-pwd">
+                    <h4>Forgot Password?</h4>
+                </div>
+                <div class="btn">
+                    <button id="login-submit">Submit</button>
+                    <div class="loader"></div>
+                </div>
+                <h4>Create Account ? <span id='nav-to-signup'>Click here</span></h4>
+            </form>
+        </div>
+        <div class="login-signup ">
+            <h2>Signup</h2>
+            <form action="" id="signup">
+                <div class="user-box">
+                    <input type="text" name="" id="signup-username" autocomplete="off" required>
+                    <label for="">Name</label>
+                </div>
+                <div class="user-box">
+                    <input type="email" name="" id="signup-email" autocomplete="off" required>
+                    <label for="">Email</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="" id="signup-pwd" autocomplete="off" required>
+                    <label for="">Password</label>
+                </div>
+                <div class="btn">
+                    <button id="signup-submit">Submit</button>
+                    <div class="loader"></div>
+                </div>
+                <h4>Already have an Account ? <span id="nav-to-login">Click here</span></h4>
+            </form>
+        </div>
+        <div class="user-details" style="display: none;">
+            <h1></h1>
+
+
+
+
+        </div>
+        <div id="signout_q">
+            <h1>Do You Want Entertainment!</h>
+                <div>
+                    <button id="no">No</button>
+                    <button id="yes">Yes</button>
+                </div>
+        </div>
+        <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+        <script src="/login/login.js" defer type="module"></script>
+        <script type="module" src="admin.js"></script>
+
+</body>
+
+</html>

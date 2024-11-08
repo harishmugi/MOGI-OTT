@@ -1,0 +1,51 @@
+{
+    "website": {
+        "name": "MyOTTPlatform",
+        "url": "https://www.myottplatform.com",
+        "description": "Stream your favorite movies and TV shows anytime, anywhere.",
+        "genres": [
+            "Action",
+            "Comedy",
+            "Drama",
+            "Horror",
+            "Sci-Fi",
+            "Documentary"
+        ],
+        "movies": [
+            {
+                "id": "1",
+                "poster":"https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
+                "title": "Epic Adventure",
+                "genre": "Action",
+                "release_date": "2023-05-01",
+                "rating": "PG-13",
+                "description": "Join the hero on an epic journey to save the world.",
+                "thumbnail": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
+                "stream_url": "https://www.myottplatform.com/stream/epic-adventure",
+                "time": "03:00:00"
+            },{
+                "id": "2",
+                "poster":"https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
+                "title": "copic Adventure",
+                "genre": "Action",
+                "release_date": "2023-05-01",
+                "rating": "PG-13",
+                "description": "Join the hero on an epic journey to save the world.",
+                "thumbnail": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
+                "stream_url": "https://www.myottplatform.com/stream/epic-adventure",
+                "time": "03:00:00"
+            },{
+                "id": "3",
+                "poster":"https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
+                "title": "Epic Adventure",
+                "genre": "Action",
+                "release_date": "2023-05-01",
+                "rating": "PG-13",
+                "description": "Join the hero on an epic journey to save the world.",
+                "thumbnail": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
+                "stream_url": "https://www.myottplatform.com/stream/epic-adventure",
+                "time": "03:00:00"
+            }
+        ]
+    }
+}
