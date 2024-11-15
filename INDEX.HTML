@@ -13,6 +13,8 @@
 
 
     <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.14.0/dist/videojs-contrib-hls.min.js"></script> -->
 
 
 
@@ -45,6 +47,7 @@
         <aside>
             <div class="aside_bar">
                 <div class="Category">Category</div>
+                <div class="cat">For you </div>
                 <div class="cat">Funny <img class="emoji" src="/img/img3.png"></div>
                 <div class="cat">Horror <img class="emoji" src="/img/img2.png"></div>
                 <div class="cat">Sci-Fi <img class="emoji" src="/img/img5.png"></div>
@@ -54,22 +57,7 @@
             </div>
         </aside>
         <main>
-            <div class="big">
-                <!-- <video
-                    id="my-live-video"
-                    class="video-js vjs-big-play-centered"
-                    controls
-                    autoplay
-                    width="640"
-                    height="360"
-                    data-setup='{"techOrder": ["html5", "flash"]}'>
-                    <source src="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8" type="application/x-mpegURL">
-                    <p class="vjs-no-js">
-                        To view this video please enable JavaScript, and consider upgrading to a
-                        <a href="https://www.google.com/intl/en/chrome/">supports HTML5 video</a>
-                    </p>
-                </video> -->
-            </div>
+            <!-- Carousel Container -->
 
             <!-- <div class="row">
                 <div class="row_box"></div>
@@ -84,19 +72,23 @@
             <div class="carousel-container">
                 <div class="carousel">
                     <!-- Images will be inserted here dynamically -->
-                    <div class="carousel-images" id="big_poster">
+                    <div class="carousel-images" id="carousel_images">
                         <!-- Example images for testing, these will be dynamically inserted by JS -->
 
                     </div>
                 </div>
                 <img src="img/Animation - 1730883595895.gif" class="prev arrow" onclick="moveSlide(-1)">
                 <img src="img/Animation - 1730883595895.gif"class="next arrow" onclick="moveSlide(1)">
-            </div>
+            </div><div id="rows">
             <div id="row">
                 <h1>Recomented for you</h1>
-            </div>
+            </div></div>
+
+
+            
 
         </main>
+<div class="vedio_player"></div>
 
 
         <!-- <div class="blur"></div> -->
@@ -161,7 +153,6 @@
                     <button id="yes">Yes</button>
                 </div>
         </div>
-        <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
         <script src="/login/login.js" defer type="module"></script>
         <script type="module" src="admin.js"></script>
 

@@ -7,6 +7,7 @@
 }
 
 body {
+    /* cursor: url(sward.png),auto; */
     height: 100vh;
     background: black;
 }
@@ -110,31 +111,68 @@ aside {
     bottom: 0px;
 }
 
-#row {
-    justify-content: space-evenly;
-    display: flex;overflow-x:hidden;
+#rows {
+    /* justify-content: space-evenly; */
+   overflow-x:hidden;
     left: 50px;
+ 
     gap: 100px;
     position: absolute;
     top: 50%; padding: 0px 50px 50px 50px;
     /* box-shadow:  black  0px 20px 30px -10px ; */
 
 }
+#row {
+    display: flex; /* Use flexbox for the container */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 50px; /* Add space between grid items */
+    padding: 20px; /* Optional: Add padding around the grid container */
+    justify-content: space-between; /* Distribute items evenly with space between */
+}
+
+.row_box {
+    /*flex-basis: calc(33.333% - 20px); /* Default to 3 items per row (subtract gap space) */
+    display: flex;
+    flex-direction: column; /* Stack content vertically inside each item */
+  
+    background-color: #f0f0f0; /* Optional background for each movie item */
+    border-radius: 8px; /* Optional rounded corners */
+    overflow: hidden;
+}
+
+/* Hover effect */
+.row_box:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+/* Media Queries to handle specific breakpoints */
+
+/* On smaller devices (like phones), reduce padding and column size */
+@media (max-width: 600px) {
+    #row {
+        gap: 10px; /* Reduce space between grid items */
+    }
+
+  
+}
+
+/* On larger screens (larger than 1200px), increase number of columns */
 
 .row_box {
     box-shadow: 
     black  0px 20px 30px -10px ,
      #00525d 0px -30px 50px 1px inset;
-    height: fit-content;
-    height: 300px;
+    height:300px;
+    /* align-items: center; Center align items */
+    justify-content: center;
     width: 290px;
     background-color: #50d9eb;
     color: #ffffff;
     display: flex;
     flex-direction: column;
     text-align: left;
-    border-radius: 10px;
-    padding: 20px;
+    padding: 20px;    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
     h2{
         color: black;
     }p{
@@ -147,56 +185,56 @@ aside {
 
 .movies_img {
     border-radius: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-    height: 300px;
+    margin-bottom: 20px;margin-top: 20px;
+    /* width: 100%; */
+    height:150px; /* You can adjust the height */
+    object-fit:fill; /* Ensures the image is cropped to fit the div */
     box-shadow: black 0px 10px 20px, black 0px 6px 6px;
 }
+/* Carousel container */
+#big_poster {
+    position: relative;
+    /* width: 100%; */
+    overflow: hidden; /* Hide overflow for sliding effect */
+    margin-bottom: 20px;
+}
 
-/* #big_poster {
-    background-color: #03e9f4;
-    height: 500px;
-    display: flex;
-    overflow: hidden;
-    position: absolute;overflow-x: scroll;
-}  */
 .bigg {
     width: 80vw;
 }
 
 .carousel-container {
     position: relative;
-    width: 80vw;
+    width: 80vw; /* Adjust based on design preference */
     margin-top: 30px;
-    overflow: hidden;border-radius: 10px;
+    margin-left: 5%    ; background: linear-gradient(to right, #000, #54e3f6);
+;
+    overflow: hidden; /* Hide overflow for sliding effect */
+    border-radius: 10px;
     text-align: center;
-    left: 3%;
+    /* margin: 0 auto; Center the carousel */
 }
-
 .carousel {
     display: flex;
-    transition: transform 0.5s ease-in-out;
-    /* Smooth slide transition */
+    width: 300%;height: 100%;
+    transition: transform 0.5s ease-in-out; /* Smooth sliding effect */
 }
-
 .carousel-images {
     display: flex;
-    width: 300%;
-    /* 3 images total, each 100% of the container width */
+    width: 100%;height:600px;
+    transition: transform 0.5s ease-in-out;
 }
-
-.carousel-images img {
-    width: 100%;box-shadow:inset 10px 10px 20px #03e9f4;
-    /* Each image takes 100% of the container width */
-    height: auto;
+#carousel_images img {
+    width: 100%; /* Ensure images fill the carousel container */
+    object-fit: fill; /* Adjust the object-fit to fill the container without stretching */
     border-radius: 10px;
-}
+}                                                      
 
 .arrow {
     position: absolute;
     top: 40%;
     width: 40px;
-    transform: translateY(-50%);
+    transform: translateY(-100%);
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
@@ -413,3 +451,5 @@ h4 span {
     margin-right: 40px;
     border-radius: 20px;
 }
+
+
