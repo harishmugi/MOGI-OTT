@@ -14,7 +14,19 @@
 
     <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.14.0/dist/videojs-contrib-hls.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.14.0/dist/videojs-contrib-hls.min.js"></script>
+
+
+
+
+
+    <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet">
+
+    <!-- Hls.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <!-- Video.js Script -->
+    <script src="https://vjs.zencdn.net/7.16.0/video.js"></script>
 
 
 
@@ -34,18 +46,33 @@
 </head>
 
 <body>
-    <header><div class="header_content">
-        <div class="logo">Logo</div>
-        <div><i class="fa-solid fa-eye"></i></div>
-        <div class="sign_up">
-           <i id="signout_butt" class="fa-regular fa-arrow-right-from-bracket" title="Signout"></i>
-            <div><i class="fa-solid fa-user"></i></div>
-        </div></div>
+    <header>
+        <div class="header_content">
+            <div class="logo">Logo</div>
+            <div><!-- Add this in your HTML file where you want the search input to appear -->
+                <input type="text" id="search-input" placeholder="Search movies by title..." /><i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            <div>
+                <!-- <i class="fa-solid fa-eye"></i> -->
+            </div>
+            <div class="sign_up">
+                <i id="signout_butt" class="fa-regular fa-arrow-right-from-bracket" title="Signout"></i>
+                <div>
+                    <!-- <i class="fa-solid fa-user"></i> -->
+                </div>
+            </div>
+        </div>
     </header>
 
     <div class="aside&_main">
         <aside>
-            <div class="aside_bar">
+            <div class="aside_bar"><marquee class="user-details" style="display: none;">
+                <h1></h1>
+    
+    
+    
+    
+            </marquee>
                 <div class="Category">Category</div>
                 <div class="cat">For you </div>
                 <div class="cat">Funny <img class="emoji" src="/img/img3.png"></div>
@@ -78,20 +105,21 @@
                     </div>
                 </div>
                 <img src="img/Animation - 1730883595895.gif" class="prev arrow" onclick="moveSlide(-1)">
-                <img src="img/Animation - 1730883595895.gif"class="next arrow" onclick="moveSlide(1)">
-            </div><div id="rows">
-            <div id="row">
+                <img src="img/Animation - 1730883595895.gif" class="next arrow" onclick="moveSlide(1)">
+            </div>
+            <div id="rows">
                 <h1>Recomented for you</h1>
-            </div></div>
+                <div id="row">
+                   
+                </div>
+            </div>
 
 
-            
-
-        </main>
-<div class="vedio_player"></div>
 
 
-        <!-- <div class="blur"></div> -->
+        </main><div id="player">        <div id="video_player"></div></div>
+
+
 
 
 
@@ -139,13 +167,7 @@
                 <h4>Already have an Account ? <span id="nav-to-login">Click here</span></h4>
             </form>
         </div>
-        <div class="user-details" style="display: none;">
-            <h1></h1>
-
-
-
-
-        </div>
+        
         <div id="signout_q">
             <h1>Do You Want Entertainment!</h>
                 <div>

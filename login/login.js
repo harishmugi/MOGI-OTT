@@ -161,28 +161,55 @@ login_submit.addEventListener('click', event => {
     document.querySelectorAll('.loader')[0].style.display = 'block';
     const email = document.querySelector('#login-email').value;
     const password = document.querySelector('#login-pwd').value;
-
-    signInWithEmailAndPassword(auth, email, password).then(cred => {
+    signInWithEmailAndPassword(auth, email, password)
+    .then(cred => {
         swal({
             title: 'Login Success',
             icon: 'success'
         }).then(() => {
+            // Show the submit button, hide loader, and reset the form
             login_submit.style.display = 'block';
             document.querySelectorAll('.loader')[0].style.display = 'none';
             document.querySelector('#login').reset();
             loginForm.style.display = 'none';
+            // Fetch user details after login
             userDetails(cred.user.uid);
         });
-    }).catch(err => {
+    })
+    .catch(err => {
+        let errorMessage = 'An unknown error occurred. Please try again.';
+        
+        // Handle specific error codes and provide user-friendly messages
+        switch (err.code) {
+            case 'auth/invalid-email':
+                errorMessage = 'Please enter a valid email.';
+                break;
+                case 'auth/invalid-credential':errorMessage='Please enter a valid email address.'
+            case 'auth/user-not-found':
+                errorMessage = 'No user found with this email. Please check your email or sign up.';
+                break;
+            case 'auth/wrong-password':
+                errorMessage = 'Incorrect password. Please try again.';
+                break;
+            case 'auth/too-many-requests':
+                errorMessage = 'Too many login attempts. Please try again later.';
+                break;
+            default:
+                errorMessage = err.message || errorMessage; // Use the default error message if no match
+                break;
+        }
+        
+        // Show the error message using SweetAlert
         swal({
-            title: err,
+            title: errorMessage,
             icon: 'error'
         }).then(() => {
+            // Restore the UI state
             login_submit.style.display = 'block';
             document.querySelectorAll('.loader')[0].style.display = 'none';
         });
-    });
-});
+    });})
+
 
 forgotpwd.addEventListener('click', () => {
     swal({

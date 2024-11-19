@@ -22,7 +22,6 @@ let moviesUploaded = false;
 
 // Function to upload movies and movie posters
 async function uploadMovies() {
-    // Skip uploading if already uploaded
     if (moviesUploaded) {
         console.log('Movies already uploaded, skipping upload.');
         return;
@@ -38,23 +37,23 @@ async function uploadMovies() {
         const movies = jsonData.website.movies; // Access the movies array
         const moviePosters = jsonData.website.movie_posters; // Access the movie posters array
 
-        const moviesCollectionRef = collection(db, "movies"); // Reference to "movies" collection
-        const moviePostersCollectionRef = collection(db, 'movie_posters'); // Reference to "movie_posters" collection
+        const moviesCollectionRef = collection(db, "movies");
+        const moviePostersCollectionRef = collection(db, 'movie_posters');
 
-        // Fetch existing movies and posters from Firestore to avoid duplicates
+        // Fetch existing movies and posters to avoid duplicates
         const existingMoviesSnapshot = await getDocs(moviesCollectionRef);
         const existingMoviePostersSnapshot = await getDocs(moviePostersCollectionRef);
 
         const existingMovieIds = new Set();
         existingMoviesSnapshot.forEach(doc => {
             const movieData = doc.data();
-            existingMovieIds.add(movieData.id); // Store existing movie IDs
+            existingMovieIds.add(movieData.id);
         });
 
         const existingMoviePostersIds = new Set();
         existingMoviePostersSnapshot.forEach(doc => {
             const posterData = doc.data();
-            existingMoviePostersIds.add(posterData.id); // Store existing movie poster IDs
+            existingMoviePostersIds.add(posterData.id);
         });
 
         // Upload each movie to Firestore if it doesn't already exist
@@ -80,8 +79,6 @@ async function uploadMovies() {
         }
 
         console.log('Movie posters upload completed!');
-
-        // Set flag to true after movies are uploaded to prevent re-upload
         moviesUploaded = true;
 
         // Call retrieveMovies after uploading
@@ -94,21 +91,19 @@ async function uploadMovies() {
 // Function to retrieve and display movies
 async function retrieveMovies(genre = '') {
     try {
-        let collectionRef = collection(db, "movies"); // Reference to "movies" collection
+        let collectionRef = collection(db, "movies");
 
-        // If a genre is selected, filter the movies by genre
         if (genre && genre !== 'For you') {
             collectionRef = query(collectionRef, where("genre", "==", genre));
         }
 
-        const querySnapshot = await getDocs(collectionRef); // Get documents
-        const moviesContainer = document.getElementById('row'); // Ensure 'row' exists in your HTML
+        const querySnapshot = await getDocs(collectionRef);
+        const moviesContainer = document.getElementById('row');
         moviesContainer.innerHTML = ""; // Clear previous content
 
-        // Check if there are any documents
         if (querySnapshot.empty) {
-            moviesContainer.innerHTML = "<p>No movies found.</p>"; // Message if no movies are found
-            return; // Exit if no movies are found
+            moviesContainer.innerHTML = "<p>No movies found.</p>";
+            return;
         }
 
         querySnapshot.forEach(doc => {
@@ -125,12 +120,10 @@ async function retrieveMovies(genre = '') {
                     <p><strong>Rating:</strong> ${movie.rating}</p>
                 </div>`;
 
-            // Add click event to play the video when movie is clicked
             movieElement.addEventListener('click', () => {
                 playVideo(movie.stream_url, movie.title);
             });
 
-            // Append movie to container
             moviesContainer.appendChild(movieElement);
         });
     } catch (error) {
@@ -138,9 +131,20 @@ async function retrieveMovies(genre = '') {
     }
 }
 
-// Function to display video player
-function playVideo(stream_url, title) {
-    // Remove any existing video player
+
+ // Function to display video player
+ function playVideo(stream_url, title) {
+
+
+    
+    // Check if the .video_player element exists in the DOM
+    const videoContainer = document.getElementById('video_player');
+    if (!videoContainer) {
+        console.error('Error: .video_player container not found');
+        return; // Prevent further execution if the container doesn't exist
+    }
+
+    // Remove any existing video if it exists
     const existingVideo = document.querySelector('.movie-video');
     if (existingVideo) {
         existingVideo.remove();
@@ -152,16 +156,40 @@ function playVideo(stream_url, title) {
     videoElement.classList.add("video-js", "vjs-big-play-centered", "movie-video");
     videoElement.setAttribute("controls", "");
     videoElement.setAttribute("autoplay", "");
-    videoElement.innerHTML = `
-        <source src="${stream_url}" type="application/x-mpegURL">
-        <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a
-            <a href="https://www.google.com/intl/en/chrome/">supports HTML5 video</a>
-        </p>
-    `;
+    videoElement.setAttribute("muted", ""); // For autoplay to work in most browsers
 
-    // Append the video player to the body or any other container
-    document.body.appendChild(videoElement);
+    // Set up the source for the video
+    const videoSource = document.createElement('source');
+    videoSource.setAttribute("src", stream_url);
+    videoSource.setAttribute("type", "application/x-mpegURL");
+
+    // Append the source to the video element
+    videoElement.appendChild(videoSource);
+
+    // Append video element to the .video_player container
+    videoContainer.appendChild(videoElement);
+
+    // Initialize Video.js for enhanced controls
+    videojs(videoElement); // Apply Video.js to the player
+}
+
+// HLS.js setup (for browsers that do not support HLS natively)
+function setupHLS(videoElement, stream_url) {
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(stream_url);
+        hls.attachMedia(videoElement);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            videoElement.play();
+        });
+    }
+    else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+        // Safari natively supports HLS
+        videoElement.src = stream_url;
+        videoElement.addEventListener('loadedmetadata', function () {
+            videoElement.play();
+        });
+    }
 }
 
 // Function to load movie posters into the carousel
@@ -175,64 +203,177 @@ async function loadMoviePosters() {
     try {
         const moviePostersSnapshot = await getDocs(collection(db, 'movie_posters'));
 
-        carouselImages.innerHTML = ""; // Clear any existing images in the carousel
+        carouselImages.innerHTML = ""; // Clear existing images
 
         moviePostersSnapshot.forEach(doc => {
             const poster = doc.data();
             const imgElement = document.createElement('img');
-            imgElement.src = poster.poster_url;  // Correct image source reference
-            imgElement.alt = poster.title;      // Correct title for alt text
-            imgElement.title = poster.title;    // Optional: Title on hover
+            imgElement.src = poster.poster_url;
+            imgElement.alt = poster.title;
+            imgElement.title = poster.title;
 
             carouselImages.appendChild(imgElement);
         });
 
-        // Initialize carousel
-        const slides = document.querySelectorAll('#carousel_images img');
-        const slideWidth = slides[0].clientWidth;
-        initializeCarousel(slideWidth, slides.length);
+        // Initialize carousel after images are added
+        initializeCarousel();
     } catch (error) {
         console.error("Error loading movie posters:", error);
     }
 }
 
 // Initialize the carousel
-function initializeCarousel(slideWidth, totalSlides) {
+function initializeCarousel() {
+    const slides = document.querySelectorAll('#carousel_images img');
+    const slideWidth = slides[0].clientWidth;
+
     let currentIndex = 0;
 
-    // Function to move the carousel based on the current index
-    window.moveSlide = function(direction) {
+    function moveSlide(direction) {
+        const totalSlides = slides.length;
         currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
-        const carouselImages = document.getElementById('carousel_images');
-        carouselImages.style.transform = `translateX(-${currentIndex * slideWidth}px)`;  // Apply sliding
-    };
+        const carousel = document.querySelector('#carousel_images');
+        carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
 
-    // Event listeners for the carousel navigation buttons
+    setInterval(() => moveSlide(1), 5000);  // Automatic sliding every 5 seconds
+
     document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
     document.querySelector('.next').addEventListener('click', () => moveSlide(1));
-
-    // Optional: Auto-slide functionality (every 5 seconds)
-    setInterval(() => moveSlide(1), 5000); // Auto-slide every 5 seconds
 }
 
 // Load the movie posters dynamically when the page is loaded
 window.addEventListener('load', () => {
-    loadMoviePosters(); // Load the movies in the carousel
+    loadMoviePosters(); // Load posters into carousel
+    uploadMovies(); // Upload movies on page load
 });
 
-// Call the upload function immediately (make sure 'movies.json' exists)
-uploadMovies();
-
-// Event listener for category clicks
+// Event listener for genre clicks
 document.querySelectorAll('.cat').forEach(catElement => {
     catElement.addEventListener('click', () => {
-        const genre = catElement.textContent.trim(); // Get the genre text (e.g., "Funny")
-        
-        // If the "For you" category is clicked, display all movies
+        const genre = catElement.textContent.trim();
         if (genre === 'For you') {
             retrieveMovies(); // Show all movies
         } else {
-            retrieveMovies(genre); // Show movies of the selected genre
+            retrieveMovies(genre); // Show movies by genre
         }
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Function to search movies by title
+async function searchMovies(queryText) {
+    const collectionRef = collection(db, "movies");
+
+    // If the search query is empty, display all movies
+    if (queryText.trim() === "") {
+        retrieveMovies(); // Calls retrieveMovies() to show all movies
+        return;
+    }
+
+    try {
+        // Normalize the query text to lowercase
+        const normalizedQuery = queryText.trim().toLowerCase();
+
+        // Fetch all movies (You may want to limit the number of movies in real applications)
+        const querySnapshot = await getDocs(collectionRef);
+        const moviesContainer = document.getElementById('row');
+        moviesContainer.innerHTML = ""; // Clear previous results
+
+        // Filter movies on the client side, comparing the lowercase title with the query
+        let filteredMovies = [];
+        querySnapshot.forEach(doc => {
+            const movie = doc.data();
+            const movieTitle = movie.title.toLowerCase(); // Normalize movie title to lowercase
+
+            // If the movie title contains the query string, add it to filtered list
+            if (movieTitle.includes(normalizedQuery)) {
+                filteredMovies.push(movie);
+            }
+        });
+
+        // If no movies match, display "No movies found"
+        if (filteredMovies.length === 0) {
+            moviesContainer.innerHTML = "<p>No movies found.</p>";
+            return;
+        }
+
+        // Display each filtered movie
+        filteredMovies.forEach(movie => {
+            const movieElement = document.createElement('div');
+            movieElement.classList.add("row_box");
+
+            movieElement.innerHTML = `
+                <img src="${movie.poster}" class="movies_img" alt="${movie.title} Poster">
+                <div class="tittle_and_details">
+                    <h2>${movie.title}</h2>
+                    <p><strong>Genre:</strong> ${movie.genre}</p>
+                    <p><strong>Release Date:</strong> ${movie.release_date}</p>
+                    <p><strong>Rating:</strong> ${movie.rating}</p>
+                </div>`;
+
+            // Add event listener to play video when clicked
+            movieElement.addEventListener('click', () => {
+                playVideo(movie.stream_url, movie.title);  // Optional: Play movie when clicked
+            });
+
+            moviesContainer.appendChild(movieElement);
+        });
+    } catch (error) {
+        console.error("Error searching movies: ", error);
+    }
+}
+
+// Event listener for the search input field
+document.getElementById("search-input").addEventListener("input", function() {
+    const searchTerm = this.value.trim();  // Get the value from the input field and trim extra spaces
+    searchMovies(searchTerm);  // Call searchMovies to display matching results
+});
+
+
+
+
+
+
+
+
+
+
+// var video = document.getElementById('my-video');
+
+// if (Hls.isSupported()) {
+//     var hls = new Hls();
+//     hls.loadSource('https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8'); // Your HLS stream URL
+//     hls.attachMedia(video);
+//     hls.on(Hls.Events.MANIFEST_PARSED, function () {
+//         video.play();
+//     });
+// }
+// else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+//     // Safari natively supports HLS
+//     video.src = 'https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8';
+//     video.addEventListener('loadedmetadata', function () {
+//         video.play();
+//     });
+// }
+
+
+
+

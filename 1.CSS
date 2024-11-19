@@ -11,7 +11,7 @@ body {
     height: 100vh;
     background: black;
 }
-header{position: sticky;top:0px; z-index: 10;}
+header{position: fixed;top:0px; z-index: 10; left:0px;right: 0px;}
 .header_content {
     /* background:linear-gradient(to right,#620172,#d900ff,aqua ,rgb(2, 117, 117)) #242424; */
     display: flex;
@@ -25,6 +25,13 @@ header{position: sticky;top:0px; z-index: 10;}
     top: 0px;
    
 }
+#search-input{color: #03e9f4;
+    outline: none; border:none;width: 200%;
+    /* background: linear-gradient(to right #03e9f4, transparent ); */
+    background-color: black; height: 150%;
+    border-radius: 30px;color: #03e9f4;padding-left: 10px;
+}
+.fa-magnifying-glass{ position: relative;top:-17px;left:-20px; color: #50d9eb;}
 .logo {
     color: #ffffff;
     position: absolute;
@@ -41,6 +48,7 @@ header{position: sticky;top:0px; z-index: 10;}
     box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
 
 }
+.user-details{position: relative;top:50px;color:white;width: 210px;font-size: 20px;margin-left:10px;}
 .fa-user {
     color: white;
     border: 3px solid white;
@@ -106,7 +114,7 @@ main {
 }
 
 aside {
-    position: sticky;
+    position: fixed;
     top: 40px;
     bottom: 0px;
 }
@@ -121,7 +129,7 @@ aside {
     top: 50%; padding: 0px 50px 50px 50px;
     /* box-shadow:  black  0px 20px 30px -10px ; */
 
-}
+}#rows h1{color: #50d9eb;text-shadow:5px 5px 5px  #000;}
 #row {
     display: flex; /* Use flexbox for the container */
     flex-wrap: wrap; /* Allow items to wrap to the next line */
@@ -434,11 +442,6 @@ h4 span {
     }
 }
 
-.user-details h1 {
-    text-align: center;
-    color: #090979;
-    font-size: 60px;
-}
 
 .user-details button {
     float: right;
@@ -453,3 +456,14 @@ h4 span {
 }
 
 
+.movie-video { width: 100%;}
+#video_player{
+    position: fixed;right: 10%;left: 10%;
+}
+
+#my-live-video_html5_api{
+    width: 100%;
+}
+#player{
+    width: 100vw;height: 100vh;
+}
