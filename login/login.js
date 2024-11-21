@@ -70,10 +70,22 @@ window.onload = () => {           const signout=document.getElementById( "signou
             userDetails(currentUser);
         }
     } catch (err) {
-        loginForm.style.display = 'block';
+        
+
+        // loginForm.style.display = 'block';
         signout.textContent = "Signup"
     }
 };
+
+
+document.getElementById( "signout_butt").addEventListener("click",()=>{
+    loginForm.style.display = 'block';
+
+})
+
+   
+
+
 
 nav_to_signup.addEventListener('click', () => {
     loginForm.style.display = 'none';
@@ -85,9 +97,7 @@ nav_to_login.addEventListener('click', () => {
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
     document.querySelector('#signup').reset();
-});
-
-signup_submit.addEventListener('click', event => {
+});signup_submit.addEventListener('click', event => {
     event.preventDefault();
     
     // Hide the submit button and show loader
@@ -99,60 +109,87 @@ signup_submit.addEventListener('click', event => {
     const email = document.querySelector('#signup-email').value;
     const password = document.querySelector('#signup-pwd').value;
 
-    // Password strength validation function
-    function isStrongPassword(password) {
-        const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return regex.test(password);
-    }
-
-    // Check if the password meets the strong criteria
-    if (!isStrongPassword(password)) {
+    // Validate if username is provided
+    if (!userName.trim()) {
         swal({
-            title: 'Password is too weak! It should contain at least 8 characters, with a mix of letters, numbers, and special characters.',
-            icon: 'warning'
-        }).then(() => {
-            signup_submit.style.display = 'block';
-            document.querySelectorAll('.loader')[1].style.display = 'none';
-        });
-        return;  // Stop execution if the password is not strong enough
-    }
-
-    // Proceed with Firebase user creation
-    createUserWithEmailAndPassword(auth, email, password).then(cred => {
-        swal({
-            title: 'Account Created And Logged In Successfully',
-            icon: 'success'
-        }).then(() => {
-            setDoc(doc(db, 'users', cred.user.uid), {
-                userName: userName,
-                email: email
-            }).then(() => {
-                // Reset form and hide loader after successful signup
-                signup_submit.style.display = 'block';
-                document.querySelectorAll('.loader')[1].style.display = 'none';
-                document.querySelector('#signup').reset();
-                signupForm.style.display = 'none';
-                // loginForm.style.display = 'block';  // If you want to show login form
-            }).catch(err => {
-                swal({
-                    title: err,
-                    icon: 'error'
-                }).then(() => {
-                    signup_submit.style.display = 'block';
-                    document.querySelectorAll('.loader')[1].style.display = 'none';
-                });
-            });
-        });
-    }).catch(err => {
-        swal({
-            title: err.message,
+            title: 'Please provide a username.',
             icon: 'error'
         }).then(() => {
             signup_submit.style.display = 'block';
             document.querySelectorAll('.loader')[1].style.display = 'none';
         });
-    });
+        return; // Stop further execution if username is not provided
+    }
+
+    // Validate email length
+    if (email.length > 225) {
+        swal({
+            title: 'Email cannot be more than 225 characters.',
+            icon: 'error'
+        }).then(() => {
+            signup_submit.style.display = 'block';
+            document.querySelectorAll('.loader')[1].style.display = 'none';
+        });
+        return; // Stop further execution if email is too long
+    }
+
+    // Proceed with Firebase user creation
+    createUserWithEmailAndPassword(auth, email, password)
+        .then(cred => {
+            swal({
+                title: 'Account Created And Logged In Successfully',
+                icon: 'success'
+            }).then(() => {
+                // Store user info in Firestore
+                setDoc(doc(db, 'users', cred.user.uid), {
+                    userName: userName,
+                    email: email
+                }).then(() => {
+                    // Reset form and hide loader after successful signup
+                    signup_submit.style.display = 'block';
+                    document.querySelectorAll('.loader')[1].style.display = 'none';
+                    document.querySelector('#signup').reset();
+                    signupForm.style.display = 'none';
+                    // loginForm.style.display = 'block';  // If you want to show login form
+                }).catch(err => {
+                    handleError(err);
+                });
+            });
+        })
+        .catch(err => {
+            handleError(err);
+        });
 });
+
+
+// Function to handle errors and show user-friendly messages
+function handleError(err) {
+    let errorMessage = '';
+
+    // Check the specific Firebase error code
+    if (err.code === 'auth/email-already-in-use') {
+        errorMessage = 'This email address is already in use. Please try logging in or use a different email address.';
+    } else if (err.code === 'auth/weak-password') {
+        errorMessage = 'Your password is too weak. Please choose a password with at least 6 characters.';
+    } else if (err.code === 'auth/invalid-email') {
+        errorMessage = 'The email address is not valid. Please enter a valid email address.';
+    } else if (err.code === 'auth/network-request-failed') {
+        errorMessage = 'Network error occurred. Please check your internet connection and try again.';
+    } else {
+        errorMessage = 'An unknown error occurred. Please try again later.';
+    }
+
+    // Show error message to the user
+    swal({
+        title: errorMessage,
+        icon: 'error'
+    }).then(() => {
+        // Reset UI elements after showing error
+        signup_submit.style.display = 'block';
+        document.querySelectorAll('.loader')[1].style.display = 'none';
+    });
+}
+
 
 
 login_submit.addEventListener('click', event => {
@@ -185,9 +222,9 @@ login_submit.addEventListener('click', event => {
                 errorMessage = 'Please enter a valid email.';
                 break;
                 case 'auth/invalid-credential':errorMessage='Please enter a valid email address.'
-            case 'auth/user-not-found':
-                errorMessage = 'No user found with this email. Please check your email or sign up.';
-                break;
+            // case 'auth/user-not-found':
+            //     errorMessage = 'No user found with this email. Please check your email or sign up.';
+            //     break;
             case 'auth/wrong-password':
                 errorMessage = 'Incorrect password. Please try again.';
                 break;

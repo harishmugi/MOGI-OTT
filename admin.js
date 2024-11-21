@@ -121,7 +121,14 @@ async function retrieveMovies(genre = '') {
                 </div>`;
 
             movieElement.addEventListener('click', () => {
-                playVideo(movie.stream_url, movie.title);
+               
+
+const player_page = document.getElementById("video_player");
+const close_player=document.getElementById("close_player")
+close_player.style.display = "block";
+
+player_page.style.display = "block";
+                playVideo(movie.stream_url, movie.title,movie.description,movie.poster,movie.release_date);
             });
 
             moviesContainer.appendChild(movieElement);
@@ -131,9 +138,62 @@ async function retrieveMovies(genre = '') {
     }
 }
 
+const close_player=document.getElementById("close_player")
+close_player.addEventListener("click",()=>{
+    const player_page = document.getElementById("video_player");
+const movie_dis_close=document.getElementById("movie_details")
 
+
+
+const existingVideo = document.querySelector('.movie-video');
+existingVideo.remove();
+
+movie_dis_close.remove()
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    player_page.style.display = "none";
+    close_player.style.display = "none";
+
+
+})
  // Function to display video player
- function playVideo(stream_url, title) {
+ function playVideo(stream_url, title,description,poster,release_date) {
+
+
+
+
+    const movie_dis = document.createElement('div');
+    // movie_dis.classList.add("movie_dis");
+
+    movie_dis.innerHTML = `<div id="movie_details"><div>
+       
+        <div class="tittle_dis">
+            <h2>${title}</h2>
+
+            <p><strong>Release Date:</strong> ${release_date}</p>
+                      <h4>Discription :</h4><br>
+            <p>${description}</p>
+        </div></div>
+        
+        
+        </div>`;
+        
+   
+
+
+
+     
 
 
     
@@ -171,6 +231,10 @@ async function retrieveMovies(genre = '') {
 
     // Initialize Video.js for enhanced controls
     videojs(videoElement); // Apply Video.js to the player
+
+    
+    video_player.appendChild(movie_dis)
+
 }
 
 // HLS.js setup (for browsers that do not support HLS natively)
