@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, query, where, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, collection,updateDoc,arrayRemove, arrayUnion,getDocs, addDoc, query, where, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -56,7 +56,7 @@ async function uploadMovies() {
             existingMoviePostersIds.add(posterData.id);
         });
 
-        // Upload each movie to Firestore if it doesn't already exist
+        //         // Upload each movie to Firestore if it doesn't already exist
         for (const movie of movies) {
             if (!existingMovieIds.has(movie.id)) {
                 await addDoc(moviesCollectionRef, movie);
@@ -68,7 +68,7 @@ async function uploadMovies() {
 
         console.log("Movies upload process completed!");
 
-        // Upload movie posters if not already uploaded
+        //         // Upload movie posters if not already uploaded
         for (const poster of moviePosters) {
             if (!existingMoviePostersIds.has(poster.id)) {
                 await addDoc(moviePostersCollectionRef, poster);
@@ -88,7 +88,7 @@ async function uploadMovies() {
     }
 }
 
-// Function to retrieve and display movies
+// // Function to retrieve and display movies
 async function retrieveMovies(genre = '') {
     try {
         let collectionRef = collection(db, "movies");
@@ -120,16 +120,35 @@ async function retrieveMovies(genre = '') {
                     <p><strong>Rating:</strong> ${movie.rating}</p>
                 </div>`;
 
+
+            // Inside the event listener for each movieElement click
             movieElement.addEventListener('click', () => {
-               
+                const currentUser = localStorage.getItem('currently_loggedIn');
 
-const player_page = document.getElementById("video_player");
-const close_player=document.getElementById("close_player")
-close_player.style.display = "block";
+                if (currentUser == null) {
+                    // Show login form if not logged in
+                    const loginForm = document.querySelectorAll('.login-signup')[0];
+                    loginForm.style.display = 'block';
+                } else {
+                    // Show player info page if logged in
+                    const close_player = document.getElementById("close_player");
+                    const player_info_page = document.getElementById("player");
+                    recommended()
+                    close_player.style.display = "block";
+                    player_info_page.style.display = "block";
 
-player_page.style.display = "block";
-                playVideo(movie.stream_url, movie.title,movie.description,movie.poster,movie.release_date);
+                    // Play the movie
+                    const movieStreamUrl = movie.stream_url;  // Assuming each movie has a stream_url
+                    const movieTitle = movie.title;
+                    const movieDescription = movie.description;
+                    const moviePoster = movie.poster;
+                    const movieReleaseDate = movie.release_date;
+
+                    // Call the playVideo function
+                    // playVideo(movieStreamUrl, movieTitle, movieDescription, moviePoster, movieReleaseDate, movie.details);
+                }
             });
+
 
             moviesContainer.appendChild(movieElement);
         });
@@ -138,37 +157,214 @@ player_page.style.display = "block";
     }
 }
 
-const close_player=document.getElementById("close_player")
-close_player.addEventListener("click",()=>{
-    const player_page = document.getElementById("video_player");
-const movie_dis_close=document.getElementById("movie_details")
-
-
-
-const existingVideo = document.querySelector('.movie-video');
-existingVideo.remove();
-
-movie_dis_close.remove()
-
-
-
-
-
-
-
-
-
-    
-
-
+const close_player = document.getElementById("close_player")
+close_player.addEventListener("click", () => {
+    const player_page = document.getElementById("player");
+    const movie_dis_close = document.getElementById("movie_details")
 
     player_page.style.display = "none";
     close_player.style.display = "none";
 
 
 })
- // Function to display video player
- function playVideo(stream_url, title,description,poster,release_date) {
+// document.getElementById("play_butt").addEventListener("click",
+function recommended() {
+
+    retrieveMovies()
+
+    // Function to retrieve and display movies
+    async function retrieveMovies() {
+        try {
+            // Reference to the movies collection
+            let collectionRef = collection(db, "movies");
+
+            // If you need to filter, sort, or limit results, add query conditions here
+            // For example, orderBy("release_date") or limit(10)
+            // collectionRef = query(collectionRef, orderBy("release_date"));
+
+            const querySnapshot = await getDocs(collectionRef);
+            const moviesContainer = document.getElementById('player_info_page');
+            moviesContainer.innerHTML = ""; // Clear previous content
+
+            querySnapshot.forEach(doc => {
+                const movie = doc.data();
+                const movieElement_playing = document.createElement('div');
+                movieElement_playing.classList.add("row_box");
+
+                // Dynamically add movie details to the movieElement_playing
+                movieElement_playing.innerHTML = `
+                <img src="${movie.poster}" class="movies_img" alt="${movie.title} Poster">
+                <div class="tittle_and_details">
+                    <h2>${movie.title}</h2>
+                    <p><strong>Genre:</strong> ${movie.genre}</p>
+                    <p><strong>Release Date:</strong> ${movie.release_date}</p>
+                    <p><strong>Rating:</strong> ${movie.rating}</p>
+                </div>
+            `;
+
+                // Append the movieElement to the container
+                moviesContainer.appendChild(movieElement_playing);
+
+                // Check if 'details' exists and is an array with at least one element
+                const movieDetails = movie.details && Array.isArray(movie.details) && movie.details.length > 0 ? movie.details[0] : null;
+
+                // Add click event listener to the movie element
+                movieElement_playing.addEventListener('click', () => {
+                    // Select the selected movie container
+                    const selectedMovieContainer = document.getElementById('selected_movie');
+
+                    // Remove any existing movie details (ensure only one movie is shown)
+                    selectedMovieContainer.innerHTML = "";
+
+                    // Create the new movie details section
+                    const movie_dis = document.createElement('div');
+                    movie_dis.classList.add("movie_dis");
+
+                    // Create the new movie details content, checking if movieDetails is valid
+                    movie_dis.innerHTML = `
+                    <div id="movie_details">
+                        <div id="movie_poster_title"  style="z-index:4;">
+                            <div style="z-index:4;">  
+                                <img src="${movie.poster}" alt="${movie.title} Poster" style="width: 500px; height:350px;z-index:4;" />
+                                <h2>${movie.title}</h2>
+                               <div style="display:flex";> <button id="playNow"> PLAY</button>  <p id="wish" title=" Add to Wishlist +"><i class="fa-regular fa-heart"></i></p>
+</div>
+                                <div class="Description">
+                                    <br>
+                                    <h4>Description: </h4>
+                                    <p>${movie.description || "No description available."}</p>
+                                </div>
+                            </div>
+                            <div class="movie_cast_title">
+                                <h4><strong>Release Date:</strong><p> ${movie.release_date}</p></h4>
+                                <h4>Cast:</h4>
+                                <p>${movieDetails ? movieDetails.cast.join(", ") : "N/A"}</p>
+                                <h4>Director:</h4>
+                                <p>${movieDetails ? movieDetails.director : "N/A"}</p>
+                                <h4>Music Director:</h4>
+                                <p>${movieDetails ? movieDetails.music_director : "N/A"}</p>
+                                <h4>Producer:</h4>
+                                <p>${movieDetails ? movieDetails.producer : "N/A"}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                `;
+
+
+
+
+                    selectedMovieContainer.style.backgroundImage = `url(${movie.poster})`;
+
+                    // Set background properties
+                    selectedMovieContainer.style.backgroundRepeat = "no-repeat"; // Ensure the image doesn't repeat
+                    selectedMovieContainer.style.backgroundSize = "cover"; // Optional: Make the background cover the entire container
+                    selectedMovieContainer.style.backgroundPosition = "center"; selectedMovieContainer.style.backgroundBlendMode = "darken"; // Correct blend mode
+                    selectedMovieContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // 50% opacity black
+                    selectedMovieContainer.style.position = "relative";  // Allow positioning of pseudo-elements
+
+
+
+                    const blurOverlay = document.createElement('div');
+                    blurOverlay.style.position = "absolute";
+                    blurOverlay.style.top = "0";
+                    blurOverlay.style.left = "0";
+                    blurOverlay.style.right = "0";
+                    blurOverlay.style.bottom = "0";
+                    blurOverlay.style.background = "radial-gradient(circle,transparent, rgba(0, 0, 0, 0), black)"; // Creates a fade effect around the edges
+                    blurOverlay.style.pointerEvents = "none"; // Ensure the overlay doesn't interfere with any mouse events or clicks
+
+                    // Append the overlay to the selected movie container
+                    selectedMovieContainer.appendChild(blurOverlay);
+
+                    // Set z-index to ensure the content is above the blurred background and overlay
+                    blurOverlay.style.zIndex = "1"; // Keeps the overlay under content
+
+
+                    // Append the new movie details to the selected_movie container
+                    selectedMovieContainer.appendChild(movie_dis);
+
+                    // Optionally, show the close button and player info page
+                    const closePlayer = document.getElementById('close_player');
+                    const playerInfoPage = document.getElementById('player_info_page');
+                    if (closePlayer && playerInfoPage) {
+                        closePlayer.style.display = "block"; // Show the close button
+                        playerInfoPage.style.display = "flex"; // Show the player info page
+                    }
+                    document.getElementById("playNow").addEventListener("click", () => {
+                        playVideo(movie.stream_url, movie.title, movie.description, movie.poster, movie.release_date, movie.details);
+                    })
+
+
+       document.getElementById("wish").addEventListener("click",addToWish(movie.stream_url, movie.title, movie.description, movie.poster, movie.release_date, movie.details
+                )) 
+                //  document.getElementById("wishout").addEventListener("click",addToWish(movie.stream_url, movie.title, movie.description, movie.poster, movie.release_date, movie.details
+                // ))
+                    // Optionally, call the playVideo function to start the video if needed
+                    // playVideo(movie.stream_url, movie.title, movie.description, movie.poster, movie.release_date, movie.details);
+                
+
+                
+                });
+
+              
+
+
+            });
+
+        } catch (error) {
+            console.error("Error retrieving movies: ", error);
+        }
+    }
+
+    
+
+
+    // const moviesContainer = document.getElementById('row');
+
+    // moviesContainer.appendChild(movieElement);
+}
+// );
+
+
+
+//  // Function to display video player
+//  function playVideo(stream_url, title,description,poster,release_date) {
+
+
+
+
+
+// const close_player = document.getElementById("close_player")
+
+
+//     movie_dis.innerHTML = `<div id="movie_details"><div>
+
+//         <div class="tittle_dis">
+//             <h2>${title}</h2>
+
+//             <p><strong>Release Date:</strong> ${release_date}</p>
+//                       <h4>Discription :</h4><br>
+//             <p>${description}</p>
+//         </div></div>`
+
+
+//     // player_page.style.display = "block";
+//     close_player.style.display = "none"
+
+// }
+// document.getElementById("playNow").addEventListener("click",playVideo)
+
+
+
+
+
+
+
+
+
+function playVideo(stream_url, title,description,poster,release_date) {
 
 
 
@@ -182,7 +378,7 @@ movie_dis_close.remove()
             <h2>${title}</h2>
 
             <p><strong>Release Date:</strong> ${release_date}</p>
-                      <h4>Discription :</h4><br>
+                      <h4>Description :</h4><br>
             <p>${description}</p>
         </div></div>
         
@@ -204,12 +400,7 @@ movie_dis_close.remove()
         return; // Prevent further execution if the container doesn't exist
     }
 
-    // Remove any existing video if it exists
-    const existingVideo = document.querySelector('.movie-video');
-    if (existingVideo) {
-        existingVideo.remove();
-    }
-
+    videoContainer.style.display="block"
     // Create a new video element
     const videoElement = document.createElement('video');
     videoElement.id = "my-live-video";
@@ -217,25 +408,56 @@ movie_dis_close.remove()
     videoElement.setAttribute("controls", "");
     videoElement.setAttribute("autoplay", "");
     videoElement.setAttribute("muted", ""); // For autoplay to work in most browsers
-
-    // Set up the source for the video
+    
     const videoSource = document.createElement('source');
     videoSource.setAttribute("src", stream_url);
+    console.log('Stream URL:', stream_url);
     videoSource.setAttribute("type", "application/x-mpegURL");
-
-    // Append the source to the video element
     videoElement.appendChild(videoSource);
-
-    // Append video element to the .video_player container
-    videoContainer.appendChild(videoElement);
-
-    // Initialize Video.js for enhanced controls
-    videojs(videoElement); // Apply Video.js to the player
-
     
-    video_player.appendChild(movie_dis)
+    videoElement.onerror = (e) => {
+        console.error("Video playback error:", e);
+    };
+    
+    // const videoContainer = document.getElementById('video_player');
+    if (videoContainer) {
+        videoContainer.appendChild(videoElement);
+    } else {
+        console.error('Error: Video container not found');
+    }
+    
+    // Initialize Video.js for enhanced controls (if available)
+    if (window.videojs) {
+        videojs(videoElement);
+    } else {
+        console.error('Video.js not loaded');
+    }
+    
+    // Call HLS setup if needed
+    setupHLS(videoElement, stream_url);
+    
 
 }
+document.getElementById("close_video_player").addEventListener("click",()=>{
+   // Remove any existing video if it exists
+   const existingVideo = document.querySelector('.movie-video');
+   if (existingVideo) {
+       existingVideo.remove();
+   }
+   const videoContainer =  document.getElementById('video_player');
+
+   videoContainer.style.display="none"
+
+})
+
+
+
+
+
+
+
+
+
 
 // HLS.js setup (for browsers that do not support HLS natively)
 function setupHLS(videoElement, stream_url) {
@@ -255,9 +477,7 @@ function setupHLS(videoElement, stream_url) {
         });
     }
 }
-
-// Function to load movie posters into the carousel
-async function loadMoviePosters() {
+async function loadMoviePosters(genre = '') {
     const carouselImages = document.querySelector('#carousel_images');
     if (!carouselImages) {
         console.error('Carousel container (#carousel_images) not found in the DOM');
@@ -265,19 +485,30 @@ async function loadMoviePosters() {
     }
 
     try {
-        const moviePostersSnapshot = await getDocs(collection(db, 'movie_posters'));
+        const moviePostersSnapshot = await getDocs(collection(db, 'movies'));
 
         carouselImages.innerHTML = ""; // Clear existing images
 
+        let counter = 0;  // Counter to keep track of the number of images
+
         moviePostersSnapshot.forEach(doc => {
             const poster = doc.data();
-            const imgElement = document.createElement('img');
-            imgElement.src = poster.poster_url;
-            imgElement.alt = poster.title;
-            imgElement.title = poster.title;
 
-            carouselImages.appendChild(imgElement);
+            // Filter posters by genre
+            if (genre === '' || poster.genre === genre) {
+                // Only append 3 images
+                if (counter < 3) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = poster.poster;
+                    imgElement.alt = poster.title;
+                    imgElement.title = poster.title;
+                    carouselImages.appendChild(imgElement);
+
+                    counter++;  // Increment the counter
+                }
+            }
         });
+
 
         // Initialize carousel after images are added
         initializeCarousel();
@@ -285,6 +516,16 @@ async function loadMoviePosters() {
         console.error("Error loading movie posters:", error);
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 // Initialize the carousel
 function initializeCarousel() {
@@ -300,11 +541,30 @@ function initializeCarousel() {
         carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
     }
 
-    setInterval(() => moveSlide(1), 5000);  // Automatic sliding every 5 seconds
+    setInterval(() => moveSlide(1), 3000);  // Automatic sliding every 5 seconds
 
     document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
     document.querySelector('.next').addEventListener('click', () => moveSlide(1));
 }
+// // Initialize the carousel
+// function initializeCarousel() {
+//     const slides = document.querySelectorAll('#carousel_images img');
+//     const slideWidth = slides[0].clientWidth;
+
+//     let currentIndex = 0;
+
+//     function moveSlide(direction) {
+//         const totalSlides = slides.length;
+//         currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+//         const carousel = document.querySelector('#carousel_images');
+//         carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+//     }
+
+//     setInterval(() => moveSlide(1), 5000);  // Automatic sliding every 5 seconds
+
+//     document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
+//     document.querySelector('.next').addEventListener('click', () => moveSlide(1));
+// }
 
 // Load the movie posters dynamically when the page is loaded
 window.addEventListener('load', () => {
@@ -316,11 +576,19 @@ window.addEventListener('load', () => {
 document.querySelectorAll('.cat').forEach(catElement => {
     catElement.addEventListener('click', () => {
         const genre = catElement.textContent.trim();
+
         if (genre === 'For you') {
+
+            loadMoviePosters(); // Show all movie posters
             retrieveMovies(); // Show all movies
         } else {
-            retrieveMovies(genre); // Show movies by genre
+            loadMoviePosters(genre); // Show movie posters for the selected genre
+            retrieveMovies(genre); // Show movies for the selected genre
         }
+
+        // Highlight the selected genre
+        document.querySelectorAll('.cat').forEach(item => item.classList.remove('active'));
+        catElement.classList.add('active');
     });
 });
 
@@ -330,7 +598,155 @@ document.querySelectorAll('.cat').forEach(catElement => {
 
 
 
+async function addToWish(stream_url, title, description, poster, release_date, details){  
+    const user = auth.currentUser; // Get the current logged-in user
 
+    if (user) {
+        const userRef = doc(db, "users", user.uid);
+
+        try {
+            // Add the movie to the user's wishlist
+            await updateDoc(userRef, {
+                wishlist: arrayUnion({
+                    stream_url: stream_url,
+                    title: title,
+                    description: description,
+                    poster: poster,
+                    release_date: release_date,
+                    details: details
+                })
+            });
+
+document.getElementById("wish"
+).style.color="red"
+            console.log("Movie added to wishlist!");
+        } catch (error) {
+            console.error("Error adding movie to wishlist:", error);
+        }
+    } else {
+        console.log("User not logged in.");
+    }
+}
+
+document.getElementById("viewWish").addEventListener("click",()=>{
+    document.getElementById("wishlist").style.display="flex"
+    document.getElementById("wishPage").style.display="flex"
+
+    getWishlist()
+})
+document.getElementById("close_wish").addEventListener("click",()=>{
+    document.getElementById("wishlist").style.display="none"
+    document.getElementById("wishPage").style.display="none"
+
+    // getWishlist()
+})
+async function getWishlist() {
+    const user = auth.currentUser;  // Get the current logged-in user
+
+    if (user) {
+        const userRef = doc(db, "users", user.uid); // Get the user document using their UID
+        try {
+            // Get the user document
+            const docSnap = await getDoc(userRef);
+
+            if (docSnap.exists()) {
+                // Retrieve the wishlist from the document data
+                const wishlist = docSnap.data().wishlist || [];  // Default to an empty array if no wishlist
+
+                // Get the div where we want to display the wishlist
+                const wishlistContainer = document.getElementById("wishlist-container");
+
+                // Clear the previous wishlist content
+                wishlistContainer.innerHTML = "";
+
+                // Check if there are any movies in the wishlist
+                if (wishlist.length > 0) {
+                    wishlist.forEach(movie => {
+                        // Check if the movie is already in the DOM to prevent duplicates
+                        if (!isMovieInDOM(movie.title)) {
+                            // Create a new div for each movie in the wishlist
+                            const movieDiv = document.createElement("div");
+                            movieDiv.classList.add("viewWish");
+
+                            // Insert the movie data into the div
+                            movieDiv.innerHTML = ` 
+                                <div class="movie-poster">
+                                    <img src="${movie.poster}" alt="${movie.title} Poster">
+                                </div>
+                                <div class="tittle_dis">
+                                    <h3>${movie.title}</h3>
+                                    <p><strong>Release Date:</strong> ${movie.release_date}</p>
+                                    
+                                    <button class="remove-wish" data-title="${movie.title}">Remove from Wishlist</button>
+                                </div>
+                            `;
+
+                            // Append the movie div to the wishlist container
+                            wishlistContainer.appendChild(movieDiv);
+                        }
+                    });
+
+                    // Add event listeners to remove buttons
+                    const removeButtons = document.querySelectorAll(".remove-wish");
+                    removeButtons.forEach(button => {
+                        button.addEventListener("click", () => removeFromWishlist(button.dataset.title));
+                    });
+                } else {
+                    wishlistContainer.innerHTML = `<p class="nowish">No movies in your wishlist!</p>    `;
+                }
+            } else {
+                console.log("No such document!");
+            }
+        } catch (error) {
+            console.error("Error retrieving wishlist:", error);
+        }
+    } else {
+        console.log("User not logged in.");
+    }
+}
+
+// Helper function to check if a movie is already in the DOM
+function isMovieInDOM(movieTitle) {
+    const wishlistContainer = document.getElementById("wishlist-container");
+    const movieItems = wishlistContainer.getElementsByClassName("viewWish");
+    
+    for (let i = 0; i < movieItems.length; i++) {
+        const titleElement = movieItems[i].querySelector("h3");
+        if (titleElement && titleElement.textContent === movieTitle) {
+            return true;  // Movie is already in the DOM
+        }
+    }
+    return false;  // Movie is not in the DOM
+}
+  async function removeFromWishlist(movieTitle) {
+    const user = auth.currentUser;  // Get the current logged-in user
+
+    if (user) {
+        const userRef = doc(db, "users", user.uid);
+
+        try {
+            // Fetch the current wishlist to get the full object
+            const userDoc = await getDoc(userRef);
+            const wishlist = userDoc.data().wishlist;
+
+            // Find the full movie object by matching the title (or other unique identifier)
+            const movieToRemove = wishlist.find(movie => movie.title === movieTitle);
+
+            if (movieToRemove) {
+                // Update the wishlist by removing the full movie object
+                await updateDoc(userRef, {
+                    wishlist: arrayRemove(movieToRemove)
+                });
+                console.log(`Removed ${movieTitle} from wishlist`);
+
+                // Reload the wishlist after removal
+                getWishlist();
+            }
+        } catch (error) {
+            console.error("Error removing movie from wishlist:", error);
+        }
+    }
+}
 
 
 
@@ -393,10 +809,21 @@ async function searchMovies(queryText) {
                     <p><strong>Rating:</strong> ${movie.rating}</p>
                 </div>`;
 
-            // Add event listener to play video when clicked
-            movieElement.addEventListener('click', () => {
-                playVideo(movie.stream_url, movie.title);  // Optional: Play movie when clicked
-            });
+            //             // Add event listener to play video when clicked
+            //             movieElement.addEventListener('click', () => {
+            //                 const currentUser = localStorage.getItem('currently_loggedIn');
+
+
+            //                 if(currentUser==null){
+
+
+            // const loginForm = document.querySelectorAll('.login-signup')[0];
+            // const signupForm = document.querySelectorAll('.login-signup')[1];
+            //                     loginForm.style.display = 'block'
+
+            //                 }else{
+            //                 playVideo(movie.stream_url, movie.title);  // Optional: Play movie when clicked
+            //         }});
 
             moviesContainer.appendChild(movieElement);
         });
@@ -406,7 +833,7 @@ async function searchMovies(queryText) {
 }
 
 // Event listener for the search input field
-document.getElementById("search-input").addEventListener("input", function() {
+document.getElementById("search-input").addEventListener("input", function () {
     const searchTerm = this.value.trim();  // Get the value from the input field and trim extra spaces
     searchMovies(searchTerm);  // Call searchMovies to display matching results
 });
@@ -416,28 +843,37 @@ document.getElementById("search-input").addEventListener("input", function() {
 
 
 
+const user_letter = document.getElementById("user_letter");
+document.getElementById("close_profile").addEventListener("click", close_profile);;
+
+// Add event listener to toggle the 'lit' class on the profile
+user_letter.addEventListener("click", close_profile);
+function close_profile() {
+    const user_profile = document.getElementById("profile");
+    user_profile.classList.toggle('lit'); // Toggle the visibility of profile
+}
 
 
 
 
-// var video = document.getElementById('my-video');
-
-// if (Hls.isSupported()) {
-//     var hls = new Hls();
-//     hls.loadSource('https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8'); // Your HLS stream URL
-//     hls.attachMedia(video);
-//     hls.on(Hls.Events.MANIFEST_PARSED, function () {
-//         video.play();
-//     });
-// }
-// else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-//     // Safari natively supports HLS
-//     video.src = 'https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8';
-//     video.addEventListener('loadedmetadata', function () {
-//         video.play();
-//     });
-// }
 
 
 
 
+
+
+
+
+
+
+
+
+// JavaScript to toggle the active class
+document.querySelectorAll('.cat').forEach(item => {
+    item.addEventListener('click', () => {
+        // Remove 'active' class from all items
+        document.querySelectorAll('.cat').forEach(navItem => navItem.classList.remove('active'));
+        // Add 'active' class to the clicked item
+        item.classList.add('active');
+    });
+});

@@ -55,32 +55,63 @@
         <div class="header_content">
             <div class="logo">Logo</div>
             <div><!-- Add this in your HTML file where you want the search input to appear -->
-                <input type="text" id="search-input" placeholder="Search movies by title..." /><i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+                <input type="text" id="search-input" placeholder="Search movies by title..." /><i
+                    class="fa-solid fa-magnifying-glass"></i>
+            </div>
             <div>
                 <!-- <i class="fa-solid fa-eye"></i> -->
             </div>
             <div class="sign_up">
-                <i id="signout_butt" class="fa-regular fa-arrow-right-from-bracket" title="Signout"></i>
-                <div>
+                <i id="signup_butt" class="fa-solid fa-right-to-bracket" title="Signout"></i>
+                <div id="user_letter_div">
+                    <h1 id="user_letter"></h1>
                     <!-- <i class="fa-solid fa-user"></i> -->
                 </div>
             </div>
         </div>
     </header>
 
+
+
+
+
+
+    <div id="profile">
+        <i class="fa-solid fa-xmark" id="close_profile"></i>
+
+        <h1>
+            <div id="profile_letter"></div>
+        </h1>
+        <div>
+            <p id="profile_name"></p>
+
+            <p id="profile_email"></p>
+        </div>
+        <div id="viewWish">Wishlist</div>
+
+        <i id="signout_butt" class="fa-solid fa-arrow-right-from-bracket"></i>
+
+
+
+    </div>
+<div id="wishlist" >
+    <div><i class="fa-solid fa-xmark" id="close_wish"></i></div>
+
+    <div id="wishlist-container">
+    </div></div>
     <div class="aside&_main">
         <aside>
-            <div class="aside_bar"><marquee class="user-details" style="display: none;">
-                <h1></h1>
-    
-    
-    
-    
-            </marquee>
+            <div class="aside_bar">
+                <marquee class="user-details" style="display: none;">
+                    <h1></h1>
+
+
+
+
+                </marquee>
                 <div class="Category">Category</div>
                 <div class="cat">For you </div>
-                <div class="cat">Funny <img class="emoji" src="/img/img3.png"></div>
+                <div class="cat">Comedy <img class="emoji" src="/img/img3.png"></div>
                 <div class="cat">Horror <img class="emoji" src="/img/img2.png"></div>
                 <div class="cat">Sci-Fi <img class="emoji" src="/img/img5.png"></div>
                 <div class="cat">Fantasy <img class="emoji" src="/img/img7.png"></div>
@@ -113,7 +144,7 @@
                 <img src="img/Animation - 1730883595895.gif" class="next arrow" onclick="moveSlide(1)">
             </div>
             <div id="rows">
-                <h1>Recomented for you</h1>
+                <h1>Recommended for you</h1>
                 <div id="row">
 
                 </div>
@@ -124,12 +155,23 @@
 
 
         </main>
-        <div id="player">  <i class="fa-solid fa-xmark" id="close_player"></i>      <div id="video_player"></div></div>
+        <div id="player"> <i class="fa-solid fa-xmark" id="close_player"></i>
+            <div id="selected_movie"></div>
+            <div id="player_info_page" style="display: flex;"></div>
+            <!-- <div id="play_butt"></div> -->
+        </div>
+
+<div id="wishPage">              <div id="wishlist-container"></div><div>
+        </div> 
+    </div>
+    <div id="video_player"> <i class="fa-solid fa-xmark" id="close_video_player"></i>
 
 
-
+        
+    </div>
 
         <div class="login-signup ">
+            <i class="fa-solid fa-xmark" id="close_login"></i>
             <h2>Login</h2>
             <form action="" id="login">
                 <div class="user-box">
@@ -152,12 +194,15 @@
             </form>
         </div>
         <div class="login-signup ">
+            <i class="fa-solid fa-xmark" id="close_signup"></i>
             <h2>Signup</h2>
             <form action="" id="signup">
                 <div class="user-box">
-                    <input type="text" name="" id="signup-username" autocomplete="off" required>
-                    <label for="">Name</label>
+                    <input type="text" pattern="[A-Za-z]+" name="username" id="signup-username" autocomplete="off"
+                        required>
+                    <label for="signup-username">Name</label>
                 </div>
+
                 <div class="user-box">
                     <input type="email" name="" id="signup-email" autocomplete="off" required>
                     <label for="">Email</label>
@@ -173,7 +218,7 @@
                 <h4>Already have an Account ? <span id="nav-to-login">Click here</span></h4>
             </form>
         </div>
-        
+
         <div id="signout_q">
             <h1>Do You Want Entertainment!</h>
                 <div>
@@ -184,6 +229,6 @@
         <script src="/login/login.js" defer type="module"></script>
         <script type="module" src="admin.js"></script>
 
-</body>
+</body>5
 
 </html>

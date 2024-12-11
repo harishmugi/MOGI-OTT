@@ -4,12 +4,14 @@
     box-sizing: border-box;
     font-family: Tahoma, Verdana, sans-serif;
     scrollbar-width: none;
+   
 }
 
 body {
     /* cursor: url(sward.png),auto; */
     height: 100vh;
     background: black;
+    overflow-x: hidden;
 }
 
 header {
@@ -23,7 +25,7 @@ header {
 .header_content {
     /* background:linear-gradient(to right,#620172,#d900ff,aqua ,rgb(2, 117, 117)) #242424; */
     display: flex;
-    color: red;
+    
     background: black;
     background-size: cover;
     justify-content: space-evenly;
@@ -61,9 +63,21 @@ header {
     padding-left: 20px;
 }
 
-#signout_butt {
+#signup_butt  {
     padding: 5px 10px;
-    color: #03e9f4;
+    color:#50d9eb;
+    background: #171717;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bolder;
+    position: absolute;
+    right: 10px;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+
+}#signout_butt {display:block;
+    padding: 5px 10px;
+    color:#50d9eb;
     background: #171717;
     border-radius: 50%;
     cursor: pointer;
@@ -204,29 +218,29 @@ aside {
     /* Shadow on hover */
 }
 
-/* Media Queries to handle specific breakpoints */
 
-/* On smaller devices (like phones), reduce padding and column size */
 @media (max-width: 600px) {
     #row {
         gap: 10px;
-        /* Reduce space between grid items */
+        
     }
 
 
 }
 
-/* On larger screens (larger than 1200px), increase number of columns */
+
 
 .row_box {
-    box-shadow:
+    /* box-shadow:
         black 0px 20px 30px -10px,
-        #00525d 0px -30px 50px 1px inset;
+        #454545 0px -30px 50px 1px inset; */
     height: 300px;
     /* align-items: center; Center align items */
     justify-content: center;
     width: 290px;
-    background-color: #50d9eb;
+    background-color: #00000060;
+    backdrop-filter:blur(5px);
+    
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -246,8 +260,9 @@ aside {
 }
 
 .tittle_and_details {
-    background-color: #54e3f6;
-    padding: 10px;
+    background-color: #54e3f6cb;
+    padding: 10px;    backdrop-filter:blur(5px);
+
     border-radius: 10px;
     box-shadow: 1.0px 2.1px 2.1px hsl(0deg 0% 0% / 0.47);
 }
@@ -261,8 +276,7 @@ aside {
     /* You can adjust the height */
     object-fit: fill;
     /* Ensures the image is cropped to fit the div */
-    box-shadow: black 0px 10px 20px, black 0px 6px 6px;
-}
+    box-shadow: #03e9f4 0px 1px 5px, #03e9f4 0px 6px 6px;}
 
 /* Carousel container */
 #big_poster {
@@ -345,7 +359,7 @@ aside {
 }
 
 .aside_bar {
-    background: linear-gradient(to right, #000, #54e3f6);
+    background: linear-gradient(to right, #000, rgb(100, 100, 100));
     /* background:url(metal_background_1305.jpg); */
     /* background: #000; */
     position: relative;
@@ -359,22 +373,29 @@ aside {
     height: 100vh;
     border: 1px solid black;
 }
-
 .cat {
     font-family: Arial;
     color: white;
     margin: 10px;
     padding: 10px 50px 10px 50px;
 
+    &.active {
+        box-shadow: 0 0 5px #2c2c2c, 0 0 25px #2c2c2c;  /* Glowing effect */
+        color: #000;  /* Text color change */
+        font-weight: 600;  /* Font weight change */
+        border-radius: 10px;  /* Border radius change */
+        background-color: #8dedf9;  /* Background color change */
+    }
+    
     &:hover {
-        box-shadow: 0 0 5px #2c2c2c, 0 0 25px#2c2c2c;
-        color: #000;
-        font-weight: 600;
-
-        border-radius: 10px;
-        background-color: #8dedf9
+        box-shadow: 0 0 5px #2c2c2c, 0 0 25px #2c2c2c;  /* Glowing effect on hover */
+        color: #000;  /* Text color change */
+        font-weight: 600;  /* Font weight change */
+        border-radius: 10px;  /* Border radius change */
+        background-color: #8dedf9;  /* Background color change */
     }
 }
+
 
 .Category {
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
@@ -540,7 +561,52 @@ h4 span {
     ;
 }
 
-#video_player {
+#player {
+   
+    display: none;
+    margin: 0px auto;
+    position: fixed  ;
+    top: 0PX;
+    z-index: 10;
+    bottom: 0;
+    left: 0;
+    overflow-y: scroll;
+    right: 0;
+    height:100%;
+    background: black;
+    padding: 50px;
+}
+#close_video_player{
+    position: absolute;color: #50d9eb;top:50px;
+right:50px;z-index: 100;}
+
+
+
+#playNow{
+    letter-spacing: 5px;
+    border-radius: 20px;
+    background-color: #50d9eb;
+    color: #000;
+    margin-top: 30px;
+    width: 100px;
+    font-size: 15px;
+    font-weight: bolder;
+    height: 30px;
+    border: 2px solid #fff;
+    /* outline-style: auto; */
+    outline-style: none;
+}
+#player_info_page{
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    position: relative;
+    height: 500px;
+    overflow-y: scroll;
+    justify-content: space-around;
+}
+#video_player{
     display: none;
     margin: 0px auto;
     /* right: 10%;left: 10%;top: 100px; */
@@ -552,6 +618,11 @@ h4 span {
     right: 0;
     height: 100vh;
     background: black;padding: 50px;
+}
+#play_butt{
+    height: 200px;
+    width: 200px;
+    background-color: #fff;
 }
 
 .video-js {
@@ -581,4 +652,162 @@ h4 span {
     
     }h4{text-align:left ;}
     p{color: #fff;}
+}
+
+#close_login{    position: absolute;
+    right:20px;top:20px;
+    color: #50d9eb;
+}
+#close_signup  {  position: absolute;
+    right:20px;top:20px;
+    color: #50d9eb;
+}#close_wish{
+    position: fixed;
+    right:20px;top:20px;
+    color: #50d9eb;           
+}
+
+#wishlist{
+    background-color: #000;
+    display:none;gap: 30px;height: 100%;
+    position: absolute;z-index: 100;text-align: center ;top: 0;padding-top: 30px; 
+    bottom: 0;right: 0;left: 0;
+    
+}
+#wishPage{
+    background-color: #000;
+    display:none;gap: 30px;height: 100%;
+    position: fixed;z-index: 90;text-align: center ;top: 0;padding-top: 30px; 
+    bottom: 0;right: 0;left: 0;
+}
+
+.lit {
+    display: block;
+    position: absolute;
+    width: 300px;
+    height: 600px;
+    background-color: black;
+    right: 100px;
+    top: 9%;
+    z-index: 99;
+    border-radius: 10px;
+    text-align: center;
+    h1{height: 100px;width: 100px;position: relative;left:35%;top:10%;
+        font-size: 50px;padding:5%;border-radius: 50%;border: 2px solid black;
+        background-color: #50d9eb;box-shadow: #50d9eb 0px 2px 4px 0px, #50d9eb 0px 2px 16px 0px;
+    }
+    
+}
+#profile_email{
+    color: #03e9f4;position: relative;top: 150px;
+    
+}#profile_name{font-size: 40px;
+    color: #03e9f4;position: relative;top: 100px;
+    
+}#user_letter_div{    top: 5px;
+    position: fixed;
+    right: 10px;
+
+    
+}
+/* Style for the user_letter element */
+#user_letter {
+    border: 2px solid #fff;
+    background-color: #50d9eb;
+    border-radius: 50%;
+    text-align: center;z-index: 200;
+    padding:2px 8px;position: relative;right:10%;
+    cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+/* Initially, profile is hidden */
+#profile {position: relative;
+    display: block;right:-80%
+}#wishlist-container{
+    /* background-color: #000;
+    display:none;gap: 30px;
+    position: absolute;z-index: 20;text-align: center ;top: 0;padding-top: 30px; 
+    bottom: 0;right: 0;left: 0; */
+    
+}#viewWish{
+    color: #50d9eb;cursor: pointer;
+}
+.nowish{
+    color: #50d9eb;font-size: 50px;
+    text-align: center
+
+}
+.viewWish{
+height: 300px;
+justify-content: center;
+width: 290px;
+background-color: #00000060;
+backdrop-filter:blur(5px);
+
+color: #ffffff;
+display: flex;justify-content: center;
+
+flex-direction: column;
+text-align: left;
+padding: 20px;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+h2 {
+    color: black;
+}
+
+p {
+    color: white;
+    font-size: 15px;
+}
+img{ border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    /* width: 100%; */
+    height: 150px;
+    /* You can adjust the height */
+    object-fit: fill;
+    /* Ensures the image is cropped to fit the div */
+    box-shadow: #03e9f4 0px 1px 5px, #03e9f4 0px 6px 6px;
+
+    width: 300px;
+}
+}.fa-regular.fa-heart {
+    font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+.fa-regular.fa-heart.red {
+    color: red;  /* Change to red when the movie is in the wishlist */
+}
+
+
+.fa-arrow-right-from-bracket{
+    position:absolute  ;
+bottom: 100px;right: 100px;
+font-size: 80;
+}
+#close_profile
+{color: #50d9eb;position: absolute;right: 50px;
+top: 100px}
+.Description{
+
+}#movie_poster_title{
+   
+    display: flex;
+    
+    h2{
+        color: #50d9eb;
+    }h4{
+        color: #50d9eb;text-align: left;
+    }
+    p{width: 200px;
+        color: #fff;
+    }
+
+}.movie_cast_title{
+border-left:solid #50d9eb
+
+;
+margin-left: 100px;padding-left: 100px;
 }

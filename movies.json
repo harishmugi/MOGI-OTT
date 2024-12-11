@@ -1,182 +1,233 @@
 {
-    "website": {
-      "name": "MyOTTPlatform",
-      "url": "https://www.myottplatform.com",
-      "description": "Stream your favorite movies and TV shows anytime, anywhere.",
-      "genres": [
-        "Funny",
-        "Horror",
-        "Sci-Fi",
-        "Fantasy",
-        "Anime",
-        "Action"
-      ],
-      "movies": [
-        {
-            "id": "1",
-            "poster": "https://img.paisawapas.com/ovz3vew9pw/2024/04/22113049/Mandela-Best-Tamil-Comedy-Movie.jpg",
-            "title": "Mandela Tamil",
-            "genre": "Funny",
-            "release_date": "2024-11-15",
-            "rating": "PG-13",
-            "description": "A gripping political drama about an ordinary man who becomes an unexpected hero in a fight for justice and equality.",
-            "thumbnail": "https://img.paisawapas.com/ovz3vew9pw/2024/04/22113049/Mandela-Best-Tamil-Comedy-Movie.jpg",
-            "stream_url": "https://www.myottplatform.com/stream/mandela-tamil",
-            "time": "02:00:00"
+  "website": {
+    "name": "MyOTTPlatform",
+    "url": "https://www.myottplatform.com",
+    "description": "Stream your favorite movies and TV shows anytime, anywhere.",
+    "genres": [
+      "Comedy",
+      "Horror",
+      "Sci-Fi",
+      "Fantasy",
+      "Anime",
+      "Action"
+    ],
+    "movies": [
+      {
+        "id": "1",
+        "poster": "https://img.paisawapas.com/ovz3vew9pw/2024/04/22113049/Mandela-Best-Tamil-Comedy-Movie.jpg",
+        "title": "Mandela Tamil",
+        "genre": "Comedy",
+        "release_date": "2024-11-15",
+        "rating": "PG-13",
+        "description": "A gripping political drama about an ordinary man who becomes an unexpected hero in a fight for justice and equality.",
+        "thumbnail": "https://img.paisawapas.com/ovz3vew9pw/2024/04/22113049/Mandela-Best-Tamil-Comedy-Movie.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:00:00",
+        "details": [
+          {
+            "director": "Madonne Ashwin",
+            "music_director": "Basil Joseph",
+            "producer": "S. S. Bhuvaneshwaran",
+            "cast": ["Yogi Babu", "Sheela Rajkumar"],
+            "language": "Tamil",
+            "country": "India"
           }
-,          
-{
-    "id": "2",
-    "poster": "https://wallpapers.com/images/thumbnail/late-night-revelry-aftermath-s82zvlau3mp4e650.webp",
-    "title": "The Hangover",
-    "genre": "Funny", 
-    "release_date": "2009-06-05",
-    "rating": "R",
-    "description": "After a wild bachelor party in Las Vegas, three friends wake up with no memory of the previous night and must piece together what happened to find their missing friend.",
-    "thumbnail": "https://m.media-amazon.com/images/I/71bG0ah1YqL._AC_SY679_.jpg",
-    "stream_url": "https://www.myottplatform.com/stream/the-hangover",
-    "time": "01:40:00"
-  }
-  ,
-  {
-    "id": "3",
-    "poster": "https://www.peacocktv.com/dam/growth/assets/Library/DespicableMe/despicableme-social-image-min.png",
-    "title": "Despicable Me",
-    "genre": " Funny",
-    "release_date": "2010-07-09",
-    "rating": "PG",
-    "description": "Gru, a supervillain, adopts three orphaned girls and starts to rethink his life of crime, while still plotting his next big heist.",
-    "thumbnail": "https://www.peacocktv.com/dam/growth/assets/Library/DespicableMe/despicableme-social-image-min.png",
-    "stream_url": "https://www.myottplatform.com/stream/despicable-me",
-    "time": "01:35:00"
-  }
-  ,
-  {
-    "id": "6",
-    "poster": "https://dspncdn.com/a1/media/originals/53/0f/aa/530faa7bd21caf79119a2e8f905f8f73.jpg",
-    "title": "The Conjuring",
-    "genre": "Horror",
-    "release_date": "2013-07-19",
-    "rating": "R",
-    "description": "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse.",
-    "thumbnail": "https://dspncdn.com/a1/media/originals/53/0f/aa/530faa7bd21caf79119a2e8f905f8f73.jpg",
-    "stream_url": "https://www.myottplatform.com/stream/the-conjuring",
-    "time": "01:52:00"
-  }
-  ,
-  {
-    "id": "7",
-    "poster": "https://mir-s3-cdn-cf.behance.net/project_modules/fs/78e3b466891157.5b26a37ceebf0.jpg",
-    "title": "The Nun",
-    "genre": "Horror",
-    "release_date": "2018-09-07",
-    "rating": "R",
-    "description": "A priest with a haunted past and a novice on the threshold of her final vows are sent by the Vatican to investigate the death of a young nun in Romania and uncover the horrific truth behind her death.",
-    "thumbnail": "https://mir-s3-cdn-cf.behance.net/project_modules/fs/78e3b466891157.5b26a37ceebf0.jpg",
-    "stream_url": "https://www.myottplatform.com/stream/the-nun",
-    "time": "01:36:00"
-  }
-  
-,
-{
-    "id": "8",
-    "poster": "https://almashhadalaraby.com/photos/5d7854da4fe3c.jpeg",
-    "title": "IT Chapter Two",
-    "genre": "Horror",
-    "release_date": "2019-09-06",
-    "rating": "R",
-    "description": "27 years after the events of the first film, the Losers' Club reunites to defeat Pennywise once and for all as adults. The terrifying clown returns to Derry, and the group must confront their deepest fears.",
-    "thumbnail": "https://m.media-amazon.com/images/I/81XG+GJFVfL._AC_UF1000,1000_QL80_.jpg",
-    "stream_url": "https://www.myottplatform.com/stream/it-chapter-two",
-    "time": "02:49:00"
-  },{
-    "id": "9",
-    "poster": "https://e1.pxfuel.com/desktop-wallpaper/490/503/desktop-wallpaper-enthiran.jpg",
-    "title": "Enthiran",
-    "genre": "Sci-Fi",
-    "release_date": "2010-10-01",
-    "rating": "U",
-    "description": "A scientist creates an android robot named Chitti, but when the robot malfunctions, he turns against his creator. As the human and machine worlds clash, Chitti must confront his own emotions and learn the true meaning of life.",
-    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/3/32/Enthiran_poster.jpg",
-    "stream_url": "https://www.myottplatform.com/stream/enthiran",
-    "time": "02:30:00"
-  },
-  {
-    "id": "10",
-    "poster": "https://d2h7z5r5pp4sed.cloudfront.net/tamil/news/Indru-Netru-Naalai_14415_t.jpg",
-    "title": "Indru Netru Naalai",
-    "genre": "Sci-Fi",
-    "release_date": "2015-06-26",
-    "rating": "U",
-    "description": "A man accidentally discovers time travel and tries to use it to improve his life. However, his meddling with the past leads to unexpected consequences, and he must figure out how to fix the timeline before it’s too late.",
-    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/c/c2/Indru_Netru_Naalai_film_poster.jpg",
-    "stream_url": "https://www.myottplatform.com/stream/indru-netru-naalai",
-    "time": "02:15:00"
-  },
-  {
-    "id": "11",
-    "poster": "https://e1.pxfuel.com/desktop-wallpaper/28/185/desktop-wallpaper-ra-one-for-raone.jpg",
-    "title": "Ra.One",
-    "genre": "Sci-Fi",
-    "release_date": "2011-10-26",
-    "rating": "U/A",
-    "description": "A video game designer creates an artificial intelligence villain, but when the character becomes self-aware, it wreaks havoc in the real world. The protagonist, G.One, must defeat Ra.One to save his family and stop the destruction.",
-    "thumbnail": "https://upload.wikimedia.org/wikipedia/en/2/2b/Ra.One_Theatrical_Poster.jpg",
-    "stream_url": "https://www.myottplatform.com/stream/ra-one",
-    "time": "02:30:00"
-  }
-  ,
+        ]
+      },
+      {
+        "id": "2",
+        "poster": "https://wallpapers.com/images/thumbnail/late-night-revelry-aftermath-s82zvlau3mp4e650.webp",
+        "title": "The Hangover",
+        "genre": "Comedy",
+        "release_date": "2009-06-05",
+        "rating": "R",
+        "description": "After a wild bachelor party in Las Vegas, three friends wake up with no memory of the previous night and must piece together what happened to find their missing friend.",
+        "thumbnail": "https://m.media-amazon.com/images/I/71bG0ah1YqL._AC_SY679_.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "01:40:00",
+        "details": [
           {
-            "id": "10",
-            "poster": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
-            "title": "Fantasy Quest",
-            "genre": "Fantasy",
-            "release_date": "2024-04-10",
-            "rating": "PG",
-            "description": "Embark on a magical journey full of dragons and mythical creatures.",
-            "thumbnail": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
-            "stream_url": "https://www.myottplatform.com/stream/fantasy-quest",
-            "time": "03:00:00"
-          },
-          {
-            "id": "11",
-            "poster": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
-            "title": "Anime Legends",
-            "genre": "Anime",
-            "release_date": "2024-05-15",
-            "rating": "TV-PG",
-            "description": "Follow the adventures of legendary anime characters in a new world.",
-            "thumbnail": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
-            "stream_url": "https://www.myottplatform.com/stream/anime-legends",
-            "time": "01:45:00"
-          },
-          {
-            "id": "12",
-            "poster": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
-            "title": "Action Unleashed",
-            "genre": "Action",
-            "release_date": "2024-06-01",
-            "rating": "R",
-            "description": "A non-stop action film featuring intense battles and daring stunts.",
-            "thumbnail": "https://c4.wallpaperflare.com/wallpaper/433/81/309/god-hammer-art-thor-wallpaper-preview.jpg",
-            "stream_url": "https://www.myottplatform.com/stream/action-unleashed",
-            "time": "02:30:00"
+            "director": "Todd Phillips",
+            "music_director": "Christophe Beck",
+            "producer": "Todd Phillips, Dan Goldberg",
+            "cast": ["Bradley Cooper", "Zach Galifianakis", "Ed Helms"],
+            "language": "English",
+            "country": "USA"
           }
-      ],
-      "movie_posters": [
-        {"id": "1",
-          "title": "Inception",
-          "poster_url": "https://cdn.myportfolio.com/9fd5290e2109e08ffd62f3f8f39a7073/b271f5dc6844360705099167_rw_1920.jpg?h=11a539419ee7bb1d267ff9769c11d4d6"
-        },
-        {"id": "2",
-          "title": "The Dark Knight",
-          "poster_url": "https://d2h7z5r5pp4sed.cloudfront.net/tamil/news/Indru-Netru-Naalai_14415_t.jpg"
-        },
-        {"id": "3",
-          "title": "Interstellar",
-          "poster_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAVYeewU4txjq1LkrZToIDaevCBgr_uLLt4Q&s"
-        }
-      ]
-    }
+        ]
+      },
+      {
+        "id": "3",
+        "poster": "https://www.peacocktv.com/dam/growth/assets/Library/DespicableMe/despicableme-social-image-min.png",
+        "title": "Despicable Me",
+        "genre": "Comedy",
+        "release_date": "2010-07-09",
+        "rating": "PG",
+        "description": "Gru, a supervillain, adopts three orphaned girls and starts to rethink his life of crime, while still plotting his next big heist.",
+        "thumbnail": "https://www.peacocktv.com/dam/growth/assets/Library/DespicableMe/despicableme-social-image-min.png",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "01:35:00",
+        "details": [
+          {
+            "director": "Pierre Coffin, Chris Renaud",
+            "music_director": "Heitor Pereira",
+            "producer": "Chris Meledandri",
+            "cast": ["Steve Carell", "Jason Segel", "Russell Brand"],
+            "language": "English",
+            "country": "USA"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "poster": "https://dspncdn.com/a1/media/originals/53/0f/aa/530faa7bd21caf79119a2e8f905f8f73.jpg",
+        "title": "The Conjuring",
+        "genre": "Horror",
+        "release_date": "2013-07-19",
+        "rating": "R",
+        "description": "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse.",
+        "thumbnail": "https://dspncdn.com/a1/media/originals/53/0f/aa/530faa7bd21caf79119a2e8f905f8f73.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "01:52:00",
+        "details": [
+          {
+            "director": "James Wan",
+            "music_director": "Joseph Bishara",
+            "producer": "James Wan, Peter Safran",
+            "cast": ["Vera Farmiga", "Patrick Wilson", "Lili Taylor"],
+            "language": "English",
+            "country": "USA"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "poster": "https://mir-s3-cdn-cf.behance.net/project_modules/fs/78e3b466891157.5b26a37ceebf0.jpg",
+        "title": "The Nun",
+        "genre": "Horror",
+        "release_date": "2018-09-07",
+        "rating": "R",
+        "description": "A priest with a haunted past and a novice on the threshold of her final vows are sent by the Vatican to investigate the death of a young nun in Romania and uncover the horrific truth behind her death.",
+        "thumbnail": "https://mir-s3-cdn-cf.behance.net/project_modules/fs/78e3b466891157.5b26a37ceebf0.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "01:36:00",
+        "details": [
+          {
+            "director": "Corin Hardy",
+            "music_director": "Abel Korzeniowski",
+            "producer": "James Wan, Peter Safran",
+            "cast": ["Taissa Farmiga", "Demian Bichir", "Jonny Coyne"],
+            "language": "English",
+            "country": "USA"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "poster": "https://almashhadalaraby.com/photos/5d7854da4fe3c.jpeg",
+        "title": "IT Chapter Two",
+        "genre": "Horror",
+        "release_date": "2019-09-06",
+        "rating": "R",
+        "description": "27 years after the events of the first film, the Losers' Club reunites to defeat Pennywise once and for all as adults. The terrifying clown returns to Derry, and the group must confront their deepest fears.",
+        "thumbnail": "https://m.media-amazon.com/images/I/81XG+GJFVfL._AC_UF1000,1000_QL80_.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:49:00",
+        "details": [
+          {
+            "director": "Andy Muschietti",
+            "music_director": "Benjamin Wallfisch",
+            "producer": "Barbara Muschietti, Andy Muschietti",
+            "cast": ["Jessica Chastain", "James McAvoy", "Bill Hader"],
+            "language": "English",
+            "country": "USA"
+          }
+        ]
+      },
+      {
+        "id": "7",
+        "poster": "https://e1.pxfuel.com/desktop-wallpaper/490/503/desktop-wallpaper-enthiran.jpg",
+        "title": "Enthiran",
+        "genre": "Sci-Fi",
+        "release_date": "2010-10-01",
+        "rating": "U",
+        "description": "A scientist creates an android robot named Chitti, but when the robot malfunctions, he turns against his creator. As the human and machine worlds clash, Chitti must confront his own emotions and learn the true meaning of life.",
+        "thumbnail": "https://upload.wikimedia.org/wikipedia/en/3/32/Enthiran_poster.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:30:00",
+        "details": [
+          {
+            "director": "S. Shankar",
+            "music_director": "A. R. Rahman",
+            "producer": "A. Subaskaran",
+            "cast": ["Rajinikanth", "Aishwarya Rai", "Danny Denzongpa"],
+            "language": "Tamil",
+            "country": "India"
+          }
+        ]
+      },
+      {
+        "id": "8",
+        "poster": "https://d2h7z5r5pp4sed.cloudfront.net/tamil/news/Indru-Netru-Naalai_14415_t.jpg",
+        "title": "Indru Netru Naalai",
+        "genre": "Sci-Fi",
+        "release_date": "2015-06-26",
+        "rating": "U",
+        "description": "A man accidentally discovers time travel and tries to use it to improve his life. However, his meddling with the past leads to unexpected consequences, and he must figure out how to fix the timeline before it’s too late.",
+        "thumbnail": "https://upload.wikimedia.org/wikipedia/en/c/c2/Indru_Netru_Naalai_film_poster.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:15:00",
+        "details": [
+          {
+            "director": "R. Ravikumar",
+            "music_director": "Harris Jayaraj",
+            "producer": "H. Murali",
+            "cast": ["Ravi Krishna", "Nikki Galrani", "Karunakaran"],
+            "language": "Tamil",
+            "country": "India"
+          }
+        ]
+      }
+    ,
+   
+      {
+        "id": "9",
+        "poster": "https://i.ytimg.com/vi/G72FSBp7vQU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAAZY27o4mSIyE2YsnRkrt9uQkxCg",
+        "title": "Nightmare House",
+        "genre": "Horror",
+        "release_date": "2024-09-15",
+        "rating": "R",
+        "description": "A chilling tale of a haunted house that traps the souls of its victims.",
+        "thumbnail": "https://example.com/horror-movie-thumbnail.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "01:30:00",
+        "details": [{
+          "director": "Mark Lee",
+          "music_director": "Sarah Jones",
+          "producer": "Michael Bay",
+          "cast": ["Actor C", "Actress D"],
+          "language": "English",
+          "country": "USA"
+        }]
+      }
+    ]
+    ,
+    "movie_posters": [
+      {
+        "id": "1",
+        "title": "Inception",
+        "poster_url": "https://wallpapercave.com/wp/L9vunzX.jpg"
+      },
+      {
+        "id": "2",
+        "title": "The Dark Knight",
+        "poster_url": "https://www.peacocktv.com/dam/growth/assets/Library/DespicableMe/despicableme-social-image-min.png"
+      },
+      {
+        "id": "3",
+        "title": "Interstellar",
+        "poster_url": "https://wallpapercave.com/wp/wp1817975.jpg"
+      }
+    ]
   }
-  
+}
