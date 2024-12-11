@@ -32,25 +32,55 @@ const userDetails = id => {
 
     getDoc(docRef).then(doc => {
         if (doc.exists()) {
-            const h1 = details.children[0];
-            h1.textContent = `Welcome ${doc.data().userName}`;
+
+
+
+// Function to get greeting based on time of day
+function getTimeBasedGreeting() {
+    const currentTime = new Date();  // Get the current time
+    const hours = currentTime.getHours();  // Get the hours (0-23)
+
+    let greeting = "";
+
+    // Determine the greeting based on the time
+    if (hours >= 5 && hours < 12) {
+        greeting = "Good Morning!";
+    } else if (hours >= 12 && hours < 17) {
+        greeting = "Good Afternoon!";
+    } else if (hours >= 17 && hours < 21) {
+        greeting = "Good Evening!";
+    } else {
+        greeting = "Good Night!";
+    }
+
+    return greeting;
+}
+
+
+
+            const h1 = details.children[0];  // Access the first child of the 'details' element (likely an <h1> tag)
+            h1.textContent = ` ${getTimeBasedGreeting()} ${doc.data().userName}`;  // Set the h1 text to display the user's name
+            let name = doc.data().userName;  // Get the user's name from the doc object
+            let fletter= document.querySelector("#profile_letter")
+            fletter.textContent=name[0];
+
+
+            document.querySelector("#user_letter").textContent=name[0]
+
+
+document.getElementById("profile_email").textContent=doc.data().email
+
+document.getElementById("profile_name").textContent=doc.data().userName;
+
 
             details.style.display = 'block';
-           const signout=document.getElementById( "signout_butt")
-            signout.addEventListener('click', () => {
-                // Show confirmation dialog
-                const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+            const signout = document.getElementById("signout_butt");
+    
+            signout.style.display = "block";
+    
+            signout.addEventListener('click', signout_butt_func);
 
-                if (confirmSignOut) {
-                    signOut(auth).then(() => {
-                        localStorage.removeItem('currently_loggedIn');
-                        details.style.display = 'none';
-                        loginForm.style.display = 'block';
-                    }).catch(error => {
-                        console.error('Error occurred while signing out:', error);
-                    });
-                }
-            });
+
         } else {
             console.log('No such document');
         }
@@ -73,16 +103,17 @@ window.onload = () => {           const signout=document.getElementById( "signou
         
 
         // loginForm.style.display = 'block';
-        signout.textContent = "Signup"
-    }
+        // signout.textContent = "Signup"
+     }
 };
 
 
-document.getElementById( "signout_butt").addEventListener("click",()=>{
-    loginForm.style.display = 'block';
+// document.getElementById( "signout_butt").addEventListener("click",()=>{
+//     loginForm.style.display = 'block';
 
-})
-
+// })
+const close_login=document.getElementById("close_login").addEventListener("click",  ()=>{  loginForm.style.display = 'none'}
+)
    
 
 
@@ -135,7 +166,10 @@ nav_to_login.addEventListener('click', () => {
 
     // Proceed with Firebase user creation
     createUserWithEmailAndPassword(auth, email, password)
-        .then(cred => {
+        signInWithEmailAndPassword(auth, email, password)
+   
+    
+    .then(cred => {
             swal({
                 title: 'Account Created And Logged In Successfully',
                 icon: 'success'
@@ -150,6 +184,8 @@ nav_to_login.addEventListener('click', () => {
                     document.querySelectorAll('.loader')[1].style.display = 'none';
                     document.querySelector('#signup').reset();
                     signupForm.style.display = 'none';
+   
+
                     // loginForm.style.display = 'block';  // If you want to show login form
                 }).catch(err => {
                     handleError(err);
@@ -195,6 +231,10 @@ function handleError(err) {
 login_submit.addEventListener('click', event => {
     event.preventDefault();
     login_submit.style.display = 'none';
+
+
+    document.getElementById ("signup_butt").style.display="none"
+    
     document.querySelectorAll('.loader')[0].style.display = 'block';
     const email = document.querySelector('#login-email').value;
     const password = document.querySelector('#login-pwd').value;
@@ -284,3 +324,51 @@ forgotpwd.addEventListener('click', () => {
 });
 
 
+
+
+
+function signout_butt_func(){
+    // Show confirmation dialog
+    const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+
+    if (confirmSignOut) {
+        signOut(auth).then(() => {
+            localStorage.removeItem('currently_loggedIn');
+            details.style.display = 'none';
+            loginForm.style.display = 'block';
+            const signout=document.getElementById( "signout_butt")
+            document.getElementById( "signup_butt").style.display="block"
+
+            signout.style.display="none"
+            document.getElementById( "profile").style.display="none"
+
+        }).catch(error => {
+            console.error('Error occurred while signing out:', error);
+        });
+    }
+}
+
+
+
+const currentUser = localStorage.getItem('currently_loggedIn');
+if(currentUser==null){ 
+  document.getElementById("signout_butt").style.display="none"
+    document.getElementById("signup_butt").style.display="block"
+}else{    document.getElementById("signout_butt").style.display="block"
+
+
+    document.getElementById("signup_butt").style.display="none"
+   
+}
+
+  
+document.getElementById("signup_butt").addEventListener("click",()=>{
+
+    const loginForm = document.querySelectorAll('.login-signup')[0];
+    loginForm.style.display = 'block';})
+
+
+
+
+    
+    
