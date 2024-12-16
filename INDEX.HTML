@@ -17,6 +17,12 @@
     <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.14.0/dist/videojs-contrib-hls.min.js"></script>
 
 
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap's JS components like the carousel) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
 
 
@@ -45,7 +51,7 @@
 
 </head>
 
-<body>
+<body style="background-color: black;">
 
 
 
@@ -58,8 +64,15 @@
                 <input type="text" id="search-input" placeholder="Search movies by title..." /><i
                     class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div>
-                <!-- <i class="fa-solid fa-eye"></i> -->
+            <div class="Category" id="categoryToggle">                <i class="fa-solid fa-filter"></i>
+                </div><div>
+                <marquee class="user-details" style="display: none;">
+                    <h1 ></h1>
+
+
+
+
+                </marquee>
             </div>
             <div class="sign_up">
                 <i id="signup_butt" class="fa-solid fa-right-to-bracket" title="Signout"></i>
@@ -77,7 +90,7 @@
 
 
     <div id="profile">
-        <i class="fa-solid fa-xmark" id="close_profile"></i>
+        <i class="fa-solid fa-arrow-left" id="close_profile"></i>
 
         <h1>
             <div id="profile_letter"></div>
@@ -94,31 +107,25 @@
 
 
     </div>
-<div id="wishlist" >
-    <div><i class="fa-solid fa-xmark" id="close_wish"></i></div>
+<div id="wishlist" ><div class="YourWishlist">Your Wishlist</div>
+    <div><i class="fa-solid fa-arrow-right" id="close_wish"></i></div>
 
     <div id="wishlist-container">
     </div></div>
-    <div class="aside&_main">
-        <aside>
-            <div class="aside_bar">
-                <marquee class="user-details" style="display: none;">
-                    <h1></h1>
-
-
-
-
-                </marquee>
-                <div class="Category">Category</div>
-                <div class="cat">For you </div>
-                <div class="cat">Comedy <img class="emoji" src="/img/img3.png"></div>
-                <div class="cat">Horror <img class="emoji" src="/img/img2.png"></div>
-                <div class="cat">Sci-Fi <img class="emoji" src="/img/img5.png"></div>
-                <div class="cat">Fantasy <img class="emoji" src="/img/img7.png"></div>
-                <div class="cat">Anime <img class="emoji" src="/img/img10.png"></div>
-                <div class="cat">Action <img class="emoji" src="/img/img6.png"></div>
-            </div>
-        </aside>
+    <!-- <div class="aside&_main"> -->
+        
+            <!-- <div class="aside_bar"> -->
+                <div class="cat-container" id="catContainer">
+                  <div class="cat">For you</div>
+                  <div class="cat">Comedy <img class="emoji" src="/img/img3.png" alt="Comedy"></div>
+                  <div class="cat">Horror <img class="emoji" src="/img/img2.png" alt="Horror"></div>
+                  <div class="cat">Sci-Fi <img class="emoji" src="/img/img5.png" alt="Sci-Fi"></div>
+                  <div class="cat">Fantasy <img class="emoji" src="/img/img7.png" alt="Fantasy"></div>
+                  <div class="cat">Anime <img class="emoji" src="/img/img10.png" alt="Anime"></div>
+                  <div class="cat">Action <img class="emoji" src="/img/img6.png" alt="Action"></div>
+                </div>
+            <!-- </div> -->
+        
         <main>
             <!-- Carousel Container -->
 
@@ -132,17 +139,35 @@
                 <div></div>
                 <div></div>
             </div> -->
-            <div class="carousel-container">
+            <!-- <div class="carousel-container">
                 <div class="carousel">
-                    <!-- Images will be inserted here dynamically -->
                     <div class="carousel-images" id="carousel_images">
-                        <!-- Example images for testing, these will be dynamically inserted by JS -->
-
-                    </div>
+                         Dynamically inserted images will go here -->
+                    <!-- </div>
                 </div>
-                <img src="img/Animation - 1730883595895.gif" class="prev arrow" onclick="moveSlide(-1)">
-                <img src="img/Animation - 1730883595895.gif" class="next arrow" onclick="moveSlide(1)">
+                <img src="img/Animation - 1730883595895.gif" class="prev arrow" alt="Previous Slide">
+                <img src="img/Animation - 1730883595895.gif" class="next arrow" alt="Next Slide">
             </div>
+              -->
+              <div class="carousel-container">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="carousel_images">
+                        <!-- Dynamically inserted images will go here -->
+                    </div>
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            
+
+
             <div id="rows">
                 <h1>Recommended for you</h1>
                 <div id="row">
@@ -150,11 +175,11 @@
                 </div>
 
             </div>
-
-
-
-
         </main>
+
+
+
+        
         <div id="player"> <i class="fa-solid fa-xmark" id="close_player"></i>
             <div id="selected_movie"></div>
             <div id="player_info_page" style="display: flex;"></div>
@@ -219,13 +244,13 @@
             </form>
         </div>
 
-        <div id="signout_q">
+        <!-- <div id="signout_q">
             <h1>Do You Want Entertainment!</h>
                 <div>
                     <button id="no">No</button>
                     <button id="yes">Yes</button>
                 </div>
-        </div>
+        </div> -->
         <script src="/login/login.js" defer type="module"></script>
         <script type="module" src="admin.js"></script>
 

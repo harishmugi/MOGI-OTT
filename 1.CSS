@@ -4,13 +4,13 @@
     box-sizing: border-box;
     font-family: Tahoma, Verdana, sans-serif;
     scrollbar-width: none;
-   
+   /* background-color: #000; */
 }
 
 body {
     /* cursor: url(sward.png),auto; */
     height: 100vh;
-    background: black;
+    background-color: black;
     overflow-x: hidden;
 }
 
@@ -37,22 +37,26 @@ header {
 }
 
 #search-input {
-    color: #03e9f4;
+ 
+    /* color: #03e9f4; */
     outline: none;
     border: none;
-    width: 200%;
-    /* background: linear-gradient(to right #03e9f4, transparent ); */
-    background-color: black;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
     height: 150%;
+    margin-top: 20%;
+    position: sticky;
     border-radius: 30px;
     color: #03e9f4;
     padding-left: 10px;
+    /* left: 5//00px; */
+    margin-left: 50%;
 }
 
 .fa-magnifying-glass {
     position: relative;
-    top: -17px;
-    left: -20px;
+    bottom: 25px;
+    left: 100px;
     color: #50d9eb;
 }
 
@@ -75,28 +79,50 @@ header {
     right: 10px;
     box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
 
-}#signout_butt {display:block;
-    padding: 5px 10px;
-    color:#50d9eb;
-    background: #171717;
-    border-radius: 50%;
+}#signout_butt {    display: block;
+    padding: 8px;
+    color: #50d9eb;
+    bottom: 10%;
+    background: black;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
     font-weight: bolder;
     position: absolute;
-    right: 10px;
+    right: 10%;
+    border: 2px solid #50d9eb;
     box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
 
 }
 
 .user-details {
-    position: relative;
+    /* position: relative; */
     top: 50px;
-    color: white;
-    width: 210px;
-    font-size: 20px;
+    /* color: rgb(255, 255, 255); */
+    width:500px;border-radius: 40px;
+    font-size: 10px;
     margin-left: 10px;
-}
+    /* background: linear-gradient(45deg, #fd6bff, #000000, #00d2ff); */
+
+ h1{
+    /* box-shadow:  inset 30px 10px 10px rgb(104, 104, 104); */
+    /* font-size: 50px; */
+    /* font-weight: bold; */
+    background: linear-gradient(45deg, #000000, #fb7cff, #00d2ff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;  /* For Safari */
+    background-clip: text;
+    color: transparent; /* Make the text transparent to reveal the gradient */
+     animation: gradientAnimation 5s ease infinite;  
+ } 
+    } 
+ /* Keyframes for gradient animation */
+ @keyframes gradientAnimation { 
+     0% { 
+       background-position: 0% ; 
+     } 
+     100% { 
+       background-position: 100% ;    }} 
 
 .fa-user {
     color: white;
@@ -128,7 +154,7 @@ header {
 
 }
 
-#no {
+/* #no {
     box-shadow: 0 0 5px #e35151, 0 0 15px #e35151, 0 0 25px #e35151 0 0 100px #e35151;
 
     background-color: rgb(136, 0, 0);
@@ -148,25 +174,27 @@ header {
     border: none;
     border-radius: 10px;
     font-size: 20px;
+} */
+html{
+    background-color: #000;
 }
-
-main {
+main {background-color: #000;
     position: absolute;
     top: 50px;
-    left: 230px
+    left: 0px
 }
 
-.aside_main {
+/* .aside_main {
     display: flex;
     flex-shrink: 1;
 
-}
-
+} */
+/* 
 aside {
     position: fixed;
     top: 40px;
     bottom: 0px;
-}
+} */
 
 #rows {
     /* justify-content: space-evenly; */
@@ -199,19 +227,6 @@ aside {
     /* Distribute items evenly with space between */
 }
 
-.row_box {
-    /*flex-basis: calc(33.333% - 20px); /* Default to 3 items per row (subtract gap space) */
-    display: flex;
-    flex-direction: column;
-    /* Stack content vertically inside each item */
-
-    background-color: #f0f0f0;
-    /* Optional background for each movie item */
-    border-radius: 8px;
-    /* Optional rounded corners */
-    overflow: hidden;
-}
-
 /* Hover effect */
 .row_box:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -234,13 +249,13 @@ aside {
     /* box-shadow:
         black 0px 20px 30px -10px,
         #454545 0px -30px 50px 1px inset; */
-    height: 300px;
+    /* height: 400px; */
     /* align-items: center; Center align items */
     justify-content: center;
-    width: 290px;
+    width: 300px;height: 400px;
     background-color: #00000060;
     backdrop-filter:blur(5px);
-    
+    border-radius: 10px;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -249,7 +264,7 @@ aside {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     h2 {
-        color: black;
+        color: black;font-size: 29px;
     }
 
     p {
@@ -268,67 +283,104 @@ aside {
 }
 
 .movies_img {
-    border-radius: 10px;
     margin-bottom: 20px;
     margin-top: 20px;
     /* width: 100%; */
-    height: 150px;
+    height: 300px;
     /* You can adjust the height */
     object-fit: fill;
     /* Ensures the image is cropped to fit the div */
-    box-shadow: #03e9f4 0px 1px 5px, #03e9f4 0px 6px 6px;}
+    transition: 1s;
+
+        border: 2px solid transparent; /* Make sure the border exists */
+        border-image-slice: 1; /* Use the full image (or gradient in this case) */
+      &:hover{      
+        border: 2px solid transparent; /* Make sure the border exists */
+
+        border-image: linear-gradient(to right, rgb(255, 0, 217), rgb(0, 217, 255));
+        border-image-slice: 1; /* Use the full image (or gradient in this case) */
+        transition: 1s;
+      }
+      
+    /* box-shadow: #03e9f4 0px 1px 5px, #03e9f4 0px 6px 6px; */
+}
 
 /* Carousel container */
-#big_poster {
+/* #big_poster {
     position: relative;
     /* width: 100%; */
-    overflow: hidden;
+    /* overflow: hidden; */
     /* Hide overflow for sliding effect */
-    margin-bottom: 20px;
-}
+    /* margin-bottom: 20px; */
+/* }  */
 
-.bigg {
+/* .bigg {
     width: 80vw;
-}
+} */
 
 .carousel-container {
-    position: relative;
-    width: 80vw;
+    /* position: absolute; */
+    /* width: 80vw; */
     /* Adjust based on design preference */
     margin-top: 30px;
-    margin-left: 5%;
+    /* margin-left: 5%; */
     background: linear-gradient(to right, #000, #54e3f6);
     ;
     overflow: hidden;
     /* Hide overflow for sliding effect */
-    border-radius: 10px;
+    /* border-radius: 10px; */
     text-align: center;
     /* margin: 0 auto; Center the carousel */
 }
 
 .carousel {
     display: flex;
-    width: 300%;
+    /* width: 300%; */    background-color: #000;
+
     height: 100%;
     transition: transform 0.5s ease-in-out;
     /* Smooth sliding effect */
 }
 
 .carousel-images {
-    display: flex;
-    width: 100%;
+    display: flex;    background-color: #000;
+
+    /* width: 100%; */
     height: 600px;
     transition: transform 0.5s ease-in-out;
 }
 
 #carousel_images img {
-    width: 100%;
+    width: 90vw;    
+    background-color: #000;
     /* Ensure images fill the carousel container */
     object-fit: fill;
     /* Adjust the object-fit to fill the container without stretching */
-    border-radius: 10px;
+    /* border-?: 10px; */
 }
 
+
+.carousel-container {
+    /* max-width: 800px; */
+    /* margin: 0 auto; */
+        background-color: #000;
+
+}
+
+.carousel-item img {    background-color: #000;
+
+    object-fit: cover;
+    height: 700px;  /* Or any height you prefer */
+}.carousel-inner{    background-color: #000;
+
+    display: flex;
+    border:2px solid #03e9f4 ;
+    width: 90%;margin: 0% 5%;
+}
+#carouselExampleAutoplaying{
+    width: 100vw;    background-color: #000;
+
+}
 .arrow {
     position: absolute;
     top: 40%;
@@ -340,7 +392,7 @@ aside {
     padding: 10px;
     font-size: 20px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 9;
     border-radius: 50%;
 }
 
@@ -362,16 +414,16 @@ aside {
     background: linear-gradient(to right, #000, rgb(100, 100, 100));
     /* background:url(metal_background_1305.jpg); */
     /* background: #000; */
-    position: relative;
+    position: absolute;
     box-shadow: 5px 5px 20px 5px black;
-    left: 0px;
-    right: 100px;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
+    /* left: 0px; */
+    /* right: 100px; */
+    /* width: fit-content; */
+    /* display: flex; */
+    /* flex-direction: column; */
     justify-content: space-evenly;
-    height: 100vh;
-    border: 1px solid black;
+    /* height: 100vh; */
+    border: 1px solid black;border-image: linear-gradient(to right, darkblue, lime)1;
 }
 .cat {
     font-family: Arial;
@@ -398,14 +450,14 @@ aside {
 
 
 .Category {
-    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+    /* -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
     text-shadow: 0 0 5px #f9d135, 0 0 15px aqua, 0 0 25px aqua 0 0 100px aqua;
     font-weight: 900;
     font-size: 30px;
     font-family: Arial;
     text-align: center;
     border-radius: 2px;
-    margin: 40px;
+    margin: 40px; */
 
 
 }
@@ -418,18 +470,19 @@ aside {
 }
 
 .login-signup {
-    z-index: 10;
-    /* display: block; */
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    background-color: black;
-    box-shadow: 0 15px 25px rgba(141, 237, 249, 0.607);
-    border-radius: 10px;
-    padding: 40px;
+        
+        z-index: 10;
+        /* display: block; */
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        background-color: black;
+        box-shadow: 0 15px 25px rgba(141, 237, 249, 0.607);
+        border-radius: 10px;
+        padding: 40px;
 }
 
 /* .blur{
@@ -578,7 +631,7 @@ h4 span {
 }
 #close_video_player{
     position: absolute;color: #50d9eb;top:50px;
-right:50px;z-index: 100;}
+right:50px;z-index: 11;}
 
 
 
@@ -599,12 +652,14 @@ right:50px;z-index: 100;}
 #player_info_page{
     
     display: flex;
+    /* Use flexbox for the container */
     flex-wrap: wrap;
-    gap: 20px;
-    position: relative;
-    height: 500px;
-    overflow-y: scroll;
-    justify-content: space-around;
+    /* Allow items to wrap to the next line */
+    gap: 50px;
+    /* Add space between grid items */
+    padding: 20px;
+    /* Optional: Add padding around the grid container */
+    justify-content: space-between;
 }
 #video_player{
     display: none;
@@ -637,7 +692,7 @@ right:50px;z-index: 100;}
 
 #close_player {
     display: none;
-    z-index: 200;
+    z-index: 12;
     /* width: 100px; */
     /* height: 100px; */
     font-size: 30px;
@@ -662,7 +717,7 @@ right:50px;z-index: 100;}
     right:20px;top:20px;
     color: #50d9eb;
 }#close_wish{
-    position: fixed;
+    position: absolute;font-size: 40px;
     right:20px;top:20px;
     color: #50d9eb;           
 }
@@ -670,16 +725,16 @@ right:50px;z-index: 100;}
 #wishlist{
     background-color: #000;
     display:none;gap: 30px;height: 100%;
-    position: absolute;z-index: 100;text-align: center ;top: 0;padding-top: 30px; 
-    bottom: 0;right: 0;left: 0;
-    
+    position: absolute;z-index: 13;text-align: center ;top: 0;padding-top: 30px; 
+    bottom: 0;right: 0;left: 0;overflow-y: scroll;
+    flex-wrap: wrap;gap: 30px;
 }
-#wishPage{
+/* #wishPage{
     background-color: #000;
     display:none;gap: 30px;height: 100%;
-    position: fixed;z-index: 90;text-align: center ;top: 0;padding-top: 30px; 
+    position: relative;z-index: 14;text-align: center ;top: 0;padding-top: 30px; 
     bottom: 0;right: 0;left: 0;
-}
+} */
 
 .lit {
     display: block;
@@ -689,7 +744,7 @@ right:50px;z-index: 100;}
     background-color: black;
     right: 100px;
     top: 9%;
-    z-index: 99;
+    z-index: 13;
     border-radius: 10px;
     text-align: center;
     h1{height: 100px;width: 100px;position: relative;left:35%;top:10%;
@@ -701,37 +756,50 @@ right:50px;z-index: 100;}
 #profile_email{
     color: #03e9f4;position: relative;top: 150px;
     
-}#profile_name{font-size: 40px;
-    color: #03e9f4;position: relative;top: 100px;
-    
+}#profile_name{right: 15%;
+    font-size: 40px;
+    color: #03e9f4;
+    position: absolute;
+    top: 200px;
 }#user_letter_div{    top: 5px;
     position: fixed;
     right: 10px;
 
     
 }
+
+#wishlist-container{
+    display: flex;flex-wrap: wrap;gap:50px;background-color: #2b2b2b;justify-content: space-evenly  ;
+
+}.YourWishlist{
+    color: #50d9eb;font-size: 50px;text-align: center;font-weight: bold;
+}
 /* Style for the user_letter element */
 #user_letter {
     border: 2px solid #fff;
     background-color: #50d9eb;
-    border-radius: 50%;
-    text-align: center;z-index: 200;
+    border-radius: 50%;display: block;
+    text-align: center;z-index: 20;
     padding:2px 8px;position: relative;right:10%;
     cursor: pointer; /* Add cursor pointer to indicate it's clickable */
 }
 
 /* Initially, profile is hidden */
-#profile {position: relative;
-    display: block;right:-80%
-}#wishlist-container{
-    /* background-color: #000;
-    display:none;gap: 30px;
-    position: absolute;z-index: 20;text-align: center ;top: 0;padding-top: 30px; 
-    bottom: 0;right: 0;left: 0; */
+#profile {position: relative;background-color: #1d1c1c;
+    display: block;right:-80%;transform: rotate3d(30deg);transition: 1s;}
+#wishlist-container{
+overflow-y: scroll;
     
 }#viewWish{
-    color: #50d9eb;cursor: pointer;
-}
+    color: #50d9eb;
+    cursor: pointer;
+    position: absolute;
+    border: 2px solid #50d9eb;
+    background-color: black;
+    padding: 5px;
+    bottom: 10%;
+    border-radius: 5px;
+    left: 10%;}
 .nowish{
     color: #50d9eb;font-size: 50px;
     text-align: center
@@ -741,7 +809,7 @@ right:50px;z-index: 100;}
 height: 300px;
 justify-content: center;
 width: 290px;
-background-color: #00000060;
+/* background-color: #00000060; */
 backdrop-filter:blur(5px);
 
 color: #ffffff;
@@ -788,8 +856,11 @@ bottom: 100px;right: 100px;
 font-size: 80;
 }
 #close_profile
-{color: #50d9eb;position: absolute;right: 50px;
-top: 100px}
+{color: #50d9eb;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+ }
 .Description{
 
 }#movie_poster_title{
@@ -801,7 +872,7 @@ top: 100px}
     }h4{
         color: #50d9eb;text-align: left;
     }
-    p{width: 200px;
+    p{width: 500px;
         color: #fff;
     }
 
@@ -811,3 +882,86 @@ border-left:solid #50d9eb
 ;
 margin-left: 100px;padding-left: 100px;
 }
+
+
+
+
+
+
+
+
+/* ctcat */
+
+
+
+
+.Category {
+  cursor: pointer;
+    /* font-size: 20px; */
+    /* font-weight: bold; */
+    /* color: #007BFF; */
+    padding: 10px;
+    /* border: 2px solid #007BFF; */ 
+    display: inline-block;
+    border-radius: 5px;
+    /* background-color: #f0f8ff;  */
+    color: white;
+
+  }
+
+  /* Style for the category list container */
+  .cat-container {
+     display: none; 
+    /* margin-top: 10px; 
+    padding-left: 0;
+    list-style: none;
+     max-height: 0; */left:40%;
+    ;position: absolute; top: 80px;z-index: 30;
+    /* overflow: hidden; */
+    transition: max-height 0.5s ease, opacity 0.5s ease; 
+    
+
+animation: rotateMenu 400ms ease-in-out forwards;
+transform-origin: top center;
+
+
+@keyframes rotateMenu {
+0% {
+    transform: rotateX(-90deg)
+}
+70% {
+    transform: rotateX(20deg) 
+}
+100% {
+    transform: rotateX(0deg) 
+}
+
+}
+  }
+
+  /* Category item styling */
+  .cat {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 5px;color: #000;
+    display: flex;
+    align-items: center;
+  }
+
+ 
+
+  .emoji {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
+
+  /* To make the category list appear */
+  .cat-container.show {
+    display: block;
+    opacity: 1;z-index: 30;
+    max-height: 500px; /* This value should be higher than the content height */
+  }

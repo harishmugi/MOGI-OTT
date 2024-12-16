@@ -89,7 +89,6 @@ document.getElementById("profile_name").textContent=doc.data().userName;
     });
 };
 
-
 window.onload = () => {           const signout=document.getElementById( "signout_butt")
 
     try {
@@ -97,6 +96,8 @@ window.onload = () => {           const signout=document.getElementById( "signou
         if (currentUser === null) {
             throw new Error('No Current User');
         } else {
+            // document.getElementById("user_letter").style.display="block"   
+
             userDetails(currentUser);
         }
     } catch (err) {
@@ -106,6 +107,11 @@ window.onload = () => {           const signout=document.getElementById( "signou
         // signout.textContent = "Signup"
      }
 };
+//  const currentUserletter = localStorage.getItem('currently_loggedIn');
+
+// if(currentUserletter!==null){
+    
+//     }
 
 
 // document.getElementById( "signout_butt").addEventListener("click",()=>{
@@ -114,7 +120,8 @@ window.onload = () => {           const signout=document.getElementById( "signou
 // })
 const close_login=document.getElementById("close_login").addEventListener("click",  ()=>{  loginForm.style.display = 'none'}
 )
-   
+document.getElementById("close_signup").addEventListener("click",  ()=>{  signupForm.style.display = 'none'}
+)
 
 
 
@@ -223,6 +230,7 @@ function handleError(err) {
         // Reset UI elements after showing error
         signup_submit.style.display = 'block';
         document.querySelectorAll('.loader')[1].style.display = 'none';
+        
     });
 }
 
@@ -284,6 +292,8 @@ login_submit.addEventListener('click', event => {
             // Restore the UI state
             login_submit.style.display = 'block';
             document.querySelectorAll('.loader')[0].style.display = 'none';
+    // document.getElementById("user_letter").style.display="block"   
+
         });
     });})
 
@@ -372,3 +382,16 @@ document.getElementById("signup_butt").addEventListener("click",()=>{
 
     
     
+
+
+
+
+
+
+    //cat
+    document.getElementById('categoryToggle').addEventListener('click', function() {
+        var catContainer = document.getElementById('catContainer');
+        
+        // Toggle the 'show' class to handle the dropdown with animation
+        catContainer.classList.toggle('show');
+      });
