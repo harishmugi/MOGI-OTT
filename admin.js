@@ -110,18 +110,16 @@ async function retrieveMovies(genre = '') {
             const movie = doc.data();
             const movieElement = document.createElement('div');
             movieElement.classList.add("row_box");
-
             movieElement.innerHTML = `
-                <img src="${movie.poster}" class="movies_img" alt="${movie.title} Poster" >
+                <img src="${movie.poster}" class="movies_img"style="height:200px" alt="${movie.title} Poster" >
                 <div class="tittle_and_details">
                     <h2>${movie.title}</h2>
                     <p><strong>Genre:</strong> ${movie.genre}</p>
-                    <p><strong>Release Date:</strong> ${movie.release_date}</p>
                     <p><strong>Rating:</strong> ${movie.rating}</p>
                 </div>`;
 
 
-            // Inside the event listener for each movieElement click
+           // Inside the event listener for each movieElement click
             movieElement.addEventListener('click', () => {
                 const currentUser = localStorage.getItem('currently_loggedIn');
 
@@ -133,7 +131,7 @@ async function retrieveMovies(genre = '') {
                     // Show player info page if logged in
                     const close_player = document.getElementById("close_player");
                     const player_info_page = document.getElementById("player");
-                    recommended()
+                    recommended(movie)
                     close_player.style.display = "block";
                     player_info_page.style.display = "block";
 
@@ -168,12 +166,18 @@ close_player.addEventListener("click", () => {
 
 })
 // document.getElementById("play_butt").addEventListener("click",
-function recommended() {
+function recommended(clickedMovie) {
 
-    retrieveMovies()
+    retrieveMovies(clickedMovie)
+
+
+
+console.log(clickedMovie)
+
+
 
     // Function to retrieve and display movies
-    async function retrieveMovies() {
+    async function retrieveMovies(clickedMovie ) {
         try {
             // Reference to the movies collection
             let collectionRef = collection(db, "movies");
@@ -208,6 +212,114 @@ function recommended() {
                 // Check if 'details' exists and is an array with at least one element
                 const movieDetails = movie.details && Array.isArray(movie.details) && movie.details.length > 0 ? movie.details[0] : null;
 
+
+
+
+  const movie_dis = document.createElement('div');
+                    movie_dis.classList.add("movie_dis");
+
+                    // Create the new movie details content, checking if movieDetails is valid
+                    movie_dis.innerHTML = `
+                    <div id="movie_details">
+                        <div id="movie_poster_title"  style="z-index:4;">
+                            <div style="z-index:4;">  
+                                <img src="${clickedMovie.poster}" alt="${clickedMovie.title} Poster" style="width: 500px; height:350px;z-index:4;" />
+                                <h2>${clickedMovie.title}</h2>
+                               <div style="display:flex";> <button id="playNow"> PLAY</button>  <p id="wish" title=" Add to Wishlist +"><i class="fa-regular fa-heart"></i></p>
+</div>
+                                <div class="Description">
+                                    <br>
+                                    <h4>Description: </h4>
+                                    <p>${clickedMovie.description || "No description available."}</p>
+                                </div>
+                            </div>
+                            <div class="movie_cast_title">
+                                <h4><strong>Release Date:</strong><p> ${clickedMovie.release_date}</p></h4>
+                                <h4>Cast:</h4>
+                                <p>${movieDetails ? movieDetails.cast.join(", ") : "N/A"}</p>
+                                <h4>Director:</h4>
+                                <p>${movieDetails ? movieDetails.director : "N/A"}</p>
+                                <h4>Music Director:</h4>
+                                <p>${movieDetails ? movieDetails.music_director : "N/A"}</p>
+                                <h4>Producer:</h4>
+                                <p>${movieDetails ? movieDetails.producer : "N/A"}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                `;
+
+                const selectedMovieContainer = document.getElementById('selected_movie');
+
+                selectedMovieContainer.innerHTML = "";
+
+
+                    selectedMovieContainer.style.backgroundImage = `url(${clickedMovie.poster})`;
+
+                    // Set background properties
+                    selectedMovieContainer.style.backgroundRepeat = "no-repeat"; // Ensure the image doesn't repeat
+                    selectedMovieContainer.style.backgroundSize = "cover"; // Optional: Make the background cover the entire container
+                    selectedMovieContainer.style.backgroundPosition = "center"; selectedMovieContainer.style.backgroundBlendMode = "darken"; // Correct blend mode
+                    selectedMovieContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // 50% opacity black
+                    selectedMovieContainer.style.position = "relative";  // Allow positioning of pseudo-elements
+
+
+
+                    const blurOverlay = document.createElement('div');
+                    blurOverlay.style.position = "absolute";
+                    blurOverlay.style.top = "0";
+                    blurOverlay.style.left = "0";
+                    blurOverlay.style.right = "0";
+                    blurOverlay.style.bottom = "0";
+                    blurOverlay.style.background = "radial-gradient(circle,transparent, rgba(0, 0, 0, 0), black)"; // Creates a fade effect around the edges
+                    blurOverlay.style.pointerEvents = "none"; // Ensure the overlay doesn't interfere with any mouse events or clicks
+
+                    // Append the overlay to the selected movie container
+                    selectedMovieContainer.appendChild(blurOverlay);
+
+                    // Set z-index to ensure the content is above the blurred background and overlay
+                    blurOverlay.style.zIndex = "1"; // Keeps the overlay under content
+
+
+                    // Append the new movie details to the selected_movie container
+                    selectedMovieContainer.appendChild(movie_dis);
+
+                    // Optionally, show the close button and player info page
+                    const closePlayer = document.getElementById('close_player');
+                    const playerInfoPage = document.getElementById('player_info_page');
+                    if (closePlayer && playerInfoPage) {
+                        closePlayer.style.display = "block"; // Show the close button
+                        playerInfoPage.style.display = "flex"; // Show the player info page
+                    }
+                    document.getElementById("playNow").addEventListener("click", () => {
+                        playVideo(clickedMovie.stream_url, clickedMovie.title, clickedMovie.description, clickedMovie.poster, clickedMovie.release_date, clickedMovie.details);
+                    })
+
+
+       document.getElementById("wish").addEventListener("click",addToWish(clickedMovie.stream_url, clickedMovie.title, clickedMovie.description, clickedMovie.poster, clickedMovie.release_date, clickedMovie.details
+                )) 
+                //  document.getElementById("wishout").addEventListener("click",addToWish(movie.stream_url, movie.title, movie.description, movie.poster, movie.release_date, movie.details
+                // ))
+                    // Optionally, call the playVideo function to start the video if needed
+                    // playVideo(movie.stream_url, movie.title, movie.description, movie.poster, movie.release_date, movie.details);
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
                 // Add click event listener to the movie element
                 movieElement_playing.addEventListener('click', () => {
                     // Select the selected movie container
@@ -476,47 +588,116 @@ function setupHLS(videoElement, stream_url) {
             videoElement.play();
         });
     }
+}// Initialize the carousel with the fetched images
+function initializeCarousel(images) {
+    const carouselInner = document.querySelector('#carousel_images');
+    
+    // Check if images exist before proceeding
+    if (!images || images.length === 0) {
+        console.error('No images to display in the carousel.');
+        return;
+    }
+
+    // Clear existing images in the carousel container
+    carouselInner.innerHTML = ''; 
+
+    // Create carousel items and append images
+    images.forEach((imageSrc, index) => {
+        const div = document.createElement('div');
+        div.classList.add('carousel-item');
+        
+        // Set the first image as active
+        if (index === 0) {
+            div.classList.add('active');
+        }
+
+        const img = document.createElement('img');
+        img.src = imageSrc.src;  // Use the image source from the array of images
+        img.alt = imageSrc.alt;
+        img.title = imageSrc.title;
+        img.classList.add('d-block', 'w-100');  // Bootstrap classes to make the image fill the width
+        div.appendChild(img);
+        
+        // Append the image item to the carousel inner container
+        carouselInner.appendChild(div);
+    });
+
+    // Initialize the Bootstrap carousel with automatic sliding
+    const carousel = new bootstrap.Carousel(document.querySelector('#carouselExampleAutoplaying'), {
+        interval: 3000,  // Slide every 3 seconds
+        ride: 'carousel',  // Start the carousel automatically
+    });
 }
+
+// Fetch movie posters from Firebase or another source
 async function loadMoviePosters(genre = '') {
     const carouselImages = document.querySelector('#carousel_images');
+    
+    // Ensure carousel container is available
     if (!carouselImages) {
         console.error('Carousel container (#carousel_images) not found in the DOM');
         return;
     }
 
     try {
-        const moviePostersSnapshot = await getDocs(collection(db, 'movies'));
+        const moviePostersSnapshot = await getDocs(collection(db, 'movies')); // Assuming db is already initialized
 
-        carouselImages.innerHTML = ""; // Clear existing images
-
-        let counter = 0;  // Counter to keep track of the number of images
-
+        const images = [];  // Store images to pass to initializeCarousel
+        let counter = 0;  // Counter to track the number of images added
+        
         moviePostersSnapshot.forEach(doc => {
             const poster = doc.data();
-
+            
             // Filter posters by genre
             if (genre === '' || poster.genre === genre) {
                 // Only append 3 images
                 if (counter < 3) {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = poster.poster;
-                    imgElement.alt = poster.title;
-                    imgElement.title = poster.title;
-                    carouselImages.appendChild(imgElement);
-
+                    const imgData = {
+                        src: poster.poster,  // Image URL
+                        alt: poster.title,   // Alt text for image
+                        title: poster.title  // Title text for the image
+                    };
+                    images.push(imgData);
                     counter++;  // Increment the counter
                 }
             }
         });
 
-
         // Initialize carousel after images are added
-        initializeCarousel();
+        initializeCarousel(images);
     } catch (error) {
         console.error("Error loading movie posters:", error);
     }
 }
 
+// Call the loadMoviePosters function on page load, passing any genre if required
+window.addEventListener('load', () => loadMoviePosters(''));  // Empty genre means all posters
+
+
+
+
+
+
+
+
+// // Initialize the carousel
+// function initializeCarousel() {
+//     const slides = document.querySelectorAll('#carousel_images img');
+//     const slideWidth = slides[0].clientWidth;
+
+//     let currentIndex = 0;
+
+//     function moveSlide(direction) {
+//         const totalSlides = slides.length;
+//         currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+//         const carousel = document.querySelector('#carousel_images');
+//         carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+//     }
+
+//     setInterval(() => moveSlide(1), 3000);  // Automatic sliding every 5 seconds
+
+//     document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
+//     document.querySelector('.next').addEventListener('click', () => moveSlide(1));
 
 
 
@@ -527,25 +708,79 @@ async function loadMoviePosters(genre = '') {
 
 
 
-// Initialize the carousel
-function initializeCarousel() {
-    const slides = document.querySelectorAll('#carousel_images img');
-    const slideWidth = slides[0].clientWidth;
 
-    let currentIndex = 0;
 
-    function moveSlide(direction) {
-        const totalSlides = slides.length;
-        currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
-        const carousel = document.querySelector('#carousel_images');
-        carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    }
 
-    setInterval(() => moveSlide(1), 3000);  // Automatic sliding every 5 seconds
 
-    document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
-    document.querySelector('.next').addEventListener('click', () => moveSlide(1));
-}
+
+
+
+// function initializeCarousel() {
+//     const carouselImages = document.querySelector('#carousel_images');
+//     const images = carouselImages.querySelectorAll('img');
+    
+//     if (images.length === 0) return; // Exit if no images are available
+
+//     const slideWidth = images[0].clientWidth;
+//     let currentIndex = 0;
+
+//     // Function to move the slide
+//     function moveSlide(direction) {
+//         const totalSlides = images.length;
+//         currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+//         carouselImages.style.transition = 'transform 0.5s ease'; // Smooth transition
+//         carouselImages.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+//     }
+
+//     // Automatic sliding every 3 seconds
+//     setInterval(() => moveSlide(1), 3000);  // Automatic sliding every 3 seconds
+
+//     // Event listeners for prev/next buttons
+//     document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
+//     document.querySelector('.next').addEventListener('click', () => moveSlide(1));
+// }
+
+// // Call the function to initialize the carousel
+// window.addEventListener('load', initializeCarousel);
+
+
+
+// function initializeCarousel(images) {
+//     // const images = ['img1.jpg', 'img2.jpg', 'img3.jpg']; // List of images you want to use in the carousel
+//     const carouselInner = document.querySelector('#carousel_images');
+// console.log(images)
+//     images.forEach((imageSrc, index) => {
+//         const div = document.createElement('div');
+//         div.classList.add('carousel-item');
+        
+//         if (index === 0) {
+//             div.classList.add('active'); // Make the first image active
+//         }
+
+//         const img = document.createElement('img');
+//         img.src = imageSrc;
+//         img.classList.add('d-block', 'w-100');  // Bootstrap classes to make the image fill the width
+//         div.appendChild(img);
+        
+//         carouselInner.appendChild(div);
+//     });
+
+//     // Initialize the carousel with Bootstrap JS (this is optional, Bootstrap handles it via data attributes)
+//     const carousel = new bootstrap.Carousel(document.querySelector('#carouselExampleAutoplaying'), {
+//         interval: 3000,  // Slide every 3 seconds
+//         ride: 'carousel',  // Start the carousel automatically
+//     });
+// }
+
+// // Call the function after the page is loaded to initialize the carousel
+// window.addEventListener('load', initializeCarousel);
+
+
+
+
+
+
+// }
 // // Initialize the carousel
 // function initializeCarousel() {
 //     const slides = document.querySelectorAll('#carousel_images img');
@@ -630,6 +865,8 @@ document.getElementById("wish"
 
 document.getElementById("viewWish").addEventListener("click",()=>{
     document.getElementById("wishlist").style.display="flex"
+
+    document.getElementById("wishlist").style.position="fixed"
     document.getElementById("wishPage").style.display="flex"
 
     getWishlist()
@@ -809,6 +1046,35 @@ async function searchMovies(queryText) {
                     <p><strong>Rating:</strong> ${movie.rating}</p>
                 </div>`;
 
+                
+
+           // Inside the event listener for each movieElement click
+            movieElement.addEventListener('click', () => {
+                const currentUser = localStorage.getItem('currently_loggedIn');
+
+                if (currentUser == null) {
+                    // Show login form if not logged in
+                    const loginForm = document.querySelectorAll('.login-signup')[0];
+                    loginForm.style.display = 'block';
+                } else {
+                    // Show player info page if logged in
+                    const close_player = document.getElementById("close_player");
+                    const player_info_page = document.getElementById("player");
+                    recommended()
+                    close_player.style.display = "block";
+                    player_info_page.style.display = "block";
+
+                    // Play the movie
+                    const movieStreamUrl = movie.stream_url;  // Assuming each movie has a stream_url
+                    const movieTitle = movie.title;
+                    const movieDescription = movie.description;
+                    const moviePoster = movie.poster;
+                    const movieReleaseDate = movie.release_date;
+
+                    // Call the playVideo function
+                    // playVideo(movieStreamUrl, movieTitle, movieDescription, moviePoster, movieReleaseDate, movie.details);
+                }
+            });
             //             // Add event listener to play video when clicked
             //             movieElement.addEventListener('click', () => {
             //                 const currentUser = localStorage.getItem('currently_loggedIn');
