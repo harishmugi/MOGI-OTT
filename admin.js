@@ -89,6 +89,14 @@ function fetchComments(movieId) {
                 commentListElement.appendChild(commentElement);
             }
         } else {
+            const commentListElement = document.getElementById("comments_list");
+            commentListElement.textContent = "No comments available.";
+            // Reset previous content
+
+            // const commentElement = document.createElement("p");
+            //     commentElement.textContent = "No comments available.";
+            //     ;
+            //     commentListElement.appendChild(commentElement);
             console.log("No comments available.");
         }
     });
@@ -1074,7 +1082,7 @@ checkMovieInWishlist("Movie Title"); // Replace with actual movie title
 
 
 document.getElementById("viewWish").addEventListener("click",()=>{
-    document.getElementById("wishlist").style.display="flex"
+    document.getElementById("wishlist").style.display="block"
 
     document.getElementById("wishlist").style.position="fixed"
     document.getElementById("wishPage").style.display="flex"
