@@ -59,7 +59,11 @@ function getTimeBasedGreeting() {
 
 
             const h1 = details.children[0];  // Access the first child of the 'details' element (likely an <h1> tag)
-            h1.textContent = ` ${getTimeBasedGreeting()} ${doc.data().userName}`;  // Set the h1 text to display the user's name
+            h1.textContent = ` ${getTimeBasedGreeting()} ${doc.data().userName}`; 
+            document.getElementById( "user_letter_div").style.display="block"
+            document.getElementById( "profile").style.display="block"
+
+            // Set the h1 text to display the user's name
             let name = doc.data().userName;  // Get the user's name from the doc object
             let fletter= document.querySelector("#profile_letter")
             fletter.textContent=name[0];
@@ -94,6 +98,8 @@ window.onload = () => {           const signout=document.getElementById( "signou
     try {
         const currentUser = localStorage.getItem('currently_loggedIn');
         if (currentUser === null) {
+            document.getElementById( "user_letter_div").style.display="none"
+
             throw new Error('No Current User');
         } else {
             // document.getElementById("user_letter").style.display="block"   
@@ -135,7 +141,8 @@ nav_to_login.addEventListener('click', () => {
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
     document.querySelector('#signup').reset();
-});signup_submit.addEventListener('click', event => {
+});
+signup_submit.addEventListener('click', event => {
     event.preventDefault();
     
     // Hide the submit button and show loader
@@ -173,37 +180,33 @@ nav_to_login.addEventListener('click', () => {
 
     // Proceed with Firebase user creation
     createUserWithEmailAndPassword(auth, email, password)
-        signInWithEmailAndPassword(auth, email, password)
-   
-    
-    .then(cred => {
-            swal({
-                title: 'Account Created And Logged In Successfully',
-                icon: 'success'
+        .then(cred => {
+            // Create user in Firestore after successful account creation
+            setDoc(doc(db, 'users', cred.user.uid), {
+                userName: userName,
+                email: email
             }).then(() => {
-                // Store user info in Firestore
-                setDoc(doc(db, 'users', cred.user.uid), {
-                    userName: userName,
-                    email: email
+                swal({
+                    title: 'Account Created Successfully',
+                    icon: 'success'
                 }).then(() => {
                     // Reset form and hide loader after successful signup
                     signup_submit.style.display = 'block';
                     document.querySelectorAll('.loader')[1].style.display = 'none';
                     document.querySelector('#signup').reset();
                     signupForm.style.display = 'none';
-   
 
-                    // loginForm.style.display = 'block';  // If you want to show login form
-                }).catch(err => {
-                    handleError(err);
+                    // You can optionally log the user in here automatically if needed
+                    userDetails(cred.user.uid); // Show user details after signup
                 });
+            }).catch(err => {
+                handleError(err);
             });
         })
         .catch(err => {
             handleError(err);
         });
 });
-
 
 // Function to handle errors and show user-friendly messages
 function handleError(err) {
@@ -230,9 +233,9 @@ function handleError(err) {
         // Reset UI elements after showing error
         signup_submit.style.display = 'block';
         document.querySelectorAll('.loader')[1].style.display = 'none';
-        
     });
 }
+
 
 
 
@@ -348,10 +351,11 @@ function signout_butt_func(){
             loginForm.style.display = 'block';
             const signout=document.getElementById( "signout_butt")
             document.getElementById( "signup_butt").style.display="block"
+            document.getElementById( "user_letter").style.display="none"
 
             signout.style.display="none"
             document.getElementById( "profile").style.display="none"
-
+            document.getElementById( "user_letter_div").style.display="none"
         }).catch(error => {
             console.error('Error occurred while signing out:', error);
         });
