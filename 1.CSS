@@ -199,11 +199,11 @@ aside {
 #rows {
     /* justify-content: space-evenly; */
     overflow-x: hidden;
-    left: 50px;
-
+    left: 0.5%;
+   
     gap: 100px;
     position: absolute;
-    top: 50%;
+    top:  21%;
     padding: 0px 50px 50px 50px;
     /* box-shadow:  black  0px 20px 30px -10px ; */
 
@@ -265,6 +265,7 @@ aside {
 
     h2 {
         color: black;font-size: 29px;
+        color: #54e3f6cb ;
     }
 
     p {
@@ -275,7 +276,7 @@ aside {
 }
 
 .tittle_and_details {
-    background-color: #54e3f6cb;
+    /* background-color: #54e3f6cb; */
     padding: 10px;    backdrop-filter:blur(5px);
 
     border-radius: 10px;
@@ -286,7 +287,7 @@ aside {
     margin-bottom: 20px;
     margin-top: 20px;
     /* width: 100%; */
-    height: 300px;
+    height: 200px;
     /* You can adjust the height */
     object-fit: fill;
     /* Ensures the image is cropped to fit the div */
@@ -296,7 +297,7 @@ aside {
         border-image-slice: 1; /* Use the full image (or gradient in this case) */
       &:hover{      
         border: 2px solid transparent; /* Make sure the border exists */
-
+        scale: 1.1;
         border-image: linear-gradient(to right, rgb(255, 0, 217), rgb(0, 217, 255));
         border-image-slice: 1; /* Use the full image (or gradient in this case) */
         transition: 1s;
@@ -337,7 +338,7 @@ aside {
     display: flex;
     /* width: 300%; */    background-color: #000;
 
-    height: 100%;
+    height: 50%;
     transition: transform 0.5s ease-in-out;
     /* Smooth sliding effect */
 }
@@ -346,7 +347,7 @@ aside {
     display: flex;    background-color: #000;
 
     /* width: 100%; */
-    height: 600px;
+    height: 300px;   
     transition: transform 0.5s ease-in-out;
 }
 
@@ -358,28 +359,38 @@ aside {
     /* Adjust the object-fit to fill the container without stretching */
     /* border-?: 10px; */
 }
+.carousel-control-next {
+    right: 0;
+    height: 500px;
+}.carousel-control-prev {
+    right: 0;
+    height: 500px;
+}
+
 
 
 .carousel-container {
     /* max-width: 800px; */
     /* margin: 0 auto; */
         background-color: #000;
+        height: 50%; 
 
 }
 
 .carousel-item img {    background-color: #000;
 
     object-fit: cover;
-    height: 700px;  /* Or any height you prefer */
+     
 }.carousel-inner{    background-color: #000;
+    height: 50%; 
 
     display: flex;
-    border:2px solid #03e9f4 ;
-    width: 90%;margin: 0% 5%;
+    border:2px solid #242424 ;
+    width: 90%;margin: 0% 5%;border-radius: 10px;
 }
 #carouselExampleAutoplaying{
     width: 100vw;    background-color: #000;
-
+height: 1000px;
 }
 .arrow {
     position: absolute;
@@ -738,7 +749,7 @@ right:50px;z-index: 11;}
 
 .lit {
     display: block;
-    position: absolute;
+    position: fixed;
     width: 300px;
     height: 600px;
     background-color: black;
@@ -756,11 +767,11 @@ right:50px;z-index: 11;}
 #profile_email{
     color: #03e9f4;position: relative;top: 150px;
     
-}#profile_name{right: 15%;
+}#profile_name{
     font-size: 40px;
     color: #03e9f4;
-    position: absolute;
-    top: 200px;
+    position: relative;
+    top:100px;
 }#user_letter_div{    top: 5px;
     position: fixed;
     right: 10px;
@@ -779,14 +790,15 @@ right:50px;z-index: 11;}
     border: 2px solid #fff;
     background-color: #50d9eb;
     border-radius: 50%;display: block;
-    text-align: center;z-index: 20;
-    padding:2px 8px;position: relative;right:10%;
+    text-align: center;z-index: 20;    font-size: 30px;
+
+    padding:2px 8px;position: relative;right:12%;
     cursor: pointer; /* Add cursor pointer to indicate it's clickable */
 }
 
 /* Initially, profile is hidden */
-#profile {position: relative;background-color: #1d1c1c;
-    display: block;right:-80%;transform: rotate3d(30deg);transition: 1s;}
+.profile {background-color: #1d1c1c;
+    display: none;right: 0%;transform: rotate3d(30deg);transition: 1s;}
 #wishlist-container{
 overflow-y: scroll;
     
@@ -864,7 +876,7 @@ font-size: 80;
 .Description{
 
 }#movie_poster_title{
-   
+   margin-bottom: 50px;
     display: flex;
     
     h2{
@@ -882,11 +894,41 @@ border-left:solid #50d9eb
 ;
 margin-left: 100px;padding-left: 100px;
 }
+#comment_section{
+    z-index: 50;
+    position: absolute;
+    right: 31%;
+    top: 70%;
+    color: #50d9eb;}
 
-
-
-
-
+    .comments_list {
+        right: -250%;
+        position: absolute;
+        top: -360%;
+        background-color: rgb(153, 153, 153);
+        z-index: 20;
+        overflow-x: scroll;
+        color: #000;
+        margin-bottom: 30px;
+        padding: 10px;
+        border: 2px solid #50d9eb;
+        border-radius: 5px;
+        display:none
+        ; /* Hide by default */
+        transition: all 0.3s ease; /* Smooth transition */
+    }
+    
+    .display_comments {
+        display: block; /* Display the comments when the class is added */
+        width: 150%; /* Full width when displayed */
+        height: 500px; /* Full height when displayed */
+        right: -200%;
+        top: -360%;
+    }
+    
+#comment_input{border:#50d9eb 2px solid;padding: 5px;
+    height: 30px;border-radius: 5px;
+}
 
 
 

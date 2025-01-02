@@ -36,12 +36,25 @@
 
 
 
-    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script  type="module"  src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script  type="module"  src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+       <script   type="module"  src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use -->
+
+
+
+
+
+
+
+
+
+
+
+    
     <!-- https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+    <script  type="module"   src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- ANIMATION -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -75,7 +88,7 @@
                 </marquee>
             </div>
             <div class="sign_up">
-                <i id="signup_butt" class="fa-solid fa-right-to-bracket" title="Signout"></i>
+                <i id="signup_butt" class="fa-solid fa-right-to-bracket" title="Signup"></i>
                 <div id="user_letter_div">
                     <h1 id="user_letter"></h1>
                     <!-- <i class="fa-solid fa-user"></i> -->
@@ -89,7 +102,7 @@
 
 
 
-    <div id="profile">
+    <div id="profile"class="profile">
         <i class="fa-solid fa-arrow-left" id="close_profile"></i>
 
         <h1>
@@ -155,7 +168,7 @@
                         <!-- Dynamically inserted images will go here -->
                     </div>
                     <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <button class="carousel-control-prev carouselbutt" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
@@ -215,7 +228,7 @@
                     <button id="login-submit">Submit</button>
                     <div class="loader"></div>
                 </div>
-                <h4>Create Account ? <span id='nav-to-signup'>Click here</span></h4>
+                <h4 style="color: white;">Create Account ? <span id='nav-to-signup'>Click here</span></h4>
             </form>
         </div>
         <div class="login-signup ">
@@ -240,7 +253,7 @@
                     <button id="signup-submit">Submit</button>
                     <div class="loader"></div>
                 </div>
-                <h4>Already have an Account ? <span id="nav-to-login">Click here</span></h4>
+                <h4 style="color: white;">Already have an Account ? <span id="nav-to-login">Click here</span></h4>
             </form>
         </div>
 
