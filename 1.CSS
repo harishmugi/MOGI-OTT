@@ -13,28 +13,25 @@ body {
     background-color: black;
     overflow-x: hidden;
 }
-
 header {
     position: fixed;
     top: 0px;
-    z-index: 10;
+    z-index: 10;  /* Ensures the header stays on top of other content */
     left: 0px;
     right: 0px;
 }
 
 .header_content {
-    /* background:linear-gradient(to right,#620172,#d900ff,aqua ,rgb(2, 117, 117)) #242424; */
     display: flex;
-    
-    background: black;
-    background-size: cover;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 50px;
+    background: black;  /* Solid black background */
+    background-size: cover;  /* Ensures any background images stretch to cover the area */
+    justify-content: space-evenly;  /* Distributes items evenly across the container */
+    align-items: center;  /* Vertically aligns content */
+    height: 50px;  /* Sets the header's height */
     position: relative;
     top: 0px;
-
 }
+
 
 #search-input {
  
@@ -59,7 +56,11 @@ header {
     left: 100px;
     color: #50d9eb;
 }
-
+.fa-solid{
+    cursor: pointer;
+}.fa-regular{
+    cursor: pointer;
+}
 .logo {
     color: #ffffff;
     position: absolute;
@@ -96,19 +97,14 @@ header {
 }
 
 .user-details {
-    /* position: relative; */
     top: 50px;
-    /* color: rgb(255, 255, 255); */
     width:500px;border-radius: 40px;
     font-size: 10px;
     margin-left: 10px;
-    /* background: linear-gradient(45deg, #fd6bff, #000000, #00d2ff); */
 
  h1{
-    /* box-shadow:  inset 30px 10px 10px rgb(104, 104, 104); */
-    /* font-size: 50px; */
-    /* font-weight: bold; */
-    background: linear-gradient(45deg, #000000, #fb7cff, #00d2ff);
+    
+    background: linear-gradient(45deg, #620172, #d900ff, aqua, rgb(2, 117, 117));
     background-size: 400% 400%;
     -webkit-background-clip: text;  /* For Safari */
     background-clip: text;
@@ -116,23 +112,13 @@ header {
      animation: gradientAnimation 5s ease infinite;  
  } 
     } 
- /* Keyframes for gradient animation */
  @keyframes gradientAnimation { 
-     0% { 
-       background-position: 0% ; 
-     } 
-     100% { 
-       background-position: 100% ;    }} 
+     0% { background-position: 0% }
+     50% { background-position: 100% } 
+     100% { background-position: 50% }
+    } 
 
-.fa-user {
-    color: white;
-    border: 3px solid white;
-    border-radius: 50%;
-    padding: 8px 5px 0px 5px;
-    cursor: pointer;
-    margin: 5px 5px 5px 5px;
 
-}
 
 .user-box {
     display: flex;
@@ -154,27 +140,6 @@ header {
 
 }
 
-/* #no {
-    box-shadow: 0 0 5px #e35151, 0 0 15px #e35151, 0 0 25px #e35151 0 0 100px #e35151;
-
-    background-color: rgb(136, 0, 0);
-    padding: 10px 20px 10px 20px;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 20px;
-}
-
-#yes {
-    background-color: rgb(13, 125, 7);
-    box-shadow: 0 0 5px #8aff8e, 0 0 15px #8aff8e, 0 0 25px #8aff8e 0 0 100px #8aff8e;
-
-    padding: 10px 20px 10px 20px;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 20px;
-} */
 html{
     background-color: #000;
 }
@@ -183,30 +148,13 @@ main {background-color: #000;
     top: 50px;
     left: 0px
 }
-
-/* .aside_main {
-    display: flex;
-    flex-shrink: 1;
-
-} */
-/* 
-aside {
-    position: fixed;
-    top: 40px;
-    bottom: 0px;
-} */
-
 #rows {
-    /* justify-content: space-evenly; */
     overflow-x: hidden;
     left: 0.5%;
-   
     gap: 100px;
     position: absolute;
-    top:  21%;
+    top: 21%;
     padding: 0px 50px 50px 50px;
-    /* box-shadow:  black  0px 20px 30px -10px ; */
-
 }
 
 #rows h1 {
@@ -216,45 +164,144 @@ aside {
 
 #row {
     display: flex;
-    /* Use flexbox for the container */
     flex-wrap: wrap;
-    /* Allow items to wrap to the next line */
     gap: 50px;
-    /* Add space between grid items */
     padding: 20px;
-    /* Optional: Add padding around the grid container */
     justify-content: space-between;
-    /* Distribute items evenly with space between */
 }
 
-/* Hover effect */
 .row_box:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    /* Shadow on hover */
 }
 
-
-@media (max-width: 600px) {
-    #row {
-        gap: 10px;
-        
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+    #rows {
+        gap: 70px;
     }
 
+    #row {
+        gap: 30px;
+    }
 
+    .row_box {
+        width: 250px;
+        height: 350px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    p {
+        font-size: 14px;
+    }
 }
 
+@media (max-width: 992px) {
+    #rows {
+        gap: 60px;
+    }
 
+    #row {
+        gap: 25px;
+    }
+
+    .row_box {
+        width: 230px;
+        height: 330px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    #rows {
+        gap: 50px;
+        top: 30%;
+        padding: 0px 20px 30px 20px;
+    }
+
+    #row {
+        gap: 20px;
+    }
+
+    .row_box {
+        width: 200px;
+        height: 300px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    #rows {
+        gap: 20px;
+        padding: 0px 10px 20px 10px;
+    }
+
+    #row {
+        gap: 15px;
+        justify-content: center; /* Center items on small screens */
+    }
+
+    .row_box {
+        width: 180px;
+        height: 250px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    #rows {
+        gap: 15px;
+        top: 35%;
+        padding: 0px 10px 15px 10px;
+    }
+
+    #row {
+        gap: 10px;
+    }
+
+    .row_box {
+        width: 150px;
+        height: 220px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    p {
+        font-size: 10px;
+    }
+}
 
 .row_box {
-    /* box-shadow:
-        black 0px 20px 30px -10px,
-        #454545 0px -30px 50px 1px inset; */
-    /* height: 400px; */
-    /* align-items: center; Center align items */
     justify-content: center;
-    width: 300px;height: 400px;
+    width: 300px;
+    height: 400px;
     background-color: #00000060;
-    backdrop-filter:blur(5px);
+    backdrop-filter: blur(5px);
     border-radius: 10px;
     color: #ffffff;
     display: flex;
@@ -262,18 +309,18 @@ aside {
     text-align: left;
     padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    h2 {
-        color: black;font-size: 29px;
-        color: #54e3f6cb ;
-    }
-
-    p {
-        color: white;
-        font-size: 15px;
-    }
-
 }
+
+.row_box h2 {
+    color: #54e3f6cb;
+    font-size: 29px;
+}
+
+.row_box p {
+    color: white;
+    font-size: 15px;
+}
+
 
 .tittle_and_details {
     /* background-color: #54e3f6cb; */
@@ -286,11 +333,8 @@ aside {
 .movies_img {
     margin-bottom: 20px;
     margin-top: 20px;
-    /* width: 100%; */
     height: 200px;
-    /* You can adjust the height */
     object-fit: fill;
-    /* Ensures the image is cropped to fit the div */
     transition: 1s;
 
         border: 2px solid transparent; /* Make sure the border exists */
@@ -303,35 +347,17 @@ aside {
         transition: 1s;
       }
       
-    /* box-shadow: #03e9f4 0px 1px 5px, #03e9f4 0px 6px 6px; */
 }
 
-/* Carousel container */
-/* #big_poster {
-    position: relative;
-    /* width: 100%; */
-    /* overflow: hidden; */
-    /* Hide overflow for sliding effect */
-    /* margin-bottom: 20px; */
-/* }  */
 
-/* .bigg {
-    width: 80vw;
-} */
 
 .carousel-container {
-    /* position: absolute; */
-    /* width: 80vw; */
-    /* Adjust based on design preference */
+
     margin-top: 30px;
-    /* margin-left: 5%; */
     background: linear-gradient(to right, #000, #54e3f6);
     ;
     overflow: hidden;
-    /* Hide overflow for sliding effect */
-    /* border-radius: 10px; */
     text-align: center;
-    /* margin: 0 auto; Center the carousel */
 }
 
 .carousel {
@@ -617,14 +643,6 @@ h4 span {
     border-radius: 20px;
 }
 
-
-.movie-video {
-    /* width: 99vw; */
-    height: 50vh;
-    margin-left: 1%;
-    ;
-}
-
 #player {
    
     display: none;
@@ -719,7 +737,17 @@ right:50px;z-index: 11;}
     }h4{text-align:left ;}
     p{color: #fff;}
 }
+/* .video-js {
+    width: 100vw;    height: 50vw;
+margin-top: 0px;
+}
 
+.vjs-tech{
+    width: 100vw;    height: 50vw;
+    margin-top: 0px;
+
+
+} */
 #close_login{    position: absolute;
     right:20px;top:20px;
     color: #50d9eb;
@@ -740,12 +768,7 @@ right:50px;z-index: 11;}
     bottom: 0;right: 0;left: 0;overflow-y: scroll;
     flex-wrap: wrap;gap: 30px;
 }
-/* #wishPage{
-    background-color: #000;
-    display:none;gap: 30px;height: 100%;
-    position: relative;z-index: 14;text-align: center ;top: 0;padding-top: 30px; 
-    bottom: 0;right: 0;left: 0;
-} */
+
 
 .lit {
     display: block;
@@ -816,6 +839,8 @@ overflow-y: scroll;
     color: #50d9eb;font-size: 50px;
     text-align: center
 
+}.wish{
+    width: fit-content;
 }
 .viewWish{
 height: 300px;
@@ -875,7 +900,8 @@ font-size: 80;
  }
 .Description{
 
-}#movie_poster_title{
+}
+#movie_poster_title{
    margin-bottom: 50px;
     display: flex;
     
@@ -900,6 +926,9 @@ margin-left: 100px;padding-left: 100px;
     right: 31%;
     top: 70%;
     color: #50d9eb;}
+    #submit_comment{
+        margin-bottom: 50px;
+    }
 
     .comments_list {
         right: -250%;
