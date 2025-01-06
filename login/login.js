@@ -62,6 +62,9 @@ function getTimeBasedGreeting() {
             h1.textContent = ` ${getTimeBasedGreeting()} ${doc.data().userName}`; 
             document.getElementById( "user_letter_div").style.display="block"
             document.getElementById( "profile").style.display="block"
+            document.getElementById("viewWish").style.display="block"
+            document.getElementById( "user_letter").style.display="block"
+
 
             // Set the h1 text to display the user's name
             let name = doc.data().userName;  // Get the user's name from the doc object
@@ -99,10 +102,11 @@ window.onload = () => {           const signout=document.getElementById( "signou
         const currentUser = localStorage.getItem('currently_loggedIn');
         if (currentUser === null) {
             document.getElementById( "user_letter_div").style.display="none"
+            document.getElementById("viewWish").style.display="none"
 
             throw new Error('No Current User');
         } else {
-            // document.getElementById("user_letter").style.display="block"   
+            document.getElementById("user_letter").style.display="block"   
 
             userDetails(currentUser);
         }
@@ -130,7 +134,10 @@ document.getElementById("close_signup").addEventListener("click",  ()=>{  signup
 )
 
 
+document.getElementById("loginanother").addEventListener("click",()=>{
+    loginForm.style.display = 'block';
 
+})
 nav_to_signup.addEventListener('click', () => {
     loginForm.style.display = 'none';
     signupForm.style.display = 'block';
@@ -141,8 +148,7 @@ nav_to_login.addEventListener('click', () => {
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
     document.querySelector('#signup').reset();
-});
-signup_submit.addEventListener('click', event => {
+});signup_submit.addEventListener('click', event => {
     event.preventDefault();
     
     // Hide the submit button and show loader
@@ -195,9 +201,29 @@ signup_submit.addEventListener('click', event => {
                     document.querySelectorAll('.loader')[1].style.display = 'none';
                     document.querySelector('#signup').reset();
                     signupForm.style.display = 'none';
+                    document.getElementById ("signup_butt").style.display="none"
 
-                    // You can optionally log the user in here automatically if needed
-                    userDetails(cred.user.uid); // Show user details after signup
+
+                    // Auto login the user after sign-up
+                    signInWithEmailAndPassword(auth, email, password)
+                        .then(loginCred => {
+                            swal({
+                                title: 'Login Success',
+                                icon: 'success'
+                            }).then(() => {
+                                // Show the submit button, hide loader, and reset the form
+                                login_submit.style.display = 'block';
+                                document.querySelectorAll('.loader')[0].style.display = 'none';
+                                document.querySelector('#login').reset();
+                                loginForm.style.display = 'none';
+                                // Fetch user details after login
+                                userDetails(loginCred.user.uid);
+                            });
+                        })
+                        .catch(loginErr => {
+                            // Handle login error (if any)
+                            handleError(loginErr);
+                        });
                 });
             }).catch(err => {
                 handleError(err);
@@ -207,6 +233,7 @@ signup_submit.addEventListener('click', event => {
             handleError(err);
         });
 });
+
 
 // Function to handle errors and show user-friendly messages
 function handleError(err) {
@@ -295,7 +322,7 @@ login_submit.addEventListener('click', event => {
             // Restore the UI state
             login_submit.style.display = 'block';
             document.querySelectorAll('.loader')[0].style.display = 'none';
-    // document.getElementById("user_letter").style.display="block"   
+    document.getElementById("user_letter").style.display="block"   
 
         });
     });})
@@ -356,6 +383,8 @@ function signout_butt_func(){
             signout.style.display="none"
             document.getElementById( "profile").style.display="none"
             document.getElementById( "user_letter_div").style.display="none"
+            document.getElementById("viewWish").style.display="none"
+
         }).catch(error => {
             console.error('Error occurred while signing out:', error);
         });
