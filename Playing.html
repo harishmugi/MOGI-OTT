@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLS with HLS.js</title>
+    <link rel="icon" href="img/MOLGIWEBICON.png" type="image/png" sizes="32x32">
+
+    <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.16.0/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        /* General body and layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+   
+        /* Video container */
+        #video_player {
+            display: none;
+            background-color: black;
+            width: 100%;height: 90%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Movie details section */
+        #movie_details {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            /* position: absolute; */
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .tittle_dis h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .tittle_dis p {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        .tittle_dis h4 {
+            font-size: 18px;
+            margin: 10px 0 5px;
+        }
+
+        /* Close button styling */
+        #close_video_player {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        #close_video_player:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+
+        .video-js{margin-top: 50px;
+            width: 100%;height: 50%;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            #video_player {
+                max-width: 100%;
+                border-radius: 5px;
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video_player" style="display: none;">
+        <i class="fa-solid fa-xmark" id="close_video_player"></i>
+    </div>
+
+    <script>
+    const streamUrl = sessionStorage.getItem('videoStreamUrl');
+    const title = sessionStorage.getItem('videoTitle');
+    const description = sessionStorage.getItem('videoDescription');
+    const poster = sessionStorage.getItem('videoPoster');
+
+
+    document.getElementsByTagName("body")[0].style.background = `url(${poster}) no-repeat center center`;
+document.getElementsByTagName("body")[0].style.backgroundSize = "cover";
+document.getElementsByTagName("body")[0].style.backgroundAttachment = "fixed"; // Optional: for parallax effect
+
+    if (streamUrl && title && description) {
+        // Call the function to play the video if all data is available
+        playVideo(streamUrl, title, description);
+    } else {
+        console.error('Error: Missing video data.');
+    }
+
+    function playVideo(streamUrl, title, description) {
+        const movie_dis = document.createElement('div');
+        movie_dis.innerHTML = `<div id="movie_details">
+            <div class="tittle_dis">
+                <h2>${title}</h2>
+                <h4>Description:</h4><br>
+                <p>${description}</p>
+            </div>
+        </div>`;
+
+        const videoContainer = document.getElementById('video_player');
+        videoContainer.style.display = "block";
+
+        const videoElement = document.createElement('video');
+        videoElement.id = "my-live-video";
+        videoElement.classList.add("video-js", "vjs-big-play-centered", "movie-video");
+        videoElement.setAttribute("controls", "");
+        videoElement.setAttribute("autoplay", "");
+        videoElement.setAttribute("muted", "");
+
+        const videoSource = document.createElement('source');
+        videoSource.setAttribute("src", streamUrl);
+        videoSource.setAttribute("type", "application/x-mpegURL");
+        videoElement.appendChild(videoSource);
+
+        videoElement.onerror = (e) => {
+            console.error("Video playback error:", e);
+        };
+
+        if (videoContainer) {
+            videoContainer.appendChild(videoElement);
+            videoContainer.appendChild(movie_dis);
+        } else {
+            console.error('Error: Video container not found');
+        }
+
+        setupHLS(videoElement, streamUrl);
+
+      
+    }
+
+    function setupHLS(videoElement, streamUrl) {
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(streamUrl);
+            hls.attachMedia(videoElement);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                videoElement.play();
+            });
+        } else {
+            console.error("HLS is not supported by this browser.");
+        }
+    }
+
+    function startVideo() {
+        playVideo(streamUrl, title, description);
+    }
+    </script>
+</body>
+</html>

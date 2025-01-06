@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main_Project</title>
     <link rel="stylesheet" href="1.CSS">
+    <link rel="icon" href="img/MOLGIWEBICON.png" type="image/png" sizes="32x32">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -17,12 +18,12 @@
     <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.14.0/dist/videojs-contrib-hls.min.js"></script>
 
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap JS and Popper.js (required for Bootstrap's JS components like the carousel) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap's JS components like the carousel) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
 
 
@@ -37,9 +38,9 @@
 
 
     <script type="module" src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
-    <script  type="module"  src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
-    <script  type="module"  src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
-       <script   type="module"  src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use -->
 
 
@@ -52,10 +53,11 @@
 
 
 
-    
+
     <!-- https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script  type="module"   src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- ANIMATION -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
@@ -72,15 +74,16 @@
 
     <header>
         <div class="header_content">
-            <div class="logo">Logo</div>
+            <div class="logo"><img src="img/MOGIname.png" style="width: 200px;"></div>
             <div><!-- Add this in your HTML file where you want the search input to appear -->
                 <input type="text" id="search-input" placeholder="Search movies by title..." /><i
                     class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div class="Category" id="categoryToggle">                <i class="fa-solid fa-filter"></i>
-                </div><div>
+            <div class="Category" id="categoryToggle"> <i class="fa-solid fa-filter"></i>
+            </div>
+            <div>
                 <marquee class="user-details" style="display: none;">
-                    <h1 ></h1>
+                    <h1></h1>
 
 
 
@@ -91,7 +94,6 @@
                 <i id="signup_butt" class="fa-solid fa-right-to-bracket" title="Signup"></i>
                 <div id="user_letter_div">
                     <h1 id="user_letter"></h1>
-                    <!-- <i class="fa-solid fa-user"></i> -->
                 </div>
             </div>
         </div>
@@ -102,7 +104,7 @@
 
 
 
-    <div id="profile"class="profile">
+    <div id="profile" class="profile">
         <i class="fa-solid fa-arrow-left" id="close_profile"></i>
 
         <h1>
@@ -115,157 +117,127 @@
         </div>
         <div id="viewWish">Wishlist</div>
 
-        <i id="signout_butt" class="fa-solid fa-arrow-right-from-bracket"></i>
+        <i id="signout_butt" class="fa-solid fa-arrow-right-from-bracket" title="signout"></i>
 
 
 
     </div>
-<div id="wishlist" ><div class="YourWishlist">Your Wishlist</div>
-    <div><i class="fa-solid fa-arrow-right" id="close_wish"></i></div>
+    <div id="wishlist">
+        <div class="YourWishlist">Your Wishlist</div>
+        <div><i class="fa-solid fa-arrow-right" id="close_wish"></i></div>
 
-    <div id="wishlist-container">
-    </div></div>
+        <div id="wishlist-container">
+        </div>
+    </div>
     <!-- <div class="aside&_main"> -->
-        
-            <!-- <div class="aside_bar"> -->
-                <div class="cat-container" id="catContainer">
-                  <div class="cat">For you</div>
-                  <div class="cat">Comedy <img class="emoji" src="/img/img3.png" alt="Comedy"></div>
-                  <div class="cat">Horror <img class="emoji" src="/img/img2.png" alt="Horror"></div>
-                  <div class="cat">Sci-Fi <img class="emoji" src="/img/img5.png" alt="Sci-Fi"></div>
-                  <div class="cat">Fantasy <img class="emoji" src="/img/img7.png" alt="Fantasy"></div>
-                  <div class="cat">Anime <img class="emoji" src="/img/img10.png" alt="Anime"></div>
-                  <div class="cat">Action <img class="emoji" src="/img/img6.png" alt="Action"></div>
-                </div>
-            <!-- </div> -->
-        
-        <main>
-            <!-- Carousel Container -->
 
-            <!-- <div class="row">
-                <div class="row_box"></div>
-                <div class="row_box"></div>
-                <div class="row_box"></div>
-            </div>
-            <div class="row">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div> -->
-            <!-- <div class="carousel-container">
-                <div class="carousel">
-                    <div class="carousel-images" id="carousel_images">
-                         Dynamically inserted images will go here -->
-                    <!-- </div>
-                </div>
-                <img src="img/Animation - 1730883595895.gif" class="prev arrow" alt="Previous Slide">
-                <img src="img/Animation - 1730883595895.gif" class="next arrow" alt="Next Slide">
-            </div>
-              -->
-              <div class="carousel-container">
-                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="carousel_images">
-                        <!-- Dynamically inserted images will go here -->
-                    </div>
-                    <!-- Controls -->
-                    <button class="carousel-control-prev carouselbutt" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-            
-
-
-            <div id="rows">
-                <h1>Recommended for you</h1>
-                <div id="row">
-
-                </div>
-
-            </div>
-        </main>
-
-
-
-        
-        <div id="player"> <i class="fa-solid fa-xmark" id="close_player"></i>
-            <div id="selected_movie"></div>
-            <div id="player_info_page" style="display: flex;"></div>
-            <!-- <div id="play_butt"></div> -->
-        </div>
-
-<div id="wishPage">              <div id="wishlist-container"></div><div>
-        </div> 
-    </div>
-    <div id="video_player"> <i class="fa-solid fa-xmark" id="close_video_player"></i>
-
-
-        
+    <div class="cat-container" id="catContainer">
+        <div class="cat">For you</div>
+        <div class="cat">Comedy <img class="emoji" src="/img/img3.png" alt="Comedy"></div>
+        <div class="cat">Horror <img class="emoji" src="/img/img2.png" alt="Horror"></div>
+        <div class="cat">Sci-Fi <img class="emoji" src="/img/img5.png" alt="Sci-Fi"></div>
+        <div class="cat">Fantasy <img class="emoji" src="/img/img7.png" alt="Fantasy"></div>
+        <div class="cat">Anime <img class="emoji" src="/img/img10.png" alt="Anime"></div>
+        <div class="cat">Action <img class="emoji" src="/img/img6.png" alt="Action"></div>
     </div>
 
-        <div class="login-signup ">
-            <i class="fa-solid fa-xmark" id="close_login"></i>
-            <h2>Login</h2>
-            <form action="" id="login">
-                <div class="user-box">
-                    <input type="email" name="" id="login-email" autocomplete="off" required>
-                    <label for="">Email</label>
-                </div>
-                <div class="user-box">
-                    <input type="password" name="" id="login-pwd" autocomplete="off" required
-                        style="margin-bottom: 0px;">
-                    <label for="">Password</label>
-                </div>
-                <div class="forgot-pwd">
-                    <h4>Forgot Password?</h4>
-                </div>
-                <div class="btn">
-                    <button id="login-submit">Submit</button>
-                    <div class="loader"></div>
-                </div>
-                <h4 style="color: white;">Create Account ? <span id='nav-to-signup'>Click here</span></h4>
-            </form>
-        </div>
-        <div class="login-signup ">
-            <i class="fa-solid fa-xmark" id="close_signup"></i>
-            <h2>Signup</h2>
-            <form action="" id="signup">
-                <div class="user-box">
-                    <input type="text" pattern="[A-Za-z]+" name="username" id="signup-username" autocomplete="off"
-                        required>
-                    <label for="signup-username">Name</label>
-                </div>
+    <main>
 
-                <div class="user-box">
-                    <input type="email" name="" id="signup-email" autocomplete="off" required>
-                    <label for="">Email</label>
+        <!-- <img src="img/Animation - 1730883595895.gif" class="prev arrow" alt="Previous Slide"> -->
+        <!-- <img src="img/Animation - 1730883595895.gif" class="next arrow" alt="Next Slide"> -->
+
+        <div class="carousel-container">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" id="carousel_images">
+                    <!-- Dynamically inserted images will go here -->
                 </div>
-                <div class="user-box">
-                    <input type="password" name="" id="signup-pwd" autocomplete="off" required>
-                    <label for="">Password</label>
-                </div>
-                <div class="btn">
-                    <button id="signup-submit">Submit</button>
-                    <div class="loader"></div>
-                </div>
-                <h4 style="color: white;">Already have an Account ? <span id="nav-to-login">Click here</span></h4>
-            </form>
+                <!-- Controls -->
+                <button class="carousel-control-prev carouselbutt" type="button"
+                    data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
 
-        <!-- <div id="signout_q">
-            <h1>Do You Want Entertainment!</h>
-                <div>
-                    <button id="no">No</button>
-                    <button id="yes">Yes</button>
-                </div>
-        </div> -->
-        <script src="/login/login.js" defer type="module"></script>
-        <script type="module" src="admin.js"></script>
+
+
+        <div id="rows">
+            <h1>Recommended for you</h1>
+            <div id="row">
+
+            </div>
+
+        </div>
+    </main>
+
+
+
+
+    <div id="player"> <i class="fa-solid fa-xmark" id="close_player"></i>
+        <div id="selected_movie"></div>
+        <div id="player_info_page" style="display: flex;"></div>
+        <!-- <div id="play_butt"></div> -->
+    </div>
+
+    <div id="wishPage">
+        <div id="wishlist-container"></div>
+        <div>
+        </div>
+    </div>
+    <div class="login-signup ">
+        <i class="fa-solid fa-xmark" id="close_login"></i>
+        <h2>Login</h2>
+        <form action="" id="login">
+            <div class="user-box">
+                <input type="email" name="" id="login-email" autocomplete="off" required>
+                <label for="">Email</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="" id="login-pwd" autocomplete="off" required style="margin-bottom: 0px;">
+                <label for="">Password</label>
+            </div>
+            <div class="forgot-pwd">
+                <h4>Forgot Password?</h4>
+            </div>
+            <div class="btn">
+                <button id="login-submit">Submit</button>
+                <div class="loader"></div>
+            </div>
+            <h4 style="color: white;">Create Account ? <span id='nav-to-signup'>Click here</span></h4>
+        </form>
+    </div>
+    <div class="login-signup ">
+        <i class="fa-solid fa-xmark" id="close_signup"></i>
+        <h2>Signup</h2>
+        <form action="" id="signup">
+            <div class="user-box">
+                <input type="text" pattern="[A-Za-z]+" name="username" id="signup-username" autocomplete="off" required>
+                <label for="signup-username">Name</label>
+            </div>
+
+            <div class="user-box">
+                <input type="email" name="" id="signup-email" autocomplete="off" required>
+                <label for="">Email</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="" id="signup-pwd" autocomplete="off" required>
+                <label for="">Password</label>
+            </div>
+            <div class="btn">
+                <button id="signup-submit">Submit</button>
+                <div class="loader"></div>
+            </div>
+            <h4 style="color: white;">Already have an Account ? <span id="nav-to-login">Click here</span></h4>
+        </form>
+    </div>
+    <script src="/login/login.js" defer type="module"></script>
+    <script type="module" src="admin.js"></script>
 
 </body>5
 
