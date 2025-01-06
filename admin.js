@@ -216,7 +216,6 @@ async function retrieveMovies(genre = '') {
                     const loginForm = document.querySelectorAll('.login-signup')[0];
                     loginForm.style.display = 'block';
                 } else {
-                    // Show player info page if logged in
                     const close_player = document.getElementById("close_player");
                     const player_info_page = document.getElementById("player");
                     recommended(movie)
@@ -421,7 +420,12 @@ console.log(clickedMovie)
         
                     })
                     document.getElementById("playNow").addEventListener("click", () => {
+                        
+                        
+                        
                         // Store the clicked movie details in sessionStorage
+
+
                         sessionStorage.setItem('videoStreamUrl', clickedMovie.stream_url);
                         sessionStorage.setItem('videoTitle', clickedMovie.title);
                         sessionStorage.setItem('videoDescription', clickedMovie.description);
@@ -1045,6 +1049,7 @@ async function addToWish(stream_url, title, description, poster, release_date, d
                 await updateDoc(userRef, {
                     wishlist: arrayRemove({ stream_url, title, description, poster, release_date, details })
                 });                alert("Movie removed from your wishlist!"); // Show alert
+                heartIcon.title = " Add to Wishlist ";
 
                 heartIcon.style.color = "white"; // Change icon to white
             } else {
@@ -1054,7 +1059,7 @@ async function addToWish(stream_url, title, description, poster, release_date, d
                 });               
                  alert("Movie added to your wishlist!"); // Show alert
                 heartIcon.style.color = "red"; // Change icon to red
-
+                heartIcon.title="Remove from wishlist"
                 heartIcon.style.color = "red"; // Change icon to red
             }
         } catch (error) {
@@ -1079,7 +1084,10 @@ async function checkMovieInWishlist(title) {
 
             // Set heart icon color based on whether the movie is in the wishlist
             const heartIcon = document.querySelector(".wish");
-            heartIcon.style.color = movieExists ? "red" : "white"; // Red if in wishlist, white if not
+            heartIcon.style.color = movieExists ? "red" : "white";
+            heartIcon.title = movieExists ? "Remove from wishlist" : " Add to Wishlist ";
+
+            // Red if in wishlist, white if not
         } catch (error) {
             console.error("Error checking wishlist:", error);
         }

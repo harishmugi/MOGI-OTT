@@ -83,16 +83,33 @@ header {
 }#signout_butt {    display: block;
     padding: 8px;
     color: #50d9eb;
-    bottom: 10%;
     background: black;
     border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
     font-weight: bolder;
-    position: absolute;
-    right: 10%;
+    /* right: 10%; */
     border: 2px solid #50d9eb;
     box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+
+}
+.logsign{       position: absolute;
+    bottom: 10%;
+    display: flex
+;
+    right: 20%;
+    justify-content: space-between;
+    left: 20%;
+
+p{
+    color: #50d9eb;
+    background: black;
+    border-radius: 5px;
+    cursor: pointer;
+    /* right: 10%; */
+    border: 2px solid #50d9eb;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
 
 }
 
@@ -348,7 +365,6 @@ main {background-color: #000;
       }
       
 }
-
 
 
 .carousel-container {
@@ -774,11 +790,11 @@ margin-top: 0px;
     display: block;
     position: fixed;
     width: 300px;
-    height: 600px;
+    height: 400px;
     background-color: black;
     right: 100px;
     top: 9%;
-    z-index: 13;
+    z-index: 10;
     border-radius: 10px;
     text-align: center;
     h1{height: 100px;width: 100px;position: relative;left:35%;top:10%;
@@ -788,7 +804,7 @@ margin-top: 0px;
     
 }
 #profile_email{
-    color: #03e9f4;position: relative;top: 150px;
+    color: #03e9f4;position: relative;top: 90px;
     
 }#profile_name{
     font-size: 40px;
@@ -828,13 +844,14 @@ overflow-y: scroll;
 }#viewWish{
     color: #50d9eb;
     cursor: pointer;
-    position: absolute;
+    /* position: absolute; */
     border: 2px solid #50d9eb;
     background-color: black;
     padding: 5px;
-    bottom: 10%;
+    /* bottom: 10%; */
     border-radius: 5px;
-    left: 10%;}
+    /* left: 10%; */
+}
 .nowish{
     color: #50d9eb;font-size: 50px;
     text-align: center
@@ -887,11 +904,7 @@ img{ border-radius: 10px;
 }
 
 
-.fa-arrow-right-from-bracket{
-    position:absolute  ;
-bottom: 100px;right: 100px;
-font-size: 80;
-}
+
 #close_profile
 {color: #50d9eb;
     position: absolute;
@@ -987,7 +1000,7 @@ margin-left: 100px;padding-left: 100px;
     padding-left: 0;
     list-style: none;
      max-height: 0; */left:40%;
-    ;position: absolute; top: 80px;z-index: 30;
+    ;position: absolute; top: 80px;z-index: 10;
     /* overflow: hidden; */
     transition: max-height 0.5s ease, opacity 0.5s ease; 
     
@@ -1033,6 +1046,6 @@ transform-origin: top center;
   /* To make the category list appear */
   .cat-container.show {
     display: block;
-    opacity: 1;z-index: 30;
+    opacity: 1;z-index:10;
     max-height: 500px; /* This value should be higher than the content height */
   }
