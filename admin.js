@@ -38,29 +38,43 @@ const database = getDatabase(app);
 
 //====================================================COMMENTS==================================================
 
-
 const addCommentToDatabase = (movieId, comment) => {
     const user = auth.currentUser;
+
     if (user) {
-        const commentData = {
-            userId: user.uid,
-            // username: user.userName,
-            userEmail: user.email,
-            comment: comment,
-            timestamp: new Date().toISOString()  // Add timestamp to the comment
-        };
-        // Push comment to the 'comments' node under the specific movie ID
-        const commentRef = ref(database, 'comments/' + movieId);
-        const newCommentRef = push(commentRef);
-        set(newCommentRef, commentData)
-            .then(() => {
-                fetchComments(movieId)
+        // Retrieve the userName from Firestore or from user metadata
+        const userRef = doc(db, "users", user.uid);
+        getDoc(userRef)
+            .then(docSnap => {
+                if (docSnap.exists()) {
+                    const userName = docSnap.data().userName; // Assuming the user's name is stored in Firestore
+console.log(userName)
+                    // Prepare the comment data
+                    const commentData = {
+                        userId: user.uid,
+                        username: userName,
+                        userEmail: user.email,
+                        comment: comment,
+                        timestamp: new Date().toISOString()  // Add timestamp to the comment
+                    };
 
-
-                console.log("Comment added successfully!");
+                    // Push comment to the 'comments' node under the specific movie ID
+                    const commentRef = ref(database, 'comments/' + movieId);
+                    const newCommentRef = push(commentRef);
+                    set(newCommentRef, commentData)
+                        .then(() => {
+                            fetchComments(movieId);
+                            console.log("Comment added successfully!");
+                        })
+                        .catch((error) => {
+                            console.error("Error adding comment: ", error);
+                        });
+                } else {
+                    console.error("User document does not exist.");
+                }
             })
             .catch((error) => {
-                console.error("Error adding comment: ", error);
+                console.error("Error fetching user data: ", error);
             });
     } else {
         console.log("User is not logged in.");
@@ -83,9 +97,27 @@ function fetchComments(movieId) {
             for (const key in data) {
                 const comment = data[key];
                 // Append each comment to the comment list
-                const commentText = `${comment.userEmail}: ${comment.comment}`;
+                console.log(comment.username)
+                let letter=comment.username;
                 const commentElement = document.createElement("p");
-                commentElement.textContent = commentText;
+                commentElement.innerHTML = `<div style="    display: flex
+;
+    align-items: center;
+    gap: 10px;
+">
+                <div style="    height: 30px;
+    width: 30px;
+    padding: 2px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid black;
+    background-color: #50d9eb;" >${letter[0]}</div><div style="    display: flex
+;flex-wrap:wrap">
+                <div>${comment.userEmail}:</div>
+                <div> ${comment.comment}</div> </div>
+ 
+                </div>
+               `;;
                 commentListElement.appendChild(commentElement);
             }
         } else {
@@ -387,7 +419,6 @@ console.log(clickedMovie)
 
                     // Set z-index to ensure the content is above the blurred background and overlay
                     blurOverlay.style.zIndex = "1"; // Keeps the overlay under content
-
 
                     // Append the new movie details to the selected_movie container
                     selectedMovieContainer.appendChild(movie_dis);
