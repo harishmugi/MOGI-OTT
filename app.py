@@ -30,8 +30,9 @@ def voice_command():
     
     # Check if 'stop' is in the command
     elif 'stop' in command.lower():
-        response['response'] = 'stop'
-    
+        response['response'] = 'pause'
+    elif 'hold' in command.lower():
+        response['response'] = 'pause'
     # Check if 'forward' is in the command and extract seconds
     elif 'forward' in command.lower():
         # Extract the number of seconds after the word "forward"
@@ -59,13 +60,14 @@ def voice_command():
     # Check if 'volume down' is in the command and decrease by 0.1
     elif 'volume down' in command.lower():
         response['response'] = 'volume_down 0.5'
-    elif 'mute' in command.lower():
-        response['response'] = 'volume_down 1'
-    elif 'unmute' in command.lower():
-        response['response'] = 'volume_up 1'    
+    elif 'Unmute'==  command.lower():
+        response['response'] = 'Unmute'    
     
+    elif 'mute' in command.lower():
+        response['response'] = 'mute'
+  
     # You can add more commands here as needed
-
+         
 
 
     return jsonify(response)
