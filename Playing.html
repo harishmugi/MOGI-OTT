@@ -128,8 +128,8 @@
         <i class="fas fa-times" id="close_video_player"></i>
     </div>
     
-    <p id="voiceResult">Say something...</p>
-    <p id="aiResponse">AI Response will appear here.</p>
+    <p id="voiceResult"style="color :white;">Say something...</p>
+    <p id="aiResponse" style="color :white;">AI Response will appear here.</p>
 
     <script>
         const videoPlayer = document.createElement('video');
@@ -146,6 +146,7 @@
 
         // Flag to track if recognition is already in progress
         let isRecognizing = false;
+        var fullVolume=1
 
         // Start listening as soon as the page loads
         window.onload = () => {         
@@ -197,11 +198,13 @@
                     const seconds = parseInt(data.response.split(' ')[1]);  // Extract time in seconds
                     videoPlayer.currentTime -= seconds;
                 } else if (data.response.startsWith('volume_up')) {
-                    const volume = parseFloat(data.response.split(' ')[1]);
+                    const volume = fullVolume + parseFloat(data.response.split(' ')[1]);
+                    videoPlayer.volume = volume;                    fullVolume=volume
+
+                } else if (data.response.startsWith('volume_down')) {                    
+                    const volume =  fullVolume -  parseFloat(data.response.split(' ')[1]);
                     videoPlayer.volume = volume;
-                } else if (data.response.startsWith('volume_down')) {
-                    const volume = parseFloat(data.response.split(' ')[1]);
-                    videoPlayer.volume = volume;
+                    fullVolume=volume
                 }
             })
             .catch(error => {
@@ -302,11 +305,11 @@
 
         // Close video player
         closeButton.addEventListener('click', function() {
-            videoContainer.style.display = 'none';
             videoPlayer.pause();
-            videoPlayer.src = ''; // Clear video source
            let home= window.confirm("Do you want to leave ?")
-           if(home){window.location.href = 'INDEX.html'}
+           if(home){window.location.href = 'INDEX.html';            videoContainer.style.display = 'none';            videoPlayer.src = ''; // Clear video source
+
+        }
         });
     </script>
 </body>

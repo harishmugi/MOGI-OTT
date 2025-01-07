@@ -1166,7 +1166,7 @@ async function getWishlist() {
                             // Create a new div for each movie in the wishlist
                             const movieDiv = document.createElement("div");
                             movieDiv.classList.add("viewWish");
-
+                            movieDiv.id=`${movie.title}`
                             // Insert the movie data into the div
                             movieDiv.innerHTML = ` 
                                 <div class="movie-poster">
@@ -1182,11 +1182,12 @@ async function getWishlist() {
 
                             // Append the movie div to the wishlist container
                             wishlistContainer.appendChild(movieDiv);
-                        } document.querySelector(".viewWish").addEventListener("click",()=>{
-                            console.log(movie.title)
+                        } document.getElementById(`${movie.title}`).addEventListener("click",()=>{
+                            console.log(movie.title)             
+                                   recommended(movie)
+
                             const close_player = document.getElementById("close_player");
                     const player_info_page = document.getElementById("player");
-                    recommended(movie)
                     close_player.style.display = "block";
                     player_info_page.style.display = "block";
                     document.getElementById("wishlist").style.display = "none";;
