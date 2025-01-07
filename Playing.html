@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HLS with HLS.js</title>
     <link rel="icon" href="img/MOLGIWEBICON.png" type="image/png" sizes="32x32">
+    
+    <!-- FontAwesome for close button icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.16.0/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
     <style>
         /* General body and layout */
         body {
@@ -23,12 +28,12 @@
             flex-direction: column;
         }
 
-   
         /* Video container */
         #video_player {
             display: none;
             background-color: black;
-            width: 100%;height: 90%;
+            width: 100%;
+            height: 90%;
             max-width: 800px;
             position: relative;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
@@ -41,7 +46,6 @@
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 15px;
-            /* position: absolute; */
             bottom: 0;
             width: 100%;
             box-sizing: border-box;
@@ -79,10 +83,28 @@
             background: rgba(0, 0, 0, 0.7);
         }
 
-
-        .video-js{margin-top: 50px;
-            width: 100%;height: 50%;
+        /* Video.js style */
+        .video-js {
+            margin-top: 50px;
+            width: 100%;
+            height: 50%;
         }
+
+        /* Button for play video */
+        #play_button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #play_button:hover {
+            background-color: #45a049;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             body {
@@ -93,91 +115,199 @@
                 max-width: 100%;
                 border-radius: 5px;
             }
-
         }
     </style>
 </head>
 <body>
 
+    <!-- Button to start playing the video -->
+    <button id="play_button">voice command on</button>
+    
+    <!-- Video player container -->
     <div id="video_player" style="display: none;">
-        <i class="fa-solid fa-xmark" id="close_video_player"></i>
+        <i class="fas fa-times" id="close_video_player"></i>
     </div>
+    
+    <p id="voiceResult">Say something...</p>
+    <p id="aiResponse">AI Response will appear here.</p>
 
     <script>
-    const streamUrl = sessionStorage.getItem('videoStreamUrl');
-    const title = sessionStorage.getItem('videoTitle');
-    const description = sessionStorage.getItem('videoDescription');
-    const poster = sessionStorage.getItem('videoPoster');
-
-
-    document.getElementsByTagName("body")[0].style.background = `url(${poster}) no-repeat center center`;
-document.getElementsByTagName("body")[0].style.backgroundSize = "cover";
-document.getElementsByTagName("body")[0].style.backgroundAttachment = "fixed"; // Optional: for parallax effect
-
-    if (streamUrl && title && description) {
-        // Call the function to play the video if all data is available
-        playVideo(streamUrl, title, description);
-    } else {
-        console.error('Error: Missing video data.');
-    }
-
-    function playVideo(streamUrl, title, description) {
-        const movie_dis = document.createElement('div');
-        movie_dis.innerHTML = `<div id="movie_details">
-            <div class="tittle_dis">
-                <h2>${title}</h2>
-                <h4>Description:</h4><br>
-                <p>${description}</p>
-            </div>
-        </div>`;
-
+        const videoPlayer = document.createElement('video');
         const videoContainer = document.getElementById('video_player');
-        videoContainer.style.display = "block";
+        const closeButton = document.getElementById('close_video_player');
 
-        const videoElement = document.createElement('video');
-        videoElement.id = "my-live-video";
-        videoElement.classList.add("video-js", "vjs-big-play-centered", "movie-video");
-        videoElement.setAttribute("controls", "");
-        videoElement.setAttribute("autoplay", "");
-        videoElement.setAttribute("muted", "");
+        // Initialize Speech Recognition API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.continuous = true; // Keep recognition active continuously
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
 
-        const videoSource = document.createElement('source');
-        videoSource.setAttribute("src", streamUrl);
-        videoSource.setAttribute("type", "application/x-mpegURL");
-        videoElement.appendChild(videoSource);
+        // Flag to track if recognition is already in progress
+        let isRecognizing = false;
 
-        videoElement.onerror = (e) => {
-            console.error("Video playback error:", e);
+        // Start listening as soon as the page loads
+        window.onload = () => {         
+
+                  document.getElementById('play_button').addEventListener('click', function() {
+                    let voice_command_flag=window.confirm("Do you want voice control ?")
+           if(voice_command_flag) {startListening(); document.getElementById('play_button').style.display="none"}})
         };
 
-        if (videoContainer) {
-            videoContainer.appendChild(videoElement);
-            videoContainer.appendChild(movie_dis);
-        } else {
-            console.error('Error: Video container not found');
+        // Start listening for voice commands
+        function startListening() {
+            if (isRecognizing) {
+                console.log("Recognition is already in progress, waiting...");
+                return; // Prevent starting another recognition while one is already running
+            }
+
+            console.log("Starting recognition...");
+            isRecognizing = true;
+            document.getElementById('aiResponse').innerText = 'AI in progress...'; // Show progress message
+            recognition.start();
         }
 
-        setupHLS(videoElement, streamUrl);
+        // Process recognized speech and send command to backend
+        recognition.onresult = function(event) {
+            const voiceCommand = event.results[event.results.length - 1][0].transcript;  // Get transcribed voice command
+            document.getElementById('voiceResult').innerText = "You said: " + voiceCommand;
 
-      
-    }
+            // Send command to Flask API backend
+            fetch('http://127.0.0.1:5000/api/voice_command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: voiceCommand })  // Send the command
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('aiResponse').innerText = 'AI Response: ' + data.response;
 
-    function setupHLS(videoElement, streamUrl) {
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(streamUrl);
-            hls.attachMedia(videoElement);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                videoElement.play();
+                // Control video playback based on AI response
+                if (data.response === 'play') {
+                    videoPlayer.play(); // Play video on AI command
+                } else if (data.response === 'pause' || data.response === 'stop' || data.response === 'hold') {
+                    videoPlayer.pause();
+                } else if (data.response.startsWith('forward')) {
+                    const seconds = parseInt(data.response.split(' ')[1]);  // Extract time in seconds
+                    videoPlayer.currentTime += seconds;
+                } else if (data.response.startsWith('backward')) {
+                    const seconds = parseInt(data.response.split(' ')[1]);  // Extract time in seconds
+                    videoPlayer.currentTime -= seconds;
+                } else if (data.response.startsWith('volume_up')) {
+                    const volume = parseFloat(data.response.split(' ')[1]);
+                    videoPlayer.volume = volume;
+                } else if (data.response.startsWith('volume_down')) {
+                    const volume = parseFloat(data.response.split(' ')[1]);
+                    videoPlayer.volume = volume;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('aiResponse').innerText = 'AI Response: Error occurred.';
+            })
+            .finally(() => {
+                // Immediately start recognition again without a long delay
+                isRecognizing = false;  // Allow the next recognition to start
+                recognition.start();  // Restart listening as soon as the current recognition is done
             });
-        } else {
-            console.error("HLS is not supported by this browser.");
-        }
-    }
+        };
 
-    function startVideo() {
-        playVideo(streamUrl, title, description);
-    }
+        // Error handling for speech recognition
+        recognition.onerror = function(event) {
+            console.error('Speech recognition error', event.error);
+            document.getElementById('aiResponse').innerText = 'AI Response: Speech recognition error.';
+            isRecognizing = false;
+            recognition.stop();
+            recognition.start();  // Restart recognition immediately
+        };
+
+        // Restart listening after recognition ends
+        recognition.onend = function() {
+            console.log("Speech recognition ended, restarting...");
+            if (!isRecognizing) {
+                recognition.start();  // Restart listening immediately
+            }
+        };
+
+        // Video setup from sessionStorage
+        const streamUrl = sessionStorage.getItem('videoStreamUrl');
+        const title = sessionStorage.getItem('videoTitle');
+        const description = sessionStorage.getItem('videoDescription');
+        const poster = sessionStorage.getItem('videoPoster');
+
+        document.getElementsByTagName("body")[0].style.background = `url(${poster}) no-repeat center center`;
+        document.getElementsByTagName("body")[0].style.backgroundSize = "cover";
+        document.getElementsByTagName("body")[0].style.backgroundAttachment = "fixed"; // Optional: for parallax effect
+
+        // Add the play button functionality
+            if (streamUrl && title && description) {
+                playVideo(streamUrl, title, description); // Ensure play happens after user clicks
+            } else {
+                console.error('Error: Missing video data.');
+            }
+     
+
+        function playVideo(streamUrl, title, description) {
+            const movie_dis = document.createElement('div'); movie_dis.innerHTML = ``;
+            movie_dis.innerHTML = `<div id="movie_details">
+                <div class="tittle_dis">
+                    <h2>${title}</h2>
+                    <h4>Description:</h4><br>
+                    <p>${description}</p>
+                </div>
+            </div>`;
+
+            videoContainer.style.display = "block";
+
+            videoPlayer.id = "my-live-video";
+            videoPlayer.classList.add("video-js", "vjs-big-play-centered", "movie-video");
+            videoPlayer.setAttribute("controls", "");
+            videoPlayer.setAttribute("autoplay", "");
+            videoPlayer.setAttribute("muted", "");  // Initially muted to avoid autoplay issue
+
+            const videoSource = document.createElement('source');
+            videoSource.setAttribute("src", streamUrl);
+            videoSource.setAttribute("type", "application/x-mpegURL");
+            videoPlayer.appendChild(videoSource);
+
+            videoPlayer.onerror = (e) => {
+                console.error("Video playback error:", e);
+            };
+
+            if (videoContainer) {
+                videoContainer.appendChild(videoPlayer);
+                videoContainer.appendChild(movie_dis);
+            } else {
+                console.error('Error: Video container not found');
+            }
+
+            setupHLS(videoPlayer, streamUrl);
+        }
+
+        function setupHLS(videoElement, streamUrl) {
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(streamUrl);
+                hls.attachMedia(videoElement);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    videoElement.play(); // Play video after manifest is parsed
+                });
+            } else {
+                console.error("HLS is not supported by this browser.");
+            }
+        }
+
+        // Close video player
+        closeButton.addEventListener('click', function() {
+            videoContainer.style.display = 'none';
+            videoPlayer.pause();
+            videoPlayer.src = ''; // Clear video source
+           let home= window.confirm("Do you want to leave ?")
+           if(home){window.location.href = 'INDEX.html'}
+        });
     </script>
 </body>
 </html>
