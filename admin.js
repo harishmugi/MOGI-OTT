@@ -97,13 +97,9 @@ function fetchComments(movieId) {
             for (const key in data) {
                 const comment = data[key];
                 // Append each comment to the comment list
-                console.log(comment.username)
                 let letter=comment.username;
                 const commentElement = document.createElement("p");
-                commentElement.innerHTML = `<div style="    display: flex
-;
-    align-items: center;
-    gap: 10px;
+                commentElement.innerHTML = `<div style="display: flex;gap: 10px;
 ">
                 <div style="    height: 30px;
     width: 30px;
@@ -326,7 +322,7 @@ console.log(clickedMovie)
                 moviesContainer.appendChild(movieElement_playing);
 
                 // Check if 'details' exists and is an array with at least one element
-                const movieDetails = movie.details && Array.isArray(movie.details) && movie.details.length > 0 ? movie.details[0] : null;
+               let movieDetails = clickedMovie.details && Array.isArray(clickedMovie.details) && clickedMovie.details.length > 0 ? clickedMovie.details[0] : null;
 
 
 
@@ -383,7 +379,7 @@ console.log(clickedMovie)
 
                 // fetchComments(movieId);
                 
-                
+                // console.log(movieDetails.producer)
             
                 checkMovieInWishlist(clickedMovie.title)
 
@@ -1186,9 +1182,30 @@ async function getWishlist() {
 
                             // Append the movie div to the wishlist container
                             wishlistContainer.appendChild(movieDiv);
-                        }
-                    });
+                        } document.querySelector(".viewWish").addEventListener("click",()=>{
+                            console.log(movie.title)
+                            const close_player = document.getElementById("close_player");
+                    const player_info_page = document.getElementById("player");
+                    recommended(movie)
+                    close_player.style.display = "block";
+                    player_info_page.style.display = "block";
+                    document.getElementById("wishlist").style.display = "none";;
 
+                    // Play the movie
+                    const movieStreamUrl = movie.stream_url;  // Assuming each movie has a stream_url
+                    const movieTitle = movie.title;
+                    const movieDescription = movie.description;
+                    const moviePoster = movie.poster;
+                    const movieReleaseDate = movie.release_date;
+                    const movieId  = movie.title;
+
+                    fetchComments(movieId);   
+    
+       
+                        })
+                    
+                    });
+                   
                     // Add event listeners to remove buttons
                     const removeButtons = document.querySelectorAll(".remove-wish");
                     removeButtons.forEach(button => {

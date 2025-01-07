@@ -209,7 +209,138 @@
           "language": "English",
           "country": "USA"
         }]
+      },{
+        "id": "10",
+        "poster": "https://theartsshelf.com/wp-content/uploads/2024/10/Spirited-Away-Quad-.jpg",
+        "title": "Spirited Away",
+        "genre": "Anime",
+        "release_date": "2001-07-20",
+        "rating": "PG",
+        "description": "A young girl named Chihiro stumbles upon a magical world and must find a way to rescue her parents, who have been transformed into pigs, and return to the human world.",
+        "thumbnail": "https://m.media-amazon.com/images/I/91j+Tev2E2L._AC_SY679_.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:05:00",
+        "details": [
+          {
+            "director": "Hayao Miyazaki",
+            "music_director": "Joe Hisaishi",
+            "producer": " Toshio Miyahara",
+            "cast": ["Rumi Hiiragi", "Miyu Irino", "Mari Natsuki"],
+            "language": "Japanese",
+            "country": "Japan"
+          }
+        ]
+      },{
+        "id": "11",
+        "poster": "https://i0.wp.com/ngon.co.uk/wp-content/uploads/2021/02/akira_header01.jpg?fit=2500%2C1500&ssl=1",
+        "title": "Akira",
+        "genre": "Anime",
+        "release_date": "1988-07-16",
+        "rating": "R",
+        "description": "In a dystopian future, a young biker gang member gains dangerous psychic powers and becomes the target of the government, leading to a clash with his best friend.",
+        "thumbnail": "https://m.media-amazon.com/images/I/81E8O8AErxL._AC_SY679_.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:04:00",
+        "details": [
+          {
+            "director": "Katsuhiro Otomo",
+            "music_director": "Shoji Yamashiro",
+            "producer": "Masao Maruyama",
+            "cast": ["Mitomu Shiro", "Tatsuya Fujiwara", "Kaneda"],
+            "language": "Japanese",
+            "country": "Japan"
+          }
+        ]
+      },{
+        "id": "12",
+        "poster": "https://wallpapers.com/images/hd/anime-pictures-71h92xxv3mrpvys6.jpg",
+        "title": "Howl's Moving Castle",
+        "genre": "Fantasy",
+        "release_date": "2004-11-20",
+        "rating": "PG",
+        "description": "Sophie, a young woman transformed into an elderly lady by a witch's curse, seeks refuge in the magical, moving castle of Howl, a wizard who is struggling with his own personal battles.",
+        "thumbnail": "https://m.media-amazon.com/images/I/81YvubXaXfL._AC_SY679_.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "01:59:00",
+        "details": [
+          {
+            "director": "Hayao Miyazaki",
+            "music_director": "Joe Hisaishi",
+            "producer": "Toshio Miyahara",
+            "cast": ["Chieko Baisho", "Takuya Kimura", "Akihiro Miwa"],
+            "language": "Japanese",
+            "country": "Japan"
+          }
+        ]
       }
+      ,{
+        "id": "13",
+        "poster": "https://i.ytimg.com/vi/LIBbTrUG4N0/maxresdefault.jpg",
+        "title": "The Tale of the Princess Kaguya",
+        "genre": "Fantasy",
+        "release_date": "2013-11-23",
+        "rating": "PG",
+        "description": "A retelling of the Japanese folk tale about a mysterious girl found in a bamboo stalk who grows into an extraordinary beauty, and the challenges she faces due to her otherworldly origins.",
+        "thumbnail": "https://m.media-amazon.com/images/I/81nbvn7C9kL._AC_SY679_.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "01:38:00",
+        "details": [
+          {
+            "director": "Isao Takahata",
+            "music_director": "Joe Hisaishi",
+            "producer": "Yoshiaki Nishimura",
+            "cast": ["Chloë Grace Moretz", "James Caan", "Mary Steenburgen"],
+            "language": "English",
+            "country": "Japan"
+          }
+        ]
+      },{
+        "id": "14",
+        "poster": "https://i.pinimg.com/736x/87/c8/f7/87c8f7c4f4ce9c811d2263bd85b3836f.jpg",
+        "title": "Visaranai",
+        "genre": "Action",
+        "release_date": "2015-08-28",
+        "rating": "8.1",
+        "description": "Visaranai is a hard-hitting tale about the police brutality faced by four men who are wrongly accused, illustrating the harsh conditions of Indian prisons and the justice system.",
+        "thumbnail": "https://upload.wikimedia.org/wikipedia/en/7/7d/Visaranai_2015_poster.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:20:00",
+        "details": [
+          {
+            "director": "Vetrimaaran",
+            "music_director": "Ravi Varma",
+            "producer": "Aascar Ravichandran",
+            "cast": ["Dinesh Ravi", "Samuthirakani", "M. S. Bhaskar", "Aadukalam Naren"],
+            "language": "Tamil",
+            "country": "India"
+          }
+        ]
+      }
+      ,{
+        "id": "15",
+        "poster": "https://cdnb.artstation.com/p/assets/images/images/021/928/865/large/robin-son-kaithi-movie-poster-low.jpg?1573489047",
+        "title": "Kaithi",
+        "genre": "Action",
+        "release_date": "2019-10-25",
+        "rating": "8.5",
+        "description": "Kaithi is a gripping action thriller about a prisoner who is forced to transport a police officer who is critically injured, while he is on the run from corrupt officers.",
+        "thumbnail": "https://upload.wikimedia.org/wikipedia/en/d/d6/Kaithi_poster.jpg",
+        "stream_url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "time": "02:24:00",
+        "details": [
+          {
+            "director": "Lokesh Kanagaraj",
+            "music_director": "Sam C. S.",
+            "producer": "S. R. Prabhu",
+            "cast": ["Karthi", "Narain", "Arjun Das", "Vivek Prasanna"],
+            "language": "Tamil",
+            "country": "India"
+          }
+        ]
+      }
+      
+     
+      
     ]
     ,
     "movie_posters": [
