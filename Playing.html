@@ -120,6 +120,9 @@
                 border-radius: 5px;
             }
         }
+        .commands{display:none ;
+            background: black;color: white;position: absolute;right: 1%;bottom: 1%;padding: 10px;border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -134,7 +137,7 @@
     
     <p id="voiceResult"style="color :white;background:black">Say something...</p>
     <p id="aiResponse" style="color :white;background:black">AI Response will appear here.</p>
-
+<div id ="commands"class="commands"><ul>Commands<li>Play</li><li>Stop/Hold/Pause</li><li>Forward/Backward 'seconds'</li><li>volume up/down</li></ul></div>
     <script>
         const videoPlayer = document.createElement('video');
         const videoContainer = document.getElementById('video_player');
@@ -158,7 +161,7 @@
 
                   document.getElementById('play_button').addEventListener('click', function() {
                     let voice_command_flag=window.confirm("Do you want voice control ?")
-           if(voice_command_flag) {startListening(); document.getElementById('play_button').style.display="none"; document.getElementById('voiceResult').style.display="block";document.getElementById('aiResponse').style.display="block"}})
+           if(voice_command_flag) {startListening(); document.getElementById('play_button').style.display="none"; document.getElementById('voiceResult').style.display="block";document.getElementById('aiResponse').style.display="block";document.getElementById('commands').style.display="block"}})
         };
 
         // Start listening for voice commands
