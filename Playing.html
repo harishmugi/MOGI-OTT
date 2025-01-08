@@ -206,15 +206,14 @@
                     const seconds = parseInt(data.response.split(' ')[1]);  // Extract time in seconds
                     videoPlayer.currentTime -= seconds;
                 } else if (data.response.startsWith('volume_up')) {
-                    const volume = videoPlayer.volume + parseFloat(data.response.split(' ')[1]);
-
-                  
-
+                    if(  videoPlayer.volume!=1){const volume =fullVolume+ parseFloat(data.response.split(' ')[1]);
+                    fullVolume=volume
                     videoPlayer.volume = volume;                    
-console.log(volume)
+                }
+
                 } else if (data.response.startsWith('volume_down')) {                    
-                    const volume =  videoPlayer.volume -  parseFloat(data.response.split(' ')[1]);
-                    videoPlayer.volume = volume;
+                    const volume =  fullVolume -  parseFloat(data.response.split(' ')[1]);
+                    videoPlayer.volume = volume;  fullVolume=volume
                     console.log(volume)
 
                 } else if (data.response.startsWith('Unmute')) {                    
@@ -230,7 +229,7 @@ console.log(volume)
             })
             .catch(error => {
                 console.error('Error:', error);
-                document.getElementById('aiResponse').innerText = 'AI Response: Error occurred.';
+                document.getElementById('aiResponse').innerText = 'AI Response: Speak clearly !'; recognition.start();
             })
             .finally(() => {
                 // Immediately start recognition again without a long delay
