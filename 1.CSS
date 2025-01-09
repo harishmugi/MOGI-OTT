@@ -33,6 +33,14 @@ header {
 }
 
 
+/* Larger phones */
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+
 #search-input {
  
     /* color: #03e9f4; */
@@ -1048,4 +1056,86 @@ transform-origin: top center;
     display: block;
     opacity: 1;z-index:10;
     max-height: 500px; /* This value should be higher than the content height */
-  }
+  }@media only screen and (max-width: 620px) {
+    /* General Styles */
+    * {
+        /* font-size: 14px;  Decrease font size for small screens */
+    }
+
+    /* Hide user details on smaller screens */
+    .user-details {
+        display: none;
+    }
+
+    .user-details h1 {
+        display: none;  /* Hide the h1 element inside user-details */
+    }
+
+    /* Style for the logo */
+    .logo {
+        color: #ffffff;
+        position: fixed;
+        left: 1px;  /* Add padding from the left edge */
+        top: 10px;  /* Add padding from the top */
+        font-size: 18px;  /* Adjust logo font size */
+    }
+
+    /* Search input adjustments */
+    #search-input {
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        position: absolute;
+         left: 2px;margin-left: 10px;top: -50px;
+        /* left: 50%;  Center horizontally */
+        /* width: 800px;  Adjust input width */
+        font-size: 14px;  /* Ensure font size matches the smaller screen */
+    }
+    .fa-magnifying-glass:before, .fa-search:before {
+position: fixed
+;   left: 2px;margin-left: 5px;top: 55px;  }.fa-filter{
+    position: fixed
+;   left: 2px;margin-left: 50%;top: 55px;         font-size:10px;  /* Decrease font size for small screens */
+
+}
+    /* User letter circle style */
+    #user_letter {
+        border: 2px solid #fff;
+        background-color: #50d9eb;
+        border-radius: 45%;
+        display: block;
+        text-align: center;
+        z-index: 20;
+        font-size: 15px; 
+        padding: 4px 10px;  /* Increase padding for better size on small screens */
+        position: fixed;
+        top: 10px;  /* Fix to the top */
+        right: 10px;  /* Position it on the right side */
+        cursor: pointer;
+    }    #viewWish {position: fixed;
+        font-size:0px;width: 17%;right: 20%;
+    }
+
+
+
+
+    /* Header content */
+    .header_content {
+        background: black;  /* Solid black background */
+        display: flex;
+        align-items: center;  /* Center content horizontally */
+        /* justify-content: center; */
+        /* height: auto;  Adjust header height based on content */
+        position: relative;
+        /* top: 0; */
+        /* padding: 10px;  Add padding to the header */
+    }
+
+    /* Optional: Adjust the visibility of any icons or buttons */
+    .sign_up i {
+        font-size: 20px;  /* Adjust size for smaller screens */
+    }
+
+    #viewWish {
+        font-size: 14px;  /* Adjust text size */
+    }
+}
