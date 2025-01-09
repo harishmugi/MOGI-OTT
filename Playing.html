@@ -162,7 +162,7 @@
     <div id="commands" class="commands">
         <h1>Commands </h1><ul>
             <li>Play</li>
-            <li>Stop/Hold/Pause</li>
+            <li>Stop/Pause</li>
             <li>Forward/Backward 'seconds'</li>
             <li>Volume up/down</li>
         </ul>
@@ -214,45 +214,73 @@
             console.log("You said: " + voiceCommand);
             processCommand(voiceCommand);
         };
-
         function processCommand(command) {
-            const commandLower = command.toLowerCase();
-            aiResponse.innerText = 'AI Response: ';
+    const commandLower = command.toLowerCase();
+    aiResponse.innerText = 'AI Response: ';
 
-            if (commandLower.includes("play")) {
-                videoPlayer.play();
-                aiResponse.innerText += 'Playing video.';
-            } else if (commandLower.includes("pause") || commandLower.includes("stop")) {
-                videoPlayer.pause();
-                aiResponse.innerText += 'Video paused.';
-            } else if (commandLower.includes("volume up")) {
-                let volume = videoPlayer.volume + 0.1;
-                if (volume > 1) volume = 1;
-                videoPlayer.volume = volume;
-                aiResponse.innerText += `Volume increased to ${Math.round(volume * 100)}%.`;
-            } else if (commandLower.includes("volume down")) {
-                let volume = videoPlayer.volume - 0.1;
-                if (volume < 0) volume = 0;
-                videoPlayer.volume = volume;
-                aiResponse.innerText += `Volume decreased to ${Math.round(volume * 100)}%.`;
-            } else if (commandLower.includes("forward")) {
-                const seconds = parseInt(commandLower.split(" ")[1]) || 10;
-                videoPlayer.currentTime += seconds;
-                aiResponse.innerText += `Video forwarded by ${seconds} seconds.`;
-            } else if (commandLower.includes("backward")) {
-                const seconds = parseInt(commandLower.split(" ")[1]) || 10;
-                videoPlayer.currentTime -= seconds;
-                aiResponse.innerText += `Video rewinded by ${seconds} seconds.`;
-            } else if (commandLower.includes("mute")) {
-                videoPlayer.volume = 0;
-                aiResponse.innerText += 'Video muted.';
-            } else if (commandLower.includes("unmute")) {
-                videoPlayer.volume = 1;
-                aiResponse.innerText += 'Video unmuted.';
-            } else {
-                aiResponse.innerText += 'Command not recognized.';
-            }
-        }
+    // Volume Up or Down based on user command
+    if (commandLower.includes("volume up")) {
+        let volume = videoPlayer.volume + 0.1;  // Increase volume by 0.1
+        if (volume > 1) volume = 1;  // Ensure volume doesn't exceed 100%
+        videoPlayer.volume = volume;
+        aiResponse.innerText += `Volume increased to ${Math.round(volume * 100)}%.`;
+    } else if (commandLower.includes("volume down")) {
+        let volume = videoPlayer.volume - 0.1;  // Decrease volume by 0.1
+        if (volume < 0) volume = 0;  // Ensure volume doesn't go below 0%
+        videoPlayer.volume = volume;
+        aiResponse.innerText += `Volume decreased to ${Math.round(volume * 100)}%.`;
+    } 
+    
+    // Play video
+    else if (commandLower.includes("play")) {
+        videoPlayer.play();
+        aiResponse.innerText += 'Playing video.';
+    }
+
+    // Pause video, using "pause" or "hold"
+    else if (commandLower.includes("pause") || commandLower.includes("stop") || commandLower.includes("hold")) {
+        videoPlayer.pause();
+        aiResponse.innerText += 'Video paused.';
+    } 
+
+    // Forward the video by the specified seconds (e.g., "forward 10")
+    else if (commandLower.includes('forward')) {
+    const match = commandLower.match(/forward (\d+)/);  // Extract number after 'forward'
+    if (match) {
+        const seconds = parseInt(match[1]); // Extract the number of seconds from the command
+        videoPlayer.currentTime += seconds;
+        aiResponse.innerText += `Video forwarded by ${seconds} seconds.`;
+    } else {
+        aiResponse.innerText += 'Please specify the number of seconds to forward.';
+    }
+} else if (commandLower.includes('backward')) {
+    const match = commandLower.match(/backward (\d+)/);  // Extract number after 'backward'
+    if (match) {
+        const seconds = parseInt(match[1]); // Extract the number of seconds from the command
+        videoPlayer.currentTime -= seconds;
+        aiResponse.innerText += `Video rewinded by ${seconds} seconds.`;
+    } else {
+        aiResponse.innerText += 'Please specify the number of seconds to rewind.';
+    }
+}
+
+    // Mute the video
+    else if (commandLower.includes("mute")) {
+        videoPlayer.volume = 0;
+        aiResponse.innerText += 'Video muted.';
+    }
+
+    // Unmute the video
+    else if (commandLower.includes("unmute")) {
+        videoPlayer.volume = 1;
+        aiResponse.innerText += 'Video unmuted.';
+    }
+
+    // Default response for unrecognized command
+    else {
+        aiResponse.innerText += 'Command not recognized.';
+    }
+}
 
         recognition.onerror = function(event) {
             aiResponse.innerText = 'AI Response: Error in voice recognition.';
