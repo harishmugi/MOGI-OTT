@@ -97,8 +97,7 @@ function fetchComments(movieId) {
             for (const key in data) {
                 const comment = data[key];
                 // Append each comment to the comment list
-                // let letter=comment.username;
-                
+                let letter=comment.username;
                 const commentElement = document.createElement("p");
                 commentElement.innerHTML = `<div style="display: flex;gap: 10px;
 ">
@@ -228,7 +227,7 @@ async function retrieveMovies(genre = '') {
             const movieElement = document.createElement('div');
             movieElement.classList.add("row_box");
             movieElement.innerHTML = `
-                <img src="${movie.poster}" class="movies_img"style="height:50%" alt="${movie.title} Poster" >
+                <img src="${movie.poster}" class="movies_img"style="height:200px" alt="${movie.title} Poster" >
                 <div class="tittle_and_details">
                     <h2>${movie.title}</h2>
                     <p><strong>Genre:</strong> ${movie.genre}</p>
@@ -310,7 +309,7 @@ console.log(clickedMovie)
 
                 // Dynamically add movie details to the movieElement_playing
                 movieElement_playing.innerHTML = `
-                <a href="#movie_details"><img src="${movie.poster}" class="movies_img" id="movies_img" alt="${movie.title} Poster"></a>
+                <a href="#movie_details"><img src="${movie.poster}" class="movies_img"  style="width: 300px; height:200px; alt="${movie.title} Poster"></a>
                 <div class="tittle_and_details">
                     <h2>${movie.title}</h2>
                     <p><strong>Genre:</strong> ${movie.genre}</p>
@@ -336,7 +335,7 @@ console.log(clickedMovie)
                     <div id="movie_details">
                         <div id="movie_poster_title"  style="z-index:4;">
                             <div style="z-index:4;">  
-                                <img src="${clickedMovie.poster}" alt="${clickedMovie.title} Poster" id="poster" />
+                                <img src="${clickedMovie.poster}" alt="${clickedMovie.title} Poster" style="width: 500px; height:350px;z-index:4;" />
                                 <h2>${clickedMovie.title}</h2>
                                <div style="display:flex";> <button id="playNow"> PLAY</button>  <p id="wish" class="wish"title=" Add to Wishlist +" style="width:fit-content"
 ><i class="fa-regular fa-heart"style="margin-top:25\px;margin-left:10px;background:#50d9eb;border-radius:50%;padding:5px;border:2px solid #fff"></i></p>
@@ -393,12 +392,12 @@ console.log(clickedMovie)
 
                     selectedMovieContainer.style.backgroundImage = `url(${clickedMovie.poster})`;
 
-                    // // Set background properties
-                    // selectedMovieContainer.style.backgroundRepeat = "no-repeat"; // Ensure the image doesn't repeat
-                    // selectedMovieContainer.style.backgroundSize = "cover"; // Optional: Make the background cover the entire container
-                    // selectedMovieContainer.style.backgroundPosition = "center"; selectedMovieContainer.style.backgroundBlendMode = "darken"; // Correct blend mode
-                    // selectedMovieContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // 50% opacity black
-                    // selectedMovieContainer.style.position = "relative";  // Allow positioning of pseudo-elements
+                    // Set background properties
+                    selectedMovieContainer.style.backgroundRepeat = "no-repeat"; // Ensure the image doesn't repeat
+                    selectedMovieContainer.style.backgroundSize = "cover"; // Optional: Make the background cover the entire container
+                    selectedMovieContainer.style.backgroundPosition = "center"; selectedMovieContainer.style.backgroundBlendMode = "darken"; // Correct blend mode
+                    selectedMovieContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // 50% opacity black
+                    selectedMovieContainer.style.position = "relative";  // Allow positioning of pseudo-elements
 
 
 
@@ -1430,6 +1429,3 @@ document.querySelectorAll('.cat').forEach(item => {
         item.classList.add('active');
     });
 });
-
-
-
