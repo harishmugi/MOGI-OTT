@@ -97,8 +97,8 @@ function fetchComments(movieId) {
             for (const key in data) {
                 const comment = data[key];
                 // Append each comment to the comment list
-                // let letter=comment.username;
-                
+                let letter=comment.username;
+                const commentcolordiv= document.createElement("div");
                 const commentElement = document.createElement("p");
                 commentElement.innerHTML = `<div style="display: flex;gap: 10px;
 ">
@@ -115,7 +115,8 @@ function fetchComments(movieId) {
  
                 </div>
                `;;
-                commentListElement.appendChild(commentElement);
+               commentcolordiv.appendChild(commentElement);  commentListElement.appendChild(commentcolordiv);
+               commentcolor()
             }
         } else {
             const commentListElement = document.getElementById("comments_list");
@@ -228,7 +229,7 @@ async function retrieveMovies(genre = '') {
             const movieElement = document.createElement('div');
             movieElement.classList.add("row_box");
             movieElement.innerHTML = `
-                <img src="${movie.poster}" class="movies_img"style="height:50%" alt="${movie.title} Poster" >
+                <img src="${movie.poster}" class="movies_img"style="height:200px" alt="${movie.title} Poster" >
                 <div class="tittle_and_details">
                     <h2>${movie.title}</h2>
                     <p><strong>Genre:</strong> ${movie.genre}</p>
@@ -310,7 +311,7 @@ console.log(clickedMovie)
 
                 // Dynamically add movie details to the movieElement_playing
                 movieElement_playing.innerHTML = `
-                <a href="#movie_details"><img src="${movie.poster}" class="movies_img" id="movies_img" alt="${movie.title} Poster"></a>
+                <a href="#movie_details"><img src="${movie.poster}" class="movies_img"  style="width: 300px; height:200px; alt="${movie.title} Poster"></a>
                 <div class="tittle_and_details">
                     <h2>${movie.title}</h2>
                     <p><strong>Genre:</strong> ${movie.genre}</p>
@@ -334,34 +335,48 @@ console.log(clickedMovie)
                     // Create the new movie details content, checking if movieDetails is valid
                     movie_dis.innerHTML = `
                     <div id="movie_details">
-                        <div id="movie_poster_title"  style="z-index:4;">
-                            <div style="z-index:4;">  
-                                <img src="${clickedMovie.poster}" alt="${clickedMovie.title} Poster" id="poster" />
-                                <h2>${clickedMovie.title}</h2>
-                               <div style="display:flex";> <button id="playNow"> PLAY</button>  <p id="wish" class="wish"title=" Add to Wishlist +" style="width:fit-content"
-><i class="fa-regular fa-heart"style="margin-top:25\px;margin-left:10px;background:#50d9eb;border-radius:50%;padding:5px;border:2px solid #fff"></i></p>
-</div>
-                                <div class="Description">
-                                    <br>
-                                    <h4>Description: </h4>
-                                    <p>${clickedMovie.description || "No description available."}</p>
-                                </div>
-                            </div>
-                            <div class="movie_cast_title">
-                                <h4><strong>Release Date:</strong><p> ${clickedMovie.release_date}</p></h4>
-                                <h4>Cast:</h4>
-                                <p>${movieDetails ? movieDetails.cast.join(", ") : "N/A"}</p>
-                                <h4>Director:</h4>
-                                <p>${movieDetails ? movieDetails.director : "N/A"}</p>
-                                <h4>Music Director:</h4>
-                                <p>${movieDetails ? movieDetails.music_director : "N/A"}</p>
-                                <h4>Producer:</h4>
-                                <p>${movieDetails ? movieDetails.producer : "N/A"}</p>
-                            </div>
-                        </div>
-                    </div>
+                       <div id="movie_poster_title" style="z-index:4; width:100%; padding:10px; box-sizing:border-box; text-align:center;">
+    <div style="z-index:4; width:100%;">
 
-                    <!-- Comment Section -->
+        <!-- Movie Poster -->
+        <img src="${clickedMovie.poster}" alt="${clickedMovie.title} Poster"
+             style="width:100%;  height:auto; max-height:350px; z-index:4; margin-bottom:15px;" />
+
+        <!-- Movie Title -->
+        <h2 style="font-size:1.5rem; margin-bottom:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${clickedMovie.title}</h2>
+
+        <!-- Play Button & Wishlist Icon -->
+        <div style="display:flex; justify-content:left; align-items:center; gap:10px; margin-bottom:15px;">
+            <button id="playNow" style="font-size:1rem;">PLAY</button>
+            <p id="wish" class="wish" title="Add to Wishlist +" style="cursor:pointer;">
+                <i class="fa-regular fa-heart" style="background:#50d9eb; border-radius:50%; padding:5px; border:2px solid #fff;"></i>
+            </p>
+        </div>
+
+        <!-- Description -->
+        <div class="Description" style="text-align:left; display:flex;flex-wrap:wrap;margin-bottom:15px;">
+            <h4 style="font-size:1.2rem; margin-bottom:5px;">Description:</h4>
+            <p style="font-size:1rem; margin:0;;width:800px">${clickedMovie.description || "No description available."}</p>
+        </div>
+    </div>
+
+    <!-- Additional Info (Cast, Director, etc.) -->
+    <div class="movie_cast_title" style="text-align:left;">
+        <h4 style="font-size:1.2rem; margin-bottom:5px;">Release Date:</h4>
+        <p style="font-size:1rem; margin-bottom:10px;">${clickedMovie.release_date}</p>
+
+        <h4 style="font-size:1.2rem; margin-bottom:5px;">Cast:</h4>
+        <p style="font-size:1rem; margin-bottom:10px;">${movieDetails ? movieDetails.cast.join(", ") : "N/A"}</p>
+
+        <h4 style="font-size:1.2rem; margin-bottom:5px;">Director:</h4>
+        <p style="font-size:1rem; margin-bottom:10px;">${movieDetails ? movieDetails.director : "N/A"}</p>
+
+        <h4 style="font-size:1.2rem; margin-bottom:5px;">Music Director:</h4>
+        <p style="font-size:1rem; margin-bottom:10px;">${movieDetails ? movieDetails.music_director : "N/A"}</p>
+
+        <h4 style="font-size:1.2rem; margin-bottom:5px;">Producer:</h4>
+        <p style="font-size:1rem;">${movieDetails ? movieDetails.producer : "N/A"}</p>
+           <!-- Comment Section -->
                     <div id="comment_section">
                         <h3>Comments:</h3>
                        <div id="comments" class="comments"> <div id="comments_list" class="comments_list"></div> <!-- Where comments will be displayed -->
@@ -369,6 +384,11 @@ console.log(clickedMovie)
                         <span id="submit_comment"><i class="fa-regular fa-paper-plane"style="position:relative;bottom:10px;left:10px;border:2px solid #fff;padding:10px;border-radius:50%;color:white;background:#50d9eb;"></i></span>
                         <div class="View_Comments" style="cursor:pointer;">View Comments</div></div>
                     </div>
+    </div>
+</div>
+
+
+                 
                 </div>
                 
             
@@ -393,12 +413,12 @@ console.log(clickedMovie)
 
                     selectedMovieContainer.style.backgroundImage = `url(${clickedMovie.poster})`;
 
-                    // // Set background properties
-                    // selectedMovieContainer.style.backgroundRepeat = "no-repeat"; // Ensure the image doesn't repeat
-                    // selectedMovieContainer.style.backgroundSize = "cover"; // Optional: Make the background cover the entire container
-                    // selectedMovieContainer.style.backgroundPosition = "center"; selectedMovieContainer.style.backgroundBlendMode = "darken"; // Correct blend mode
-                    // selectedMovieContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // 50% opacity black
-                    // selectedMovieContainer.style.position = "relative";  // Allow positioning of pseudo-elements
+                    // Set background properties
+                    selectedMovieContainer.style.backgroundRepeat = "no-repeat"; // Ensure the image doesn't repeat
+                    selectedMovieContainer.style.backgroundSize = "cover"; // Optional: Make the background cover the entire container
+                    selectedMovieContainer.style.backgroundPosition = "center"; selectedMovieContainer.style.backgroundBlendMode = "darken"; // Correct blend mode
+                    selectedMovieContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // 50% opacity black
+                    selectedMovieContainer.style.position = "relative";  // Allow positioning of pseudo-elements
 
 
 
@@ -432,7 +452,7 @@ console.log(clickedMovie)
 
 
 
-
+                 
 
 
 
@@ -509,7 +529,6 @@ auth.onAuthStateChanged(user => {
 
 // Function to fetch the comments for a movie
 fetchComments(movieId);
-
 
 
 
@@ -1432,4 +1451,20 @@ document.querySelectorAll('.cat').forEach(item => {
 });
 
 
+function commentcolor() {
+    const comments = document.getElementById('comments_list').children;
+    
+    for (let i = 0; i < comments.length; i++) {
+        // Alternate between gray and white for background
+        comments[i].style.backgroundColor = (i % 2 === 0) ? 'gray' : 'white';
+        
+        // Alternate between white and gray for text color
+        comments[i].style.color = (i % 2 === 0) ? 'white' : 'gray';
+        comments[i].style.padding ="10px"
 
+        comments[i].style.borderRadius ="10px"
+        comments[i].style.height="fit-content"
+
+        console.log(comments[i]);  // Logging each comment
+    }
+}
