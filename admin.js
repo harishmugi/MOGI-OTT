@@ -406,12 +406,7 @@ movie_dis.innerHTML = `
             <p style="font-size:1rem; margin-bottom:10px;">${movieDetails ? movieDetails.music_director : "N/A"}</p>
 
             <h4 style="font-size:1.2rem; margin-bottom:5px;">Producer:</h4>
-            <p style="font-size:1rem;">${movieDetails ? movieDetails.producer : "N/A"}</p>
-        </div>
-    </div>
-
-    <!-- Comment Section -->
-    <div id="comment_section">
+            <p style="font-size:1rem;">${movieDetails ? movieDetails.producer : "N/A"}</p>  <div id="comment_section">
         <h3>Comments:</h3>
         <div id="comments" class="comments">
             <div id="comments_list" class="comments_list"></div> <!-- Where comments will be displayed -->
@@ -423,9 +418,14 @@ movie_dis.innerHTML = `
         </div>
     </div>
 </div>
+        </div>
+    </div>
+
+    <!-- Comment Section -->
+  
 `;
 
-                const movieId  = clickedMovie.title;
+const movieId  = clickedMovie.title;
 
                 // fetchComments(movieId);
                 
