@@ -94,28 +94,57 @@ function fetchComments(movieId) {
             const commentListElement = document.getElementById("comments_list");
             commentListElement.innerHTML = ""; // Reset previous content
 
-            for (const key in data) {
-                const comment = data[key];
-                // Append each comment to the comment list
-                let letter=comment.username;
-                const commentElement = document.createElement("p");
-                commentElement.innerHTML = `<div style="display: flex;gap: 10px;
-">
-                <div style="    height: 30px;
-    width: 30px;
-    padding: 2px;
-    text-align: center;
-    border-radius: 50%;
-    border: 2px solid black;
-    background-color: #50d9eb;" >${comment.userEmail[0]}</div><div style="    display: flex
-;flex-wrap:wrap">
+         for (const key in data) {
+    const comment = data[key];
+    // Append each comment to the comment list
+    let letter = comment.username;
+
+    // Create a new div element to contain the comment
+    const commentcolordiv = document.createElement("div");
+    
+    // Create the paragraph element that will hold the formatted comment
+    const commentElement = document.createElement("p");
+    commentElement.innerHTML = `
+        <div style="display: flex; gap: 10px;">
+            <div style="height: 30px; width: 30px; padding: 2px; text-align: center; border-radius: 50%; border: 2px solid black; background-color: #50d9eb;">
+                ${comment.userEmail[0]}
+            </div>
+            <div style="display: flex; flex-wrap: wrap;">
                 <div>${comment.userEmail}:</div>
-                <div> ${comment.comment}</div> </div>
- 
-                </div>
-               `;;
-                commentListElement.appendChild(commentElement);
-            }
+                <div>${comment.comment}</div>
+            </div>
+        </div>
+    `;
+
+    // Append the created paragraph element to the color-div container
+    commentcolordiv.appendChild(commentElement);
+
+    // Finally, append the color-div container to the comment list element
+    commentListElement.appendChild(commentcolordiv);
+
+    const comments = document.getElementById('comments_list').children;
+
+    for (let i = 0; i < comments.length; i++) {
+        // Alternate background color between gray and white
+        comments[i].style.backgroundColor = (i % 2 === 0) ? 'gray' : 'white';
+        
+        // Alternate text color between white and gray
+        comments[i].style.color = (i % 2 === 0) ? 'white' : 'gray';
+        
+        // Apply padding, border-radius, and ensure height is fit to content
+        comments[i].style.padding = "10px";
+        comments[i].style.borderRadius = "10px";
+        comments[i].style.height = "fit-content"; // Use correct fit-content for height
+
+        // Log the comment for debugging purposes
+        console.log(comments[i]);
+    }
+
+
+    // Optionally, if you have any function to modify the comment's appearance or style
+   
+}
+
         } else {
             const commentListElement = document.getElementById("comments_list");
             commentListElement.textContent = "No comments available.";
@@ -330,51 +359,72 @@ console.log(clickedMovie)
   const movie_dis = document.createElement('div');
                     movie_dis.classList.add("movie_dis");
 
-                    // Create the new movie details content, checking if movieDetails is valid
-                    movie_dis.innerHTML = `
-                    <div id="movie_details">
-                        <div id="movie_poster_title"  style="z-index:4;">
-                            <div style="z-index:4;">  
-                                <img src="${clickedMovie.poster}" alt="${clickedMovie.title} Poster" style="width: 500px; height:350px;z-index:4;" />
-                                <h2>${clickedMovie.title}</h2>
-                               <div style="display:flex";> <button id="playNow"> PLAY</button>  <p id="wish" class="wish"title=" Add to Wishlist +" style="width:fit-content"
-><i class="fa-regular fa-heart"style="margin-top:25\px;margin-left:10px;background:#50d9eb;border-radius:50%;padding:5px;border:2px solid #fff"></i></p>
+                // Create the new movie details content, checking if movieDetails is valid
+movie_dis.innerHTML = `
+<div id="movie_details">
+    <div id="movie_poster_title" style="z-index:4; width:100%; padding:10px; box-sizing:border-box; text-align:center;">
+        <div style="z-index:4; width:100%;">
+
+            <!-- Movie Poster -->
+            <img src="${clickedMovie.poster}" alt="${clickedMovie.title} Poster"
+                 style="width:100%; height:auto; max-height:350px; z-index:4; margin-bottom:15px;" />
+
+            <!-- Movie Title -->
+            <h2 style="font-size:1.5rem; margin-bottom:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                ${clickedMovie.title}
+            </h2>
+
+            <!-- Play Button & Wishlist Icon -->
+            <div style="display:flex; justify-content:left; align-items:center; gap:10px; margin-bottom:15px;">
+                <button id="playNow" style="font-size:1rem;">PLAY</button>
+                <p id="wish" class="wish" title="Add to Wishlist +" style="cursor:pointer;">
+                    <i class="fa-regular fa-heart" style="background:#50d9eb; border-radius:50%; padding:5px; border:2px solid #fff;"></i>
+                </p>
+            </div>
+
+            <!-- Description -->
+            <div class="Description" style="text-align:left; display:flex; flex-wrap:wrap; margin-bottom:15px;">
+                <h4 style="font-size:1.2rem; margin-bottom:5px;">Description:</h4>
+                <p style="font-size:1rem; margin:0; width:800px;">
+                    ${clickedMovie.description || "No description available."}
+                </p>
+            </div>
+        </div>
+
+        <!-- Additional Info (Cast, Director, etc.) -->
+        <div class="movie_cast_title" style="text-align:left;">
+            <h4 style="font-size:1.2rem; margin-bottom:5px;">Release Date:</h4>
+            <p style="font-size:1rem; margin-bottom:10px;">${clickedMovie.release_date}</p>
+
+            <h4 style="font-size:1.2rem; margin-bottom:5px;">Cast:</h4>
+            <p style="font-size:1rem; margin-bottom:10px;">${movieDetails ? movieDetails.cast.join(", ") : "N/A"}</p>
+
+            <h4 style="font-size:1.2rem; margin-bottom:5px;">Director:</h4>
+            <p style="font-size:1rem; margin-bottom:10px;">${movieDetails ? movieDetails.director : "N/A"}</p>
+
+            <h4 style="font-size:1.2rem; margin-bottom:5px;">Music Director:</h4>
+            <p style="font-size:1rem; margin-bottom:10px;">${movieDetails ? movieDetails.music_director : "N/A"}</p>
+
+            <h4 style="font-size:1.2rem; margin-bottom:5px;">Producer:</h4>
+            <p style="font-size:1rem;">${movieDetails ? movieDetails.producer : "N/A"}</p>
+        </div>
+    </div>
+
+    <!-- Comment Section -->
+    <div id="comment_section">
+        <h3>Comments:</h3>
+        <div id="comments" class="comments">
+            <div id="comments_list" class="comments_list"></div> <!-- Where comments will be displayed -->
+            <textarea id="comment_input" placeholder="Add your comment"></textarea>
+            <span id="submit_comment">
+                <i class="fa-regular fa-paper-plane" style="position:relative; bottom:10px; left:10px; border:2px solid #fff; padding:10px; border-radius:50%; color:white; background:#50d9eb;"></i>
+            </span>
+            <div class="View_Comments" style="cursor:pointer;">View Comments</div>
+        </div>
+    </div>
 </div>
-                                <div class="Description">
-                                    <br>
-                                    <h4>Description: </h4>
-                                    <p>${clickedMovie.description || "No description available."}</p>
-                                </div>
-                            </div>
-                            <div class="movie_cast_title">
-                                <h4><strong>Release Date:</strong><p> ${clickedMovie.release_date}</p></h4>
-                                <h4>Cast:</h4>
-                                <p>${movieDetails ? movieDetails.cast.join(", ") : "N/A"}</p>
-                                <h4>Director:</h4>
-                                <p>${movieDetails ? movieDetails.director : "N/A"}</p>
-                                <h4>Music Director:</h4>
-                                <p>${movieDetails ? movieDetails.music_director : "N/A"}</p>
-                                <h4>Producer:</h4>
-                                <p>${movieDetails ? movieDetails.producer : "N/A"}</p>
-                            </div>
-                        </div>
-                    </div>
+`;
 
-                    <!-- Comment Section -->
-                    <div id="comment_section">
-                        <h3>Comments:</h3>
-                       <div id="comments" class="comments"> <div id="comments_list" class="comments_list"></div> <!-- Where comments will be displayed -->
-                        <textarea id="comment_input" placeholder="Add your comment"></textarea>
-                        <span id="submit_comment"><i class="fa-regular fa-paper-plane"style="position:relative;bottom:10px;left:10px;border:2px solid #fff;padding:10px;border-radius:50%;color:white;background:#50d9eb;"></i></span>
-                        <div class="View_Comments" style="cursor:pointer;">View Comments</div></div>
-                    </div>
-                </div>
-                
-            
-                
-
-                `;
-                
                 const movieId  = clickedMovie.title;
 
                 // fetchComments(movieId);
@@ -431,7 +481,7 @@ console.log(clickedMovie)
 
 
 
-
+                 
 
 
 
@@ -508,7 +558,6 @@ auth.onAuthStateChanged(user => {
 
 // Function to fetch the comments for a movie
 fetchComments(movieId);
-
 
 
 
