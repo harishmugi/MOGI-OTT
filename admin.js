@@ -425,7 +425,7 @@ movie_dis.innerHTML = `
   
 `;
 
-                const movieId  = clickedMovie.title;
+const movieId  = clickedMovie.title;
 
                 // fetchComments(movieId);
                 
