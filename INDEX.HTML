@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main_Project</title>
     <link rel="stylesheet" href="1.CSS">
-    <link rel="icon" href="img/MOLGIWEBICON.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="img/MOGIWEBICON.png" type="image/png" sizes="32x32">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -79,7 +79,7 @@
                 <input type="text" id="search-input" placeholder="Search movies by title..." /><i
                     class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div class="Category" id="categoryToggle"> <i class="fa-solid fa-filter"></i>
+            <div class="Category" id="categoryToggle" style="z-index: 15;"> <i class="fa-solid fa-filter"></i>
             </div>
             <div>
                 <marquee class="user-details" style="display: none;">
@@ -250,6 +250,33 @@ box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
     <script src="/login/login.js" defer type="module"></script>
     <script type="module" src="admin.js"></script>
 
-</body>5
+
+<div id="aiIcone">
+    <!-- <img src="img/MOLGIWEBICON.png" width="30px"> -->
+</div>
+
+   <div id="ai" class="ai">
+    <i class="fa-solid fa-arrow-left" id="close_ai" style="color: #fff;"></i>
+    <h3 style="color: #fff;text-align: center;">Movie Vault</h3>
+   <div style=" overflow: scroll;height: 450px;padding-bottom: 10px;"><div id="output">Please enter the name of the movie you would like to view details for...</div>
+
+   <div id="YoutubeVideoContainer"></div>
+</div>
+
+    <!-- Text input for query -->
+    <input type="text" id="textQuery" placeholder="Type movie name (e.g., 'IT')" />
+    <button id="searchButton">Search</button>
+    <br><br>
+  
+    <!-- Button to start voice recognition -->
+  
+    <!-- Output div to display results -->
+  
+    <!-- YouTube video container -->
+  
+    <!-- Load Google API script -->
+    <script src="https://apis.google.com/js/api.js"></script>
+  </div>
+</body>
 
 </html>
