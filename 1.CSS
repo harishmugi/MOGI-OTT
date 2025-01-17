@@ -297,7 +297,6 @@ main {background-color: #000;
 
 .row_box {
     justify-content: center;
-    width: 25%;
     height: 300px;
     background-color: #00000060;
     backdrop-filter: blur(5px);
@@ -1191,7 +1190,7 @@ top: 20%;;h1{
 /* ================================================================================================================================================================= */
 /* General styles */
 #rows { overflow-x: hidden;
-    left: 0pxa;right: 0px;
+    left: 0px;
     gap: 100px;
     position: absolute;
     top: 21%;
@@ -1392,9 +1391,7 @@ h1 {
 /* Submit Button (Paper Plane Icon) */
 
 
-#submit_comment:hover {
-    background-color: #4ec3d9;
-}
+
 
 #submit_comment i {
     font-size: 18px;
@@ -1482,4 +1479,79 @@ font-size:1.25rem ;    }.tittle_and_details{
     width: 70%; /* Full width when displayed */
     right: -200%;
     top: -360%;
+} 
+  #output {
+    margin-top: 20px;text-align: center;
+    white-space: pre-line;    backdrop-filter: blur(10px);
+color: #fff;
+  }
+  #searchButton {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;position:absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  #searchButton:hover {
+    background-color: #45a049;
+  }
+  input[type="text"] {
+    padding:8px;
+    width:77%;
+    font-size: 16px;
+   left: 10px;
+    position: absolute;
+    bottom: 10px;
+    border-radius: 7px;
+    outline-color: aqua;
+  }
+ 
+  #YoutubeVideoContainer {
+    margin-top: 20px;
+  }
+.ai{display: none;
+position: fixed;
+z-index: 6;
+background-color: #484848;
+top: 27%;
+left: 30%;
+padding: 2%;
+border-radius: 10px;
+height: 68%;
+width: 41%;background-image: url("img/MOGIWEBICON.png");
+background-size: 100px;background-position: center;
+background-repeat: no-repeat;
+overflow: scroll;
+}
+#aiIcone{
+    position: fixed;
+    z-index: 6;
+    bottom:100px ;
+    right: 100px;
+    border-radius: 50%;
+    height: 50px;padding: 8px;
+    width: 50px;  
+
+    border: 2px solid #50d9eb;
+background-image: url("img/MOGIWEBICON.png");
+    animation: bounce 2s ease infinite;background-size: contain;
+    box-shadow: 0px 0px 30px #50d9eb;
+    cursor: pointer;
+  @keyframes bounce {
+      70% { transform:translateY(0%); }
+      80% { transform:translateY(-15%); }
+      90% { transform:translateY(0%); }
+      95% { transform:translateY(-7%); }
+      97% { transform:translateY(0%); }
+      99% { transform:translateY(-3%); }
+      100% { transform:translateY(0); }
+  }
+  &:hover{
+    animation: none;
+  }
+}.aishow{
+    display: block;
 }

@@ -149,7 +149,7 @@ function fetchComments(movieId) {
             const commentListElement = document.getElementById("comments_list");
             commentListElement.textContent = "No comments available.";
             // Reset previous content
-
+            commentListElement.style.color="#fff"
             // const commentElement = document.createElement("p");
             //     commentElement.textContent = "No comments available.";
             //     ;
@@ -578,6 +578,7 @@ movieElement_playing.addEventListener('click', () => {
     // Select the selected movie container
     const selectedMovieContainer = document.getElementById('selected_movie');
 
+    
     // Remove any existing movie details (ensure only one movie is shown)
     selectedMovieContainer.innerHTML = "";
     recommended(movie) 
@@ -1393,7 +1394,7 @@ async function searchMovies(queryText) {
                     // Show player info page if logged in
                     const close_player = document.getElementById("close_player");
                     const player_info_page = document.getElementById("player");
-                    recommended()
+                    recommended(movie)
                     close_player.style.display = "block";
                     player_info_page.style.display = "block";
 
@@ -1478,3 +1479,158 @@ document.querySelectorAll('.cat').forEach(item => {
         item.classList.add('active');
     });
 });
+
+
+
+
+
+// ============================================================================================================================================================================================================================= // OMDb API Key (sign up for an API key at https://www.omdbapi.com/)
+    const apiKey = '12a3a27b';  // Replace with your OMDb API Key
+
+
+   
+
+    // Function to handle the search via text input
+    document.getElementById("searchButton").addEventListener("click", searchMovie)
+    function searchMovie() {  
+           var   query = document.getElementById('textQuery').value.trim();
+
+      if (!query) {
+        query = document.getElementById('textQuery').value.trim();
+      }
+      
+      if (query) {
+        document.getElementById('output').innerHTML = `Searching for: "${query}"...`;
+        fetchMovieData(query);
+      } else {
+        document.getElementById('output').innerHTML = 'Please enter a movie name.';
+        const YoutubeVideoContainer = document.getElementById('YoutubeVideoContainer');
+        YoutubeVideoContainer.innerHTML = '';  }
+    }
+
+    // Function to fetch movie data from OMDb API
+    async function fetchMovieData(movieName) {
+      const url = `https://www.omdbapi.com/?s=${encodeURIComponent(movieName)}&apikey=${apiKey}`;
+      console.log(url);
+
+      try {
+        // Fetch data from OMDb API
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        // If no movies are found
+        if (data.Response === "False") {
+          throw new Error(`No movie found for "${movieName}"`);
+        }
+
+        // Get the most relevant movie (first in the list)
+        const movie = data.Search[0]; // Assuming the first result is the most relevant
+
+        // Fetch detailed info for the most relevant movie
+        fetchMovieDetails(movie.imdbID);
+
+      } catch (error) {
+        // Handle fetch or parsing errors
+        console.error("Error fetching data:", error);
+        document.getElementById('output').innerHTML = `Error: ${error.message}. Please try again with a different query.`;
+      }
+    }
+
+    // Function to fetch detailed movie data using IMDb ID
+    async function fetchMovieDetails(imdbID) {
+      const url = `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`;
+
+      try {
+        // Fetch detailed movie data
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.Response === "False") {
+          throw new Error(`Movie details not found.`);
+        }
+
+        // Display detailed movie information
+        document.getElementById('output').innerHTML = `
+        <img src="${data.Poster}" width="200">
+        <h2>${data.Title} (${data.Year})</h2>
+        <p><strong>Released:</strong> ${data.Released}</p>
+        <p><strong>Director:</strong> ${data.Director}</p>
+        <p><strong>Actors:</strong> ${data.Actors}</p>
+        <p><strong>Genre:</strong> ${data.Genre}</p>
+        <p><strong>Plot:</strong> ${data.Plot}</p>
+        <p><strong>Language:</strong> ${data.Language}</p>
+        <p><strong>Awards:</strong> ${data.Awards}</p>
+        <p><strong>IMDb Rating:</strong> ${data.imdbRating}</p>
+        `;
+
+        // Search YouTube for the trailer
+        searchYouTubeVideos(`${data.Title} trailer`);
+
+      } catch (error) {
+        // Handle fetch or parsing errors
+        console.error("Error fetching detailed data:", error);
+        document.getElementById('output').innerHTML = `Error: ${error.message}. Please try again later.`;
+      }
+    }
+
+    // YouTube API Key (replace with your API key)
+    const youtubeApiKey = 'AIzaSyDNOInbeiY9g3cJ2y4JhhYBG0VnKZaeWfo'; // Replace with your actual API key
+
+    // Load the API client and auth2 library
+    function loadClient() {
+      gapi.client.setApiKey(youtubeApiKey);
+      return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest");
+    }
+
+    // Search YouTube Videos
+    function searchYouTubeVideos(query) {
+      const request = gapi.client.youtube.search.list({
+        part: 'snippet',
+        q: query,
+        type: 'video'
+      });
+
+      request.execute(function(response) {
+        displayVideo(response.items);
+      });
+    }
+
+    // Display video in the video container
+    function displayVideo(videos) {
+      const YoutubeVideoContainer = document.getElementById('YoutubeVideoContainer');
+      YoutubeVideoContainer.innerHTML = '';  // Clear previous results
+
+      if (videos && videos.length) {
+        const videoId = videos[0].id.videoId;
+        const iframe = document.createElement('iframe');
+        iframe.width = '360';
+        iframe.height = '215';
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.frameborder = '0';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowfullscreen = true;
+        YoutubeVideoContainer.appendChild(iframe);
+      } else {
+        YoutubeVideoContainer.innerHTML = 'No videos found';
+      }
+    }
+
+    // Initialize the client
+    gapi.load('client', loadClient);
+
+    document.getElementById("aiIcone").addEventListener("click",()=>{
+        document.getElementById("ai").classList.toggle("aishow")
+    })
+    document.getElementById("close_ai").addEventListener("click",()=>{
+        document.getElementById("ai").classList.toggle("aishow")
+
+    })
+
+
+    
