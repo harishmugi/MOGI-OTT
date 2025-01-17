@@ -247,7 +247,7 @@ async function retrieveMovies(genre = '') {
         moviesContainer.innerHTML = ""; // Clear previous content
 
         if (querySnapshot.empty) {
-            moviesContainer.innerHTML = "<p>No movies found.</p>";
+            moviesContainer.innerHTML = `<p style="color:#fff;margin-left:10%">No movies found.</p>`;
             return;
         }
 
@@ -1362,7 +1362,8 @@ async function searchMovies(queryText) {
 
         // If no movies match, display "No movies found"
         if (filteredMovies.length === 0) {
-            moviesContainer.innerHTML = "<p>No movies found.</p>";
+            moviesContainer.innerHTML = `<p  style="color:#fff;margin-left:10%">No movies found.</p>`;
+
             return;
         }
 
