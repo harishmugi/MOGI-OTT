@@ -49,7 +49,7 @@ header {
     width: 100%;
     background-color: rgba(0, 0, 0, 0);
     height: 150%;
-    margin-top: 9%;
+    margin-top: 20%;
     position: sticky;
     border-radius: 30px;
     color: #03e9f4;
@@ -130,7 +130,7 @@ p{
  h1{
     
     background: linear-gradient(45deg, #620172, #d900ff, aqua, rgb(2, 117, 117));
-    background-size: 500% 500%;
+    background-size: 400% 400%;
     -webkit-background-clip: text;  /* For Safari */
     background-clip: text;
     color: transparent; /* Make the text transparent to reveal the gradient */
@@ -778,7 +778,7 @@ margin-top: 0px;
     z-index: 10;
     border-radius: 10px;
     text-align: center;
-    h1{height: 100px;width: 100px;text-align: center;position: relative;left:35%;top:10%;
+    h1{height: 100px;width: 100px;position: relative;left:35%;top:10%;
         font-size: 50px;padding:5%;border-radius: 50%;border: 2px solid black;
         background-color: #50d9eb;box-shadow: #50d9eb 0px 2px 4px 0px, #50d9eb 0px 2px 16px 0px;
     }
@@ -1202,6 +1202,7 @@ top: 20%;;h1{
 
 h1 {
     text-align:left;
+    padding-left: 50px;
     margin-bottom: 20px;
 }
 
