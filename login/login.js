@@ -419,12 +419,25 @@ document.getElementById("signup_butt").addEventListener("click",()=>{
 
 
 
-
-
-    //cat
-    document.getElementById('categoryToggle').addEventListener('click', function() {
+    document.getElementById('categoryToggle').addEventListener('click', function(event) {
         var catContainer = document.getElementById('catContainer');
         
-        // Toggle the 'show' class to handle the dropdown with animation
+        // Toggle the 'show' class to handle the dropdown visibility
         catContainer.classList.toggle('show');
-      });
+        
+        // Prevent the event from propagating, so the window click listener doesn't immediately close it
+        event.stopPropagation();
+    });
+    
+    window.addEventListener('click', function(event) {
+        var catContainer = document.getElementById('catContainer');
+        var categoryToggle = document.getElementById('categoryToggle');
+        
+        // Check if the click happened outside the dropdown and the toggle button
+        if (!catContainer.contains(event.target) && event.target !== categoryToggle) {
+            // If so, hide the dropdown
+            catContainer.classList.remove('show');
+        }
+    });
+    
+    
