@@ -16,7 +16,16 @@
     <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.14.0/dist/videojs-contrib-hls.min.js"></script>
+    <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet">
 
+    <!-- Hls.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <!-- Video.js Script -->
+    <script src="https://vjs.zencdn.net/7.16.0/video.js"></script>
+
+
+    
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -74,22 +83,26 @@
 
     <header>
         <div class="header_content">
-            <div class="logo"><img src="img/MOGIname.png" style="width:10%;"></div>
-            <div><!-- Add this in your HTML file where you want the search input to appear -->
-                <input type="text" id="search-input" placeholder="Search movies by title..." /><i
-                    class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <div class="Category" id="categoryToggle" style="z-index: 15;"> <i class="fa-solid fa-filter"></i>
-            </div>
+
+
+
+            <div class="logo"><img src="img/MOGIname.png" width="100px"></div>
+
+
+
+           
+
             <div>
-                <marquee class="user-details" style="display: none;">
-                    <h1></h1>
+           
+          
+            <marquee class="user-details" style="display: none;">
+                <h1></h1>
 
 
 
 
-                </marquee>
-            </div>  
+            </marquee>
+        </div>  
             
             
             <div id="viewWish" style="z-index:40;">Wishlist</div>
@@ -104,13 +117,19 @@
     </header>
 
 
+    <div class="search"><!-- Add this in your HTML file where you want the search input to appear -->
+      <div>  <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <input type="text" id="search-input" placeholder="Search movies by title..." /> <div class="Category" id="categoryToggle" style="z-index: 15;"> <i class="fa-solid fa-filter"></i>
+        </div>
+    </div>
 
 
 
 
-    <div id="profile" class="profile">
+    <div id="profile" class="profile" >
         <i class="fa-solid fa-arrow-left" id="close_profile"></i>
-
+        
         <h1>
             <div id="profile_letter"></div>
         </h1>
@@ -155,6 +174,10 @@ box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
         <div class="cat">Action <img class="emoji" src="/img/img6.png" alt="Action"></div>
     </div>
 
+
+
+<div  class="loadergif"><img src="img/Ripple@1x-0.8s-200px-200px.gif" width="10%" ></div>
+
     <main>
 
         <!-- <img src="img/Animation - 1730883595895.gif" class="prev arrow" alt="Previous Slide"> -->
@@ -174,7 +197,8 @@ box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-            </div>
+            </div>                <div id="carousel-caption"></div>
+
         </div>
 
 
@@ -258,7 +282,7 @@ box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
    <div id="ai" class="ai">
     <i class="fa-solid fa-arrow-left" id="close_ai" style="color: #fff;"></i>
     <h3 style="color: #fff;text-align: center;">Movie Vault</h3>
-   <div style=" overflow: scroll;height: 450px;padding-bottom: 10px;"><div id="output">Please enter the name of the movie you would like to view details for...</div>
+   <div style=" overflow: scroll;height: 450px;padding-bottom: 10px;"><div id="output">Please enter the name of the movie you would like to view details and trailer for...</div>
 
    <div id="YoutubeVideoContainer"></div>
 </div>
