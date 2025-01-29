@@ -1523,9 +1523,7 @@ input[type="text"] {
     padding: 8px;
     width: 77%;
     font-size: 16px;
-    left: 10px;
-    /* position: absolute; */
-    bottom: 10px;
+bottom: 10px;
     border-radius: 7px;
     outline-color: aqua;
 }
@@ -2004,5 +2002,7 @@ top: 135%;
               }h2{text-align: right;margin-top: 10px;
                 font-size: 20px;color:#50d9eb;
               }  }
+
+}
 
 }
