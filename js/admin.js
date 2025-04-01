@@ -168,7 +168,7 @@ async function uploadMovies() {
     }
 
     try {
-        const response = await fetch('movies.json'); // Fetch the JSON file
+        const response = await fetch('data/movies.json'); // Fetch the JSON file
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
         }
